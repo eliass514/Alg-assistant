@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 224 71% 4%;
+  --primary: 208 88% 45%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 215 20% 90%;
+  --muted-foreground: 215 16% 35%;
+  --accent: 31 88% 55%;
+  --accent-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --ring: 208 88% 45%;
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 224 71% 4%;
+    --foreground: 210 20% 98%;
+    --primary: 208 88% 55%;
+    --primary-foreground: 224 71% 4%;
+    --muted: 215 20% 20%;
+    --muted-foreground: 215 16% 75%;
+    --accent: 31 88% 60%;
+    --accent-foreground: 224 71% 4%;
+    --border: 224 64% 18%;
+    --ring: 208 88% 60%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased font-sans;
+  }
+
+  html[dir='rtl'] body {
+    @apply font-arabic;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold tracking-tight;
+  }
+
+  a {
+    @apply text-primary underline-offset-4 transition-colors hover:text-primary/80;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .shadow-soft {
+    box-shadow: 0 24px 60px -30px hsl(var(--foreground) / 0.25);
+  }
+}
