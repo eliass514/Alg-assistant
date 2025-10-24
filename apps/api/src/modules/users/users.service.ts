@@ -87,7 +87,12 @@ export class UsersService {
               select: {
                 id: true,
                 slug: true,
-                nameTranslations: true,
+                translations: {
+                  select: {
+                    locale: true,
+                    name: true,
+                  },
+                },
               },
             },
           },
@@ -109,7 +114,25 @@ export class UsersService {
       throw new NotFoundException(`User ${id} not found`);
     }
 
-    return user;
+    return {
+      ...user,
+      appointments: user.appointments.map((appointment) => ({
+        ...appointment,
+        service: appointment.service
+          ? {
+              id: appointment.service.id,
+              slug: appointment.service.slug,
+              nameTranslations: appointment.service.translations.reduce<Record<string, string>>(
+                (acc, translation) => {
+                  acc[translation.locale] = translation.name;
+                  return acc;
+                },
+                {},
+              ),
+            }
+          : null,
+      })),
+    };
   }
 
   async getProfile(userId: string): Promise<AuthenticatedUser> {
