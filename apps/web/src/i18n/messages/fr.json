@@ -1,0 +1,33 @@
+{
+  "Metadata": {
+    "title": "Plateforme multilingue",
+    "description": "Démarrage Next.js avec Tailwind, next-intl et support RTL."
+  },
+  "Layout": {
+    "brand": "Atlas UI",
+    "tagline": "Expériences numériques inclusives pour l'Afrique du Nord",
+    "footer": "Propulsé par Next.js 14, Tailwind CSS et next-intl"
+  },
+  "LocaleSwitcher": {
+    "label": "Langue",
+    "comingSoon": "Bientôt disponible"
+  },
+  "Home": {
+    "heroTitle": "Créez des expériences accessibles pour plusieurs cultures",
+    "heroSubtitle": "Une base solide pour lancer des produits multilingues avec une prise en charge complète de l'arabe, du français et des futures langues amazighes.",
+    "ctaPrimary": "Explorer la documentation",
+    "ctaSecondary": "Voir les composants",
+    "featureTitle": "Ce qui est inclus",
+    "featureHighlight": "Prêt pour l'i18n, les thèmes et les interfaces bi-directionnelles.",
+    "featureList": [
+      "Moteur i18n prêt pour la production avec next-intl",
+      "Prise en charge RTL/LTR pilotée par l'attribut dir et Tailwind",
+      "Bibliothèque de composants partagés pour démarrer votre système de design"
+    ]
+  },
+  "NotFound": {
+    "title": "Page introuvable",
+    "description": "La ressource que vous cherchez est introuvable. Revenez à l'accueil pour continuer votre navigation.",
+    "cta": "Retour à l'accueil"
+  }
+}

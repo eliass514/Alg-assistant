@@ -3,17 +3,25 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"],
-      "inputs": ["src/**/*", "tsconfig.json", "package.json"]
+      "outputs": [".next/**", "dist/**", "build/**", "out/**"],
+      "inputs": [
+        "src/**/*",
+        "tsconfig.json",
+        "package.json",
+        "next.config.*",
+        "tailwind.config.*",
+        "postcss.config.*",
+        "next-intl.config.*"
+      ]
     },
     "lint": {
       "outputs": [],
-      "inputs": ["src/**/*", "tsconfig.json", "package.json", ".eslintrc.js"]
+      "inputs": ["src/**/*", "tsconfig.json", "package.json", ".eslintrc.*", "eslint.config.*"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"],
       "outputs": [],
-      "inputs": ["tsconfig.json", "src/**/*", "package.json"]
+      "inputs": ["tsconfig.json", "src/**/*", "package.json", "next.config.*", "tailwind.config.*"]
     },
     "test": {
       "dependsOn": ["^test", "^build"],

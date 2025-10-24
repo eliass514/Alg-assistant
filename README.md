@@ -11,7 +11,8 @@ This repository is a starter Turborepo workspace managed with pnpm. It provides 
 - **Prettier** formatting with VS Code integration
 - **Husky** + **lint-staged** pre-commit hooks
 - **Commitlint** & **Commitizen** for Conventional Commits
-- Example `web` app and `utils` package using shared tooling
+- Example `web` app: Next.js 14 + Tailwind CSS with multilingual (Arabic/French) & RTL-ready scaffolding
+- Shared `utils` package using the common tooling
 
 ## Getting Started
 
@@ -35,16 +36,18 @@ This repository is a starter Turborepo workspace managed with pnpm. It provides 
 ### Conventional Commits
 
 Use the interactive helper for Conventional Commits:
+
 ```bash
 pnpm commit
 ```
+
 Commit messages are also validated automatically via Husky and Commitlint.
 
 ## Workspace Structure
 
 ```
 apps/
-  web/            # Example TypeScript application
+  web/            # Next.js 14 frontend with Tailwind, next-intl and RTL support
 packages/
   eslint-config/  # Shared ESLint configuration
   tsconfig/       # Shared TypeScript configuration
