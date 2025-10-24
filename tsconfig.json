@@ -2,6 +2,8 @@
   "files": [],
   "references": [
     { "path": "./packages/utils" },
-    { "path": "./apps/web" }
+    { "path": "./packages/shared-dto" },
+    { "path": "./apps/web" },
+    { "path": "./apps/api" }
   ]
 }
