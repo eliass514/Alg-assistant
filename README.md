@@ -57,3 +57,24 @@ packages/
 ## Environment Management
 
 Copy `.env.example` to `.env` (or create per-app `.env` files) and adjust values for your environment. VS Code settings and recommended extensions are included under `.vscode/` to standardize local development.
+
+## Database & Prisma
+
+A PostgreSQL stack is provided via Docker Compose for both development and test environments. From the repository root, run:
+
+```bash
+docker compose up -d postgres postgres-test
+```
+
+Once the containers are healthy, apply the baseline schema and seed localized sample data:
+
+```bash
+pnpm --filter api prisma:migrate
+pnpm --filter api prisma:seed
+```
+
+Regenerate the Prisma client after schema changes with:
+
+```bash
+pnpm --filter api prisma:generate
+```

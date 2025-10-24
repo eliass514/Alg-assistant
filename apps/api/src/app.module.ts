@@ -10,6 +10,7 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { DocumentsModule } from '@modules/documents/documents.module';
 import { ServicesModule } from '@modules/services/services.module';
 import { UsersModule } from '@modules/users/users.module';
+import { PrismaModule } from '@prisma/prisma.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from '@modules/users/users.module';
       envFilePath: ['.env', '.env.local', '../../.env', '../../.env.local'],
       load: [appConfig],
     }),
+    PrismaModule,
     AuthModule,
     UsersModule,
     ServicesModule,

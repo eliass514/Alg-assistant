@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum ConversationParticipant {
+  CLIENT
+  SPECIALIST
+  SYSTEM
+  AI_ASSISTANT
+}
+
+model Role {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @unique
+  description String?
+  users       User[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("roles")
+}
+
+model User {
+  id               String             @id @default(uuid()) @db.Uuid
+  email            String             @unique
+  passwordHash     String             @map("password_hash")
+  firstName        String             @map("first_name")
+  lastName         String             @map("last_name")
+  locale           String             @default("en")
+  roleId           String?            @map("role_id") @db.Uuid
+  role             Role?              @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  appointments     Appointment[]
+  documents        Document[]
+  conversationLogs ConversationLog[]
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model ServiceCategory {
+  id                      String    @id @default(uuid()) @db.Uuid
+  slug                    String    @unique
+  nameTranslations        Json      @map("name_translations")
+  descriptionTranslations Json?     @map("description_translations")
+  services                Service[]
+  createdAt               DateTime  @default(now()) @map("created_at")
+  updatedAt               DateTime  @updatedAt @map("updated_at")
+
+  @@map("service_categories")
+}
+
+model Service {
+  id                      String            @id @default(uuid()) @db.Uuid
+  categoryId              String            @map("category_id") @db.Uuid
+  slug                    String            @unique
+  nameTranslations        Json              @map("name_translations")
+  descriptionTranslations Json?             @map("description_translations")
+  durationMinutes         Int               @map("duration_minutes")
+  price                   Decimal           @db.Decimal(10, 2)
+  isActive                Boolean           @default(true) @map("is_active")
+  category                ServiceCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  appointments            Appointment[]
+  documentTemplates       DocumentTemplate[]
+  createdAt               DateTime          @default(now()) @map("created_at")
+  updatedAt               DateTime          @updatedAt @map("updated_at")
+
+  @@map("services")
+}
+
+model Appointment {
+  id               String              @id @default(uuid()) @db.Uuid
+  userId           String              @map("user_id") @db.Uuid
+  serviceId        String              @map("service_id") @db.Uuid
+  scheduledAt      DateTime            @map("scheduled_at")
+  status           AppointmentStatus   @default(SCHEDULED)
+  notes            String?
+  locale           String              @default("en")
+  user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service          Service             @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  documents        Document[]
+  conversationLogs ConversationLog[]
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+
+  @@map("appointments")
+}
+
+model DocumentTemplate {
+  id        String    @id @default(uuid()) @db.Uuid
+  serviceId String?   @map("service_id") @db.Uuid
+  locale    String    @default("en")
+  name      String
+  content   String
+  metadata  Json?
+  service   Service?  @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  documents Document[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@map("document_templates")
+}
+
+model Document {
+  id           String           @id @default(uuid()) @db.Uuid
+  userId       String           @map("user_id") @db.Uuid
+  appointmentId String?         @map("appointment_id") @db.Uuid
+  templateId   String?          @map("template_id") @db.Uuid
+  locale       String           @default("en")
+  title        String
+  content      String
+  metadata     Json?
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointment  Appointment?     @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+  template     DocumentTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+
+  @@map("documents")
+}
+
+model ConversationLog {
+  id            String                   @id @default(uuid()) @db.Uuid
+  appointmentId String?                  @map("appointment_id") @db.Uuid
+  userId        String?                  @map("user_id") @db.Uuid
+  participant   ConversationParticipant  @map("participant_role")
+  locale        String                   @default("en")
+  message       String
+  payload       Json?
+  appointment   Appointment?             @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+  user          User?                    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt     DateTime                 @default(now()) @map("created_at")
+  updatedAt     DateTime                 @updatedAt @map("updated_at")
+
+  @@map("conversation_logs")
+}
