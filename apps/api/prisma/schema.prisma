@@ -90,33 +90,65 @@ model RefreshToken {
 }
 
 model ServiceCategory {
-  id                      String    @id @default(uuid()) @db.Uuid
-  slug                    String    @unique
-  nameTranslations        Json      @map("name_translations")
-  descriptionTranslations Json?     @map("description_translations")
-  services                Service[]
-  createdAt               DateTime  @default(now()) @map("created_at")
-  updatedAt               DateTime  @updatedAt @map("updated_at")
+  id            String                      @id @default(uuid()) @db.Uuid
+  slug          String                      @unique
+  isActive      Boolean                     @default(true) @map("is_active")
+  metadata      Json?
+  services      Service[]
+  translations  ServiceCategoryTranslation[]
+  createdAt     DateTime                    @default(now()) @map("created_at")
+  updatedAt     DateTime                    @updatedAt @map("updated_at")
 
   @@map("service_categories")
 }
 
 model Service {
-  id                      String            @id @default(uuid()) @db.Uuid
-  categoryId              String            @map("category_id") @db.Uuid
-  slug                    String            @unique
-  nameTranslations        Json              @map("name_translations")
-  descriptionTranslations Json?             @map("description_translations")
-  durationMinutes         Int               @map("duration_minutes")
-  price                   Decimal           @db.Decimal(10, 2)
-  isActive                Boolean           @default(true) @map("is_active")
-  category                ServiceCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  appointments            Appointment[]
-  documentTemplates       DocumentTemplate[]
-  createdAt               DateTime          @default(now()) @map("created_at")
-  updatedAt               DateTime          @updatedAt @map("updated_at")
+  id                String              @id @default(uuid()) @db.Uuid
+  categoryId        String              @map("category_id") @db.Uuid
+  slug              String              @unique
+  durationMinutes   Int                 @map("duration_minutes")
+  price             Decimal             @db.Decimal(10, 2)
+  isActive          Boolean             @default(true) @map("is_active")
+  metadata          Json?
+  category          ServiceCategory     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  translations      ServiceTranslation[]
+  appointments      Appointment[]
+  documentTemplates DocumentTemplate[]
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
 
   @@map("services")
+}
+
+model ServiceCategoryTranslation {
+  id          String          @id @default(uuid()) @db.Uuid
+  categoryId  String          @map("category_id") @db.Uuid
+  locale      String
+  name        String
+  description String?
+  metadata    Json?
+  category    ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  @@unique([categoryId, locale], map: "service_category_translations_category_locale_key")
+  @@map("service_category_translations")
+}
+
+model ServiceTranslation {
+  id          String   @id @default(uuid()) @db.Uuid
+  serviceId   String   @map("service_id") @db.Uuid
+  locale      String
+  name        String
+  summary     String?
+  description String?
+  metadata    Json?
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([serviceId, locale], map: "service_translations_service_locale_key")
+  @@map("service_translations")
 }
 
 model Appointment {
@@ -153,19 +185,19 @@ model DocumentTemplate {
 }
 
 model Document {
-  id           String           @id @default(uuid()) @db.Uuid
-  userId       String           @map("user_id") @db.Uuid
-  appointmentId String?         @map("appointment_id") @db.Uuid
-  templateId   String?          @map("template_id") @db.Uuid
-  locale       String           @default("en")
+  id           String            @id @default(uuid()) @db.Uuid
+  userId       String            @map("user_id") @db.Uuid
+  appointmentId String?          @map("appointment_id") @db.Uuid
+  templateId   String?           @map("template_id") @db.Uuid
+  locale       String            @default("en")
   title        String
   content      String
   metadata     Json?
-  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  appointment  Appointment?     @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointment  Appointment?      @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
   template     DocumentTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
-  createdAt    DateTime         @default(now()) @map("created_at")
-  updatedAt    DateTime         @updatedAt @map("updated_at")
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
 
   @@map("documents")
 }

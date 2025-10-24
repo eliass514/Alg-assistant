@@ -41,6 +41,14 @@ async function main() {
       key: 'view_documents',
       description: 'View generated documents and templates',
     },
+    {
+      key: 'manage_services',
+      description: 'Create and update services catalog entries',
+    },
+    {
+      key: 'view_services',
+      description: 'View services catalog entries',
+    },
   ];
 
   const permissions = await Promise.all(
@@ -82,15 +90,19 @@ async function main() {
       name: 'specialist',
       description: 'Subject matter experts delivering services',
       rolePermissions: {
-        create: ['view_users', 'view_appointments', 'manage_documents', 'view_documents'].map(
-          (key) => ({
-            permission: {
-              connect: {
-                id: getPermissionOrThrow(key).id,
-              },
+        create: [
+          'view_users',
+          'view_appointments',
+          'manage_documents',
+          'view_documents',
+          'view_services',
+        ].map((key) => ({
+          permission: {
+            connect: {
+              id: getPermissionOrThrow(key).id,
             },
-          }),
-        ),
+          },
+        })),
       },
     },
   });
@@ -100,7 +112,7 @@ async function main() {
       name: 'client',
       description: 'End-users booking appointments and receiving documents',
       rolePermissions: {
-        create: ['view_appointments', 'view_documents'].map((key) => ({
+        create: ['view_appointments', 'view_documents', 'view_services'].map((key) => ({
           permission: {
             connect: {
               id: getPermissionOrThrow(key).id,
@@ -182,8 +194,13 @@ async function main() {
       prisma.serviceCategory.create({
         data: {
           slug: category.slug,
-          nameTranslations: category.nameTranslations,
-          descriptionTranslations: category.descriptionTranslations,
+          translations: {
+            create: Object.entries(category.nameTranslations).map(([locale, name]) => ({
+              locale,
+              name,
+              description: category.descriptionTranslations?.[locale],
+            })),
+          },
         },
       }),
     ),
@@ -239,10 +256,15 @@ async function main() {
         data: {
           slug: service.slug,
           categoryId: category.id,
-          nameTranslations: service.nameTranslations,
-          descriptionTranslations: service.descriptionTranslations,
           durationMinutes: service.durationMinutes,
           price: service.price,
+          translations: {
+            create: Object.entries(service.nameTranslations).map(([locale, name]) => ({
+              locale,
+              name,
+              description: service.descriptionTranslations?.[locale],
+            })),
+          },
         },
       }),
     );
