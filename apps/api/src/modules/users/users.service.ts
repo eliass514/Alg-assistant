@@ -1,6 +1,10 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 
 import { PaginationQueryDto } from '@acme/shared-dto';
+import { AuthenticatedUser } from '@modules/auth/interfaces/authenticated-user.interface';
+import { mapToAuthenticatedUser } from '@modules/auth/utils/auth.utils';
+import { UpdateProfileDto } from '@modules/users/dto/update-profile.dto';
 import { PrismaService } from '@prisma/prisma.service';
 
 @Injectable()
@@ -35,7 +39,15 @@ export class UsersService {
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
-        include: {
+        select: {
+          id: true,
+          email: true,
+          firstName: true,
+          lastName: true,
+          phoneNumber: true,
+          locale: true,
+          createdAt: true,
+          updatedAt: true,
           role: true,
         },
       }),
@@ -57,7 +69,15 @@ export class UsersService {
 
     const user = await this.prisma.user.findUnique({
       where: { id },
-      include: {
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        phoneNumber: true,
+        locale: true,
+        createdAt: true,
+        updatedAt: true,
         role: true,
         appointments: {
           orderBy: { scheduledAt: 'desc' },
@@ -90,5 +110,47 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  async getProfile(userId: string): Promise<AuthenticatedUser> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        role: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User ${userId} not found`);
+    }
+
+    return mapToAuthenticatedUser(user);
+  }
+
+  async updateProfile(
+    userId: string,
+    updateProfileDto: UpdateProfileDto,
+  ): Promise<AuthenticatedUser> {
+    this.logger.verbose(`Updating profile for user ${userId}`);
+
+    try {
+      const user = await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          ...updateProfileDto,
+        },
+        include: {
+          role: true,
+        },
+      });
+
+      return mapToAuthenticatedUser(user);
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+        throw new NotFoundException(`User ${userId} not found`);
+      }
+
+      throw error;
+    }
   }
 }
