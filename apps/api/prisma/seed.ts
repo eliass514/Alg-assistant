@@ -1,4 +1,9 @@
-import { AppointmentStatus, ConversationParticipant, PrismaClient } from '@prisma/client';
+import {
+  AppointmentStatus,
+  ConversationParticipant,
+  PrismaClient,
+  QueueTicketStatus,
+} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -7,7 +12,10 @@ async function main() {
   await prisma.refreshToken.deleteMany();
   await prisma.conversationLog.deleteMany();
   await prisma.document.deleteMany();
+  await prisma.queueTicket.deleteMany();
+  await prisma.appointmentStatusHistory.deleteMany();
   await prisma.appointment.deleteMany();
+  await prisma.appointmentSlot.deleteMany();
   await prisma.documentTemplate.deleteMany();
   await prisma.service.deleteMany();
   await prisma.serviceCategory.deleteMany();
@@ -278,6 +286,54 @@ async function main() {
     throw new Error('Missing seeded services for document template creation.');
   }
 
+  const [residencySlotPrimary, residencySlotFollowUp, startupSlotPrimary, startupSlotFollowUp] =
+    await Promise.all([
+      prisma.appointmentSlot.create({
+        data: {
+          serviceId: residencyService.id,
+          startAt: new Date('2024-11-05T09:30:00.000Z'),
+          endAt: new Date('2024-11-05T10:30:00.000Z'),
+          timezone: 'UTC',
+          capacity: 1,
+          bufferBeforeMinutes: 30,
+          bufferAfterMinutes: 30,
+        },
+      }),
+      prisma.appointmentSlot.create({
+        data: {
+          serviceId: residencyService.id,
+          startAt: new Date('2024-11-12T09:30:00.000Z'),
+          endAt: new Date('2024-11-12T10:30:00.000Z'),
+          timezone: 'UTC',
+          capacity: 2,
+          bufferBeforeMinutes: 15,
+          bufferAfterMinutes: 15,
+        },
+      }),
+      prisma.appointmentSlot.create({
+        data: {
+          serviceId: startupService.id,
+          startAt: new Date('2024-11-08T14:00:00.000Z'),
+          endAt: new Date('2024-11-08T14:45:00.000Z'),
+          timezone: 'UTC',
+          capacity: 1,
+          bufferBeforeMinutes: 10,
+          bufferAfterMinutes: 10,
+        },
+      }),
+      prisma.appointmentSlot.create({
+        data: {
+          serviceId: startupService.id,
+          startAt: new Date('2024-11-15T14:00:00.000Z'),
+          endAt: new Date('2024-11-15T14:45:00.000Z'),
+          timezone: 'UTC',
+          capacity: 2,
+          bufferBeforeMinutes: 10,
+          bufferAfterMinutes: 10,
+        },
+      }),
+    ]);
+
   const documentTemplates = await Promise.all([
     prisma.documentTemplate.create({
       data: {
@@ -326,10 +382,12 @@ async function main() {
     data: {
       userId: clientUser.id,
       serviceId: residencyService.id,
+      slotId: residencySlotPrimary.id,
       scheduledAt: new Date('2024-11-05T09:30:00.000Z'),
       status: AppointmentStatus.CONFIRMED,
       notes: 'Customer prefers virtual meeting via Zoom.',
       locale: 'en',
+      timezone: 'UTC',
     },
   });
 
@@ -337,10 +395,12 @@ async function main() {
     data: {
       userId: clientUser.id,
       serviceId: startupService.id,
+      slotId: startupSlotPrimary.id,
       scheduledAt: new Date('2024-11-08T14:00:00.000Z'),
       status: AppointmentStatus.SCHEDULED,
       notes: 'Include business partner in discussion.',
       locale: 'ar',
+      timezone: 'UTC',
     },
   });
 
@@ -421,6 +481,33 @@ async function main() {
         generated: true,
       },
     },
+  });
+
+  await prisma.queueTicket.createMany({
+    data: [
+      {
+        userId: clientUser.id,
+        serviceId: residencyService.id,
+        slotId: residencySlotFollowUp.id,
+        status: QueueTicketStatus.WAITING,
+        position: 1,
+        desiredFrom: new Date('2024-11-12T09:30:00.000Z'),
+        desiredTo: new Date('2024-11-12T10:30:00.000Z'),
+        timezone: 'UTC',
+        notes: 'Looking for a morning slot if any cancellations happen.',
+      },
+      {
+        userId: clientUser.id,
+        serviceId: startupService.id,
+        slotId: startupSlotFollowUp.id,
+        status: QueueTicketStatus.WAITING,
+        position: 1,
+        desiredFrom: new Date('2024-11-15T14:00:00.000Z'),
+        desiredTo: new Date('2024-11-15T16:00:00.000Z'),
+        timezone: 'UTC',
+        notes: 'Happy to take any afternoon slot.',
+      },
+    ],
   });
 
   console.info('Database has been seeded with baseline localized data.');
