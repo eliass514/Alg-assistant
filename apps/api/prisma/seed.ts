@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Clean existing data to keep the seed idempotent
+  await prisma.refreshToken.deleteMany();
   await prisma.conversationLog.deleteMany();
   await prisma.document.deleteMany();
   await prisma.appointment.deleteMany();
@@ -11,28 +12,104 @@ async function main() {
   await prisma.service.deleteMany();
   await prisma.serviceCategory.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.rolePermission.deleteMany();
+  await prisma.permission.deleteMany();
   await prisma.role.deleteMany();
 
-  const [adminRole, specialistRole, clientRole] = await Promise.all([
-    prisma.role.create({
-      data: {
-        name: 'admin',
-        description: 'System administrators with full access',
+  const permissionsData = [
+    {
+      key: 'manage_users',
+      description: 'Create, update, and delete user accounts',
+    },
+    {
+      key: 'view_users',
+      description: 'View user directory and profiles',
+    },
+    {
+      key: 'manage_appointments',
+      description: 'Create and update appointment schedules',
+    },
+    {
+      key: 'view_appointments',
+      description: 'View appointment schedules and details',
+    },
+    {
+      key: 'manage_documents',
+      description: 'Create and update document templates and records',
+    },
+    {
+      key: 'view_documents',
+      description: 'View generated documents and templates',
+    },
+  ];
+
+  const permissions = await Promise.all(
+    permissionsData.map((permission) =>
+      prisma.permission.create({
+        data: permission,
+      }),
+    ),
+  );
+
+  const permissionsByKey = new Map(permissions.map((permission) => [permission.key, permission]));
+
+  const getPermissionOrThrow = (key: string) => {
+    const permission = permissionsByKey.get(key);
+    if (!permission) {
+      throw new Error(`Missing permission for key ${key}`);
+    }
+    return permission;
+  };
+
+  const adminRole = await prisma.role.create({
+    data: {
+      name: 'admin',
+      description: 'System administrators with full access',
+      rolePermissions: {
+        create: permissions.map((permission) => ({
+          permission: {
+            connect: {
+              id: permission.id,
+            },
+          },
+        })),
       },
-    }),
-    prisma.role.create({
-      data: {
-        name: 'specialist',
-        description: 'Subject matter experts delivering services',
+    },
+  });
+
+  const specialistRole = await prisma.role.create({
+    data: {
+      name: 'specialist',
+      description: 'Subject matter experts delivering services',
+      rolePermissions: {
+        create: ['view_users', 'view_appointments', 'manage_documents', 'view_documents'].map(
+          (key) => ({
+            permission: {
+              connect: {
+                id: getPermissionOrThrow(key).id,
+              },
+            },
+          }),
+        ),
       },
-    }),
-    prisma.role.create({
-      data: {
-        name: 'client',
-        description: 'End-users booking appointments and receiving documents',
+    },
+  });
+
+  const clientRole = await prisma.role.create({
+    data: {
+      name: 'client',
+      description: 'End-users booking appointments and receiving documents',
+      rolePermissions: {
+        create: ['view_appointments', 'view_documents'].map((key) => ({
+          permission: {
+            connect: {
+              id: getPermissionOrThrow(key).id,
+            },
+          },
+        })),
       },
-    }),
-  ]);
+    },
+  });
 
   await prisma.user.create({
     data: {
@@ -40,6 +117,7 @@ async function main() {
       passwordHash: '$2b$10$uC0Bpvy.buk..qS0bkkCmOs.zAV/QXpVZl8vGeOawx2UY8ailqBeK',
       firstName: 'Amina',
       lastName: 'Admin',
+      phoneNumber: '+15550000001',
       locale: 'en',
       roleId: adminRole.id,
     },
@@ -52,6 +130,7 @@ async function main() {
         passwordHash: '$2b$10$uC0Bpvy.buk..qS0bkkCmOs.zAV/QXpVZl8vGeOawx2UY8ailqBeK',
         firstName: 'Salim',
         lastName: 'Specialist',
+        phoneNumber: '+33123456789',
         locale: 'fr',
         roleId: specialistRole.id,
       },
@@ -62,6 +141,7 @@ async function main() {
         passwordHash: '$2b$10$uC0Bpvy.buk..qS0bkkCmOs.zAV/QXpVZl8vGeOawx2UY8ailqBeK',
         firstName: 'Lina',
         lastName: 'Client',
+        phoneNumber: '+971234567890',
         locale: 'ar',
         roleId: clientRole.id,
       },
