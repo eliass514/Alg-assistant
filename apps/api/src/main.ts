@@ -9,9 +9,13 @@ import { AppModule } from '@app/app.module';
 import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
 import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
 import { AppConfig } from '@config/app.config';
+import { PrismaService } from '@prisma/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const prismaService = app.get(PrismaService);
+  await prismaService.enableShutdownHooks(app);
+
   const configService = app.get(ConfigService);
   const appConfig = configService.get<AppConfig>('app', { infer: true });
 
