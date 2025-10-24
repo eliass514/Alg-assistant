@@ -94,6 +94,9 @@ importers:
       class-validator:
         specifier: ^0.14.1
         version: 0.14.2
+      luxon:
+        specifier: ^3.7.2
+        version: 3.7.2
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14
@@ -8052,6 +8055,14 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /luxon@3.7.2:
+    resolution:
+      {
+        integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==,
+      }
+    engines: { node: '>=12' }
+    dev: false
 
   /make-dir@3.1.0:
     resolution:
