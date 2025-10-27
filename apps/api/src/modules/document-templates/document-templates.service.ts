@@ -1,10 +1,10 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PaginationQueryDto } from '@acme/shared-dto';
 import { PrismaService } from '@prisma/prisma.service';
 
 import { CreateDocumentTemplateDto } from './dto/create-document-template.dto';
+import { DocumentTemplateQueryDto } from './dto/document-template-query.dto';
 import { UpdateDocumentTemplateDto } from './dto/update-document-template.dto';
 
 @Injectable()
@@ -13,25 +13,39 @@ export class DocumentTemplatesService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(query: PaginationQueryDto) {
+  async findAll(query: DocumentTemplateQueryDto) {
     const page = query.page ?? 1;
     const limit = query.limit ?? 25;
     const skip = (page - 1) * limit;
     const search = query.search?.trim();
 
     this.logger.verbose(
-      `Listing document templates page=${page} limit=${limit}${search ? ` search=${search}` : ''}`,
+      `Listing document templates page=${page} limit=${limit}${search ? ` search=${search}` : ''}${query.serviceId ? ` serviceId=${query.serviceId}` : ''}${query.isActive !== undefined ? ` isActive=${query.isActive}` : ''}`,
     );
 
-    const where: Prisma.DocumentTemplateWhereInput = search
-      ? {
-          OR: [
-            { name: { contains: search, mode: 'insensitive' } },
-            { slug: { contains: search, mode: 'insensitive' } },
-            { description: { contains: search, mode: 'insensitive' } },
-          ],
-        }
-      : {};
+    const filters: Prisma.DocumentTemplateWhereInput[] = [
+      search
+        ? {
+            OR: [
+              { name: { contains: search, mode: 'insensitive' } },
+              { slug: { contains: search, mode: 'insensitive' } },
+              { description: { contains: search, mode: 'insensitive' } },
+            ],
+          }
+        : undefined,
+      query.serviceId
+        ? {
+            services: {
+              some: {
+                serviceId: query.serviceId,
+              },
+            },
+          }
+        : undefined,
+      query.isActive !== undefined ? { isActive: query.isActive } : undefined,
+    ].filter((item): item is Prisma.DocumentTemplateWhereInput => item !== undefined);
+
+    const where: Prisma.DocumentTemplateWhereInput = filters.length > 0 ? { AND: filters } : {};
 
     const [templates, total] = await this.prisma.$transaction([
       this.prisma.documentTemplate.findMany({
@@ -39,6 +53,18 @@ export class DocumentTemplatesService {
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
+        include: {
+          services: {
+            include: {
+              service: {
+                select: {
+                  id: true,
+                  slug: true,
+                },
+              },
+            },
+          },
+        },
       }),
       this.prisma.documentTemplate.count({ where }),
     ]);
