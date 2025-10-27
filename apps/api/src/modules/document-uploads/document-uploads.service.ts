@@ -1,5 +1,5 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, DocumentUploadStatus } from '@prisma/client';
 
 import { PaginationQueryDto } from '@acme/shared-dto';
 import { PrismaService } from '@prisma/prisma.service';
@@ -7,6 +7,7 @@ import { PrismaService } from '@prisma/prisma.service';
 import { CreateDocumentUploadDto } from './dto/create-document-upload.dto';
 import { UpdateDocumentUploadDto } from './dto/update-document-upload.dto';
 import { FileStorageService } from './file-storage.service';
+import { ValidationService } from './validation.service';
 
 @Injectable()
 export class DocumentUploadsService {
@@ -15,13 +16,71 @@ export class DocumentUploadsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly fileStorageService: FileStorageService,
+    private readonly validationService: ValidationService,
   ) {}
 
   async uploadDocumentFile(
+    uploadId: string,
     fileBuffer: Buffer,
     fileName: string,
-  ): Promise<{ fileId: string; url: string }> {
-    return this.fileStorageService.uploadFile(fileBuffer, fileName);
+  ): Promise<{
+    fileId: string;
+    url: string;
+    status: DocumentUploadStatus;
+  }> {
+    const upload = await this.prisma.documentUpload.findUnique({ where: { id: uploadId } });
+
+    if (!upload) {
+      throw new NotFoundException(`Document upload ${uploadId} not found`);
+    }
+
+    const { fileId, url } = await this.fileStorageService.uploadFile(fileBuffer, fileName);
+
+    this.logger.verbose(`Uploaded file for document upload ${uploadId}. Updating record status.`);
+
+    await this.updateUploadStatus(
+      uploadId,
+      upload.status,
+      DocumentUploadStatus.PROCESSING,
+      'File uploaded to storage, starting validation',
+    );
+
+    const fileSize = fileBuffer.byteLength;
+
+    const metadata = this.extractMetadata(upload.metadata);
+    metadata.fileUrl = url;
+
+    await this.prisma.documentUpload.update({
+      where: { id: uploadId },
+      data: {
+        storagePath: fileId,
+        fileSize,
+        metadata,
+      },
+    });
+
+    const validationResult = await this.validationService.validateDocument(uploadId, {
+      mimeType: upload.mimeType,
+      fileSize,
+      originalFilename: upload.originalFilename,
+    });
+
+    const newStatus = validationResult.isValid
+      ? DocumentUploadStatus.VALIDATED
+      : DocumentUploadStatus.REJECTED;
+
+    await this.updateUploadStatus(
+      uploadId,
+      DocumentUploadStatus.PROCESSING,
+      newStatus,
+      validationResult.message,
+    );
+
+    return {
+      fileId,
+      url,
+      status: newStatus,
+    };
   }
 
   async getDocumentFileUrl(fileId: string): Promise<string> {
@@ -219,5 +278,44 @@ export class DocumentUploadsService {
 
       throw error;
     }
+  }
+
+  private extractMetadata(metadata: Prisma.JsonValue | null): Prisma.JsonObject {
+    if (metadata && typeof metadata === 'object' && !Array.isArray(metadata)) {
+      return { ...(metadata as Prisma.JsonObject) };
+    }
+
+    return {} as Prisma.JsonObject;
+  }
+
+  private async updateUploadStatus(
+    uploadId: string,
+    fromStatus: DocumentUploadStatus,
+    toStatus: DocumentUploadStatus,
+    reason?: string,
+  ): Promise<void> {
+    if (fromStatus === toStatus) {
+      return;
+    }
+
+    this.logger.verbose(`Updating upload ${uploadId} status from ${fromStatus} to ${toStatus}`);
+
+    await this.prisma.$transaction([
+      this.prisma.documentUpload.update({
+        where: { id: uploadId },
+        data: {
+          status: toStatus,
+          rejectionReason: toStatus === DocumentUploadStatus.REJECTED ? (reason ?? null) : null,
+        },
+      }),
+      this.prisma.documentUploadStatusHistory.create({
+        data: {
+          uploadId,
+          fromStatus,
+          toStatus,
+          reason,
+        },
+      }),
+    ]);
   }
 }
