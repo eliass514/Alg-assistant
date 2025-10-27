@@ -78,3 +78,50 @@ Regenerate the Prisma client after schema changes with:
 ```bash
 pnpm --filter api prisma:generate
 ```
+
+## AWS S3 File Storage
+
+The application uses AWS S3 for document storage. Configure the following environment variables in your `.env` file or through your hosting platform's environment variables:
+
+```bash
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_S3_BUCKET_NAME=your-bucket-name
+S3_PRESIGNED_URL_EXPIRATION=3600
+```
+
+### Optional Configuration
+
+For S3-compatible services (e.g., MinIO, DigitalOcean Spaces):
+
+```bash
+AWS_S3_ENDPOINT=https://your-custom-endpoint.com
+AWS_S3_FORCE_PATH_STYLE=true
+```
+
+### Local Development
+
+For local development, you can use MinIO as an S3-compatible storage service:
+
+1. Start MinIO via Docker:
+
+   ```bash
+   docker run -p 9000:9000 -p 9001:9001 \
+     -e MINIO_ROOT_USER=minioadmin \
+     -e MINIO_ROOT_PASSWORD=minioadmin \
+     minio/minio server /data --console-address ":9001"
+   ```
+
+2. Configure your `.env`:
+
+   ```bash
+   AWS_REGION=us-east-1
+   AWS_ACCESS_KEY_ID=minioadmin
+   AWS_SECRET_ACCESS_KEY=minioadmin
+   AWS_S3_BUCKET_NAME=uploads
+   AWS_S3_ENDPOINT=http://localhost:9000
+   AWS_S3_FORCE_PATH_STYLE=true
+   ```
+
+3. Create the bucket via MinIO Console at http://localhost:9001
