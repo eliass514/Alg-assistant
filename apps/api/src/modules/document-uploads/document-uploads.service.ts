@@ -1,10 +1,12 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { Prisma, DocumentUploadStatus } from '@prisma/client';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Prisma, DocumentUploadStatus, DocumentUpload } from '@prisma/client';
+import type { Express } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
-import { PaginationQueryDto } from '@acme/shared-dto';
 import { PrismaService } from '@prisma/prisma.service';
 
 import { CreateDocumentUploadDto } from './dto/create-document-upload.dto';
+import { DocumentUploadQueryDto } from './dto/document-upload-query.dto';
 import { UpdateDocumentUploadDto } from './dto/update-document-upload.dto';
 import { FileStorageService } from './file-storage.service';
 import { ValidationService } from './validation.service';
@@ -18,6 +20,60 @@ export class DocumentUploadsService {
     private readonly fileStorageService: FileStorageService,
     private readonly validationService: ValidationService,
   ) {}
+
+  async createUploadForUser(
+    userId: string,
+    params: {
+      serviceId: string;
+      file: Express.Multer.File;
+      appointmentId?: string;
+      templateId?: string;
+      templateVersionId?: string;
+    },
+  ): Promise<DocumentUpload> {
+    const { serviceId, file, appointmentId, templateId, templateVersionId } = params;
+
+    this.logger.verbose(
+      `Creating document upload for user=${userId} service=${serviceId} filename=${file?.originalname}`,
+    );
+
+    if (!file || !file.buffer || file.buffer.length === 0) {
+      throw new BadRequestException('Uploaded file is empty or missing.');
+    }
+
+    const placeholderStoragePath = `pending/${uuidv4()}`;
+
+    const upload = await this.prisma.documentUpload.create({
+      data: {
+        userId,
+        serviceId,
+        appointmentId,
+        templateId,
+        templateVersionId,
+        status: DocumentUploadStatus.PENDING,
+        storagePath: placeholderStoragePath,
+        originalFilename: file.originalname,
+        mimeType: file.mimetype,
+        fileSize: file.size ?? file.buffer.byteLength,
+        metadata: {
+          uploadedVia: 'user-api',
+          uploadedAt: new Date().toISOString(),
+        } as Prisma.JsonValue,
+      },
+    });
+
+    try {
+      await this.uploadDocumentFile(upload.id, file.buffer, file.originalname);
+    } catch (error) {
+      this.logger.error(
+        `Failed to process uploaded file for document upload ${upload.id}`,
+        error instanceof Error ? error.stack : undefined,
+      );
+      throw error;
+    }
+
+    return this.findOne(upload.id);
+  }
 
   async uploadDocumentFile(
     uploadId: string,
@@ -87,24 +143,32 @@ export class DocumentUploadsService {
     return this.fileStorageService.getFileUrl(fileId);
   }
 
-  async findAll(query: PaginationQueryDto) {
+  async findAll(query: DocumentUploadQueryDto) {
     const page = query.page ?? 1;
     const limit = query.limit ?? 25;
     const skip = (page - 1) * limit;
     const search = query.search?.trim();
 
     this.logger.verbose(
-      `Listing document uploads page=${page} limit=${limit}${search ? ` search=${search}` : ''}`,
+      `Listing document uploads page=${page} limit=${limit}${search ? ` search=${search}` : ''}${query.userId ? ` userId=${query.userId}` : ''}${query.serviceId ? ` serviceId=${query.serviceId}` : ''}${query.status ? ` status=${query.status}` : ''}`,
     );
 
-    const where: Prisma.DocumentUploadWhereInput = search
-      ? {
-          OR: [
-            { originalFilename: { contains: search, mode: 'insensitive' } },
-            { storagePath: { contains: search, mode: 'insensitive' } },
-          ],
-        }
-      : {};
+    const filters: Prisma.DocumentUploadWhereInput[] = [
+      search
+        ? {
+            OR: [
+              { originalFilename: { contains: search, mode: 'insensitive' } },
+              { storagePath: { contains: search, mode: 'insensitive' } },
+            ],
+          }
+        : undefined,
+      query.userId ? { userId: query.userId } : undefined,
+      query.serviceId ? { serviceId: query.serviceId } : undefined,
+      query.appointmentId ? { appointmentId: query.appointmentId } : undefined,
+      query.status ? { status: query.status } : undefined,
+    ].filter((item): item is Prisma.DocumentUploadWhereInput => item !== undefined);
+
+    const where: Prisma.DocumentUploadWhereInput = filters.length > 0 ? { AND: filters } : {};
 
     const [uploads, total] = await this.prisma.$transaction([
       this.prisma.documentUpload.findMany({
@@ -112,28 +176,7 @@ export class DocumentUploadsService {
         skip,
         take: limit,
         orderBy: { submittedAt: 'desc' },
-        include: {
-          user: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true,
-            },
-          },
-          service: {
-            select: {
-              id: true,
-              slug: true,
-            },
-          },
-          template: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
+        include: this.getDocumentUploadListInclude(),
       }),
       this.prisma.documentUpload.count({ where }),
     ]);
@@ -148,50 +191,17 @@ export class DocumentUploadsService {
     };
   }
 
+  async listForUser(userId: string, query: DocumentUploadQueryDto) {
+    const scopedQuery = { ...query, userId } as DocumentUploadQueryDto;
+    return this.findAll(scopedQuery);
+  }
+
   async findOne(id: string) {
     this.logger.verbose(`Retrieving document upload ${id}`);
 
     const upload = await this.prisma.documentUpload.findUnique({
       where: { id },
-      include: {
-        user: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
-        },
-        service: {
-          select: {
-            id: true,
-            slug: true,
-          },
-        },
-        template: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        templateVersion: true,
-        reviewedBy: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
-        },
-        statusHistory: {
-          orderBy: { createdAt: 'desc' },
-          take: 10,
-        },
-        validations: {
-          orderBy: { executedAt: 'desc' },
-          take: 10,
-        },
-      },
+      include: this.getDocumentUploadDetailInclude(),
     });
 
     if (!upload) {
@@ -199,6 +209,33 @@ export class DocumentUploadsService {
     }
 
     return upload;
+  }
+
+  async findOneForUser(id: string, userId: string) {
+    this.logger.verbose(`Retrieving document upload ${id} for user ${userId}`);
+
+    const upload = await this.prisma.documentUpload.findFirst({
+      where: { id, userId },
+      include: this.getDocumentUploadDetailInclude(),
+    });
+
+    if (!upload) {
+      throw new NotFoundException(`Document upload ${id} not found for user`);
+    }
+
+    return upload;
+  }
+
+  async removeForUser(id: string, userId: string): Promise<void> {
+    this.logger.verbose(`Deleting document upload ${id} for user ${userId}`);
+
+    const { count } = await this.prisma.documentUpload.deleteMany({
+      where: { id, userId },
+    });
+
+    if (count === 0) {
+      throw new NotFoundException(`Document upload ${id} not found for user`);
+    }
   }
 
   async create(createDto: CreateDocumentUploadDto) {
@@ -317,5 +354,72 @@ export class DocumentUploadsService {
         },
       }),
     ]);
+  }
+
+  private getDocumentUploadListInclude() {
+    return {
+      user: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+      service: {
+        select: {
+          id: true,
+          slug: true,
+        },
+      },
+      template: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    };
+  }
+
+  private getDocumentUploadDetailInclude() {
+    return {
+      user: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+      service: {
+        select: {
+          id: true,
+          slug: true,
+        },
+      },
+      template: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      templateVersion: true,
+      reviewedBy: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+      statusHistory: {
+        orderBy: { createdAt: 'desc' as const },
+        take: 10,
+      },
+      validations: {
+        orderBy: { executedAt: 'desc' as const },
+        take: 10,
+      },
+    };
   }
 }
