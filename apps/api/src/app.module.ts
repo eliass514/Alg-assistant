@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { RolesGuard } from '@common/guards/roles.guard';
 import appConfig from '@config/app.config';
 import authConfig from '@config/auth.config';
+import storageConfig from '@config/storage.config';
 import { AppController } from '@app/app.controller';
 import { AppService } from '@app/app.service';
 import { AiModule } from '@modules/ai/ai.module';
@@ -25,7 +26,7 @@ import { PrismaModule } from '@prisma/prisma.module';
       cache: true,
       expandVariables: true,
       envFilePath: ['.env', '.env.local', '../../.env', '../../.env.local'],
-      load: [appConfig, authConfig],
+      load: [appConfig, authConfig, storageConfig],
     }),
     PrismaModule,
     AuthModule,

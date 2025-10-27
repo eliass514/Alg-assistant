@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@acme/shared-dto": "workspace:*",
+    "@aws-sdk/client-s3": "^3.918.0",
+    "@aws-sdk/s3-request-presigner": "^3.918.0",
     "@nestjs/common": "^10.3.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.3.0",
@@ -30,7 +32,8 @@
     "luxon": "^3.7.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "swagger-ui-express": "^4.6.3"
+    "swagger-ui-express": "^4.6.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",
