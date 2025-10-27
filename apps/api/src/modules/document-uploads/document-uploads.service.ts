@@ -6,12 +6,27 @@ import { PrismaService } from '@prisma/prisma.service';
 
 import { CreateDocumentUploadDto } from './dto/create-document-upload.dto';
 import { UpdateDocumentUploadDto } from './dto/update-document-upload.dto';
+import { FileStorageService } from './file-storage.service';
 
 @Injectable()
 export class DocumentUploadsService {
   private readonly logger = new Logger(DocumentUploadsService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly fileStorageService: FileStorageService,
+  ) {}
+
+  async uploadDocumentFile(
+    fileBuffer: Buffer,
+    fileName: string,
+  ): Promise<{ fileId: string; url: string }> {
+    return this.fileStorageService.uploadFile(fileBuffer, fileName);
+  }
+
+  async getDocumentFileUrl(fileId: string): Promise<string> {
+    return this.fileStorageService.getFileUrl(fileId);
+  }
 
   async findAll(query: PaginationQueryDto) {
     const page = query.page ?? 1;
