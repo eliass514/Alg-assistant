@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import Link from 'next-intl/link';
 import { getTranslations } from 'next-intl/server';
 
 import { AuthNavigation } from '@/components/auth/AuthNavigation';
@@ -24,7 +25,15 @@ export async function ApplicationShell({ children }: ApplicationShellProps) {
               {t('tagline')}
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-4 rtl:space-x-reverse">
+          <div className="flex flex-wrap items-center gap-5 text-sm font-medium rtl:space-x-reverse">
+            <nav aria-label={t('navLabel')} className="flex items-center gap-4 rtl:space-x-reverse">
+              <Link
+                href="/services"
+                className="text-foreground/80 transition hover:text-foreground"
+              >
+                {t('servicesLink')}
+              </Link>
+            </nav>
             <LocaleSwitcher />
             <AuthNavigation />
           </div>
