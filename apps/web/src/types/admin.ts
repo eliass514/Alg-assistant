@@ -1,4 +1,5 @@
 import type { CacheMetadata, PaginatedMeta, ServiceCategory, ServiceItem } from './services';
+import type { AppointmentDetails, AppointmentStatus, PaginationMeta } from './appointments';
 
 export interface ServiceTranslationInput {
   locale: string;
@@ -52,4 +53,19 @@ export interface AdminServiceCategoryListResponse {
   data: ServiceCategory[];
   meta: PaginatedMeta;
   cache: CacheMetadata;
+}
+
+export interface AdminAppointmentListResponse {
+  data: AppointmentDetails[];
+  meta: PaginationMeta;
+}
+
+export interface AdminAppointmentResponse {
+  data: AppointmentDetails;
+}
+
+export interface AdminUpdateAppointmentData {
+  status?: AppointmentStatus;
+  slotId?: string;
+  notes?: string;
 }
