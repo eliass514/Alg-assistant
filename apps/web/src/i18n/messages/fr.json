@@ -8,6 +8,7 @@
     "tagline": "Expériences numériques inclusives pour l'Afrique du Nord",
     "footer": "Propulsé par Next.js 14, Tailwind CSS et next-intl",
     "navLabel": "Navigation principale",
+    "assistantLink": "Assistant",
     "servicesLink": "Catalogue des services",
     "documentsLink": "Préparation des documents",
     "appointmentsLink": "Gestion des rendez-vous"
@@ -28,6 +29,101 @@
       "Prise en charge RTL/LTR pilotée par l'attribut dir et Tailwind",
       "Bibliothèque de composants partagés pour démarrer votre système de design"
     ]
+  },
+  "Assistant": {
+    "meta": {
+      "title": "Assistant conversationnel",
+      "description": "Discutez avec un agent virtuel bilingue qui vous oriente vers les services, documents et démarches adaptés à votre situation."
+    },
+    "hero": {
+      "title": "Discutez avec l'assistant Atlas",
+      "subtitle": "Posez une question, recevez des suggestions contextualisées et reprenez votre fil de discussion à tout moment.",
+      "supporting": "L'assistant fonctionne en français et en arabe et s'adapte automatiquement aux interfaces LTR ou RTL."
+    },
+    "conversation": {
+      "title": "Fil de conversation",
+      "persistence": "Votre session est enregistrée sur cet appareil pour que vous puissiez reprendre la discussion plus tard.",
+      "welcome": "Bonjour ! Comment puis-je vous aider aujourd'hui ? Posez une question ou choisissez une suggestion pour démarrer.",
+      "empty": "Commencez la conversation en posant une question ou en sélectionnant une réponse rapide.",
+      "defaultTopic": "votre demande",
+      "composer": {
+        "label": "Message",
+        "placeholder": "Décrivez votre situation ou posez une question…",
+        "send": "Envoyer",
+        "sending": "Envoi…",
+        "ariaSend": "Envoyer le message",
+        "voiceLabel": "Saisie vocale",
+        "voiceHint": "La saisie vocale arrive bientôt. Nous finalisons l'intégration micro et le traitement audio."
+      },
+      "roles": {
+        "assistant": "Assistant",
+        "user": "Vous"
+      },
+      "status": {
+        "streaming": "L'assistant rédige une réponse…"
+      },
+      "fallback": "Une erreur est survenue. Réessayez ou choisissez une des suggestions rapides.",
+      "responses": {
+        "segments": [
+          "Compris, examinons « {topic} » ensemble. Voici les points clés à retenir :",
+          "• Résumé : identifiez vos informations principales et précisez le contexte.",
+          "• Prochaines étapes : utilisez les raccourcis pour accéder rapidement aux services et documents adaptés."
+        ],
+        "closing": "Besoin d'autres précisions ? Je suis là pour continuer."
+      }
+    },
+    "quickReplies": {
+      "title": "Réponses rapides",
+      "items": [
+        {
+          "id": "documents_help",
+          "label": "Préparer un document officiel",
+          "prompt": "J'ai besoin d'aide pour préparer un document administratif."
+        },
+        {
+          "id": "services_guidance",
+          "label": "Trouver un service public",
+          "prompt": "Quel service public correspond à ma situation ?"
+        },
+        {
+          "id": "appointments_support",
+          "label": "Comprendre les rendez-vous",
+          "prompt": "Comment fonctionnent les files d'attente et la prise de rendez-vous ?"
+        },
+        {
+          "id": "account_question",
+          "label": "Gérer mon compte",
+          "prompt": "Comment mettre à jour mes informations personnelles ?"
+        }
+      ]
+    },
+    "shortcuts": {
+      "title": "Accès rapides",
+      "description": "Passez directement aux sections clés de la plateforme.",
+      "items": [
+        {
+          "id": "services",
+          "title": "Catalogue des services",
+          "description": "Filtrez les prestations, vérifiez leur disponibilité et explorez les procédures.",
+          "href": "/services",
+          "badge": "Services"
+        },
+        {
+          "id": "documents",
+          "title": "Atelier de documents",
+          "description": "Générez des modèles dynamiques et bénéficiez d'un accompagnement étape par étape.",
+          "href": "/documents",
+          "badge": "Documents"
+        },
+        {
+          "id": "appointments",
+          "title": "Planification des rendez-vous",
+          "description": "Réservez un créneau, rejoignez une file et synchronisez vos actions hors ligne.",
+          "href": "/appointments",
+          "badge": "Rendez-vous"
+        }
+      ]
+    }
   },
   "Services": {
     "meta": {

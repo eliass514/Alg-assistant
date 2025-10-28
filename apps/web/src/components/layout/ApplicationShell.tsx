@@ -28,6 +28,12 @@ export async function ApplicationShell({ children }: ApplicationShellProps) {
           <div className="flex flex-wrap items-center gap-5 text-sm font-medium rtl:space-x-reverse">
             <nav aria-label={t('navLabel')} className="flex items-center gap-4 rtl:space-x-reverse">
               <Link
+                href="/assistant"
+                className="text-foreground/80 transition hover:text-foreground"
+              >
+                {t('assistantLink')}
+              </Link>
+              <Link
                 href="/services"
                 className="text-foreground/80 transition hover:text-foreground"
               >
