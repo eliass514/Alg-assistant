@@ -9,6 +9,7 @@
     "footer": "Propulsé par Next.js 14, Tailwind CSS et next-intl",
     "navLabel": "Navigation principale",
     "servicesLink": "Catalogue des services",
+    "documentsLink": "Préparation des documents",
     "appointmentsLink": "Gestion des rendez-vous"
   },
   "LocaleSwitcher": {
@@ -78,6 +79,343 @@
     },
     "a11y": {
       "serviceList": "Résultats du catalogue de services"
+    }
+  },
+  "Documents": {
+    "meta": {
+      "title": "Préparation et vérification des documents",
+      "description": "Générez des modèles dynamiques, prévisualisez les documents et suivez la validation sécurisée."
+    },
+    "hero": {
+      "title": "Préparez et vérifiez vos dossiers sensibles en toute confiance",
+      "subtitle": "Sélectionnez un modèle adapté, complétez les informations requises et partagez des fichiers protégés grâce au chiffrement côté client.",
+      "supporting": "Cette expérience pilote centralise le choix de modèles, la collecte guidée de données et la vérification assistée par assistant conversationnel."
+    },
+    "templates": {
+      "heading": "Tableau de bord des modèles",
+      "supporting": "Filtrez les modèles disponibles pour gagner du temps lors de la rédaction de vos documents administratifs.",
+      "searchLabel": "Rechercher un modèle",
+      "searchPlaceholder": "Nom du modèle, catégorie ou mot clé",
+      "categoriesLabel": "Catégories disponibles",
+      "categoryAll": "Tous les modèles",
+      "clearFilters": "Réinitialiser les filtres",
+      "empty": "Aucun modèle ne correspond à vos critères pour le moment.",
+      "badges": {
+        "estimated": "Temps estimé :",
+        "complexity": "Complexité :"
+      },
+      "complexityLabels": {
+        "basic": "Essentiel",
+        "intermediate": "Guidé",
+        "advanced": "Expert"
+      },
+      "items": {
+        "employmentVerification": {
+          "title": "Attestation d'emploi et de salaire",
+          "description": "Formalisez les informations de votre collaborateur pour répondre aux demandes d'attestation professionnelles.",
+          "category": "Professionnel",
+          "estimatedTime": "10 minutes",
+          "fields": {
+            "fullName": {
+              "label": "Nom complet du collaborateur",
+              "placeholder": "Saisissez le nom et le prénom."
+            },
+            "nationalId": {
+              "label": "Identifiant national",
+              "placeholder": "Numéro de carte d'identité ou passeport",
+              "helper": "Utilisez le format officiel (ex. DZ-19860512-4521)."
+            },
+            "employerName": {
+              "label": "Entreprise employeur",
+              "placeholder": "Raison sociale enregistrée."
+            },
+            "jobTitle": {
+              "label": "Poste occupé",
+              "placeholder": "Intitulé actuel du poste."
+            },
+            "employmentStatus": {
+              "label": "Statut d'emploi",
+              "placeholder": "Sélectionnez un statut",
+              "options": [
+                { "value": "fullTime", "label": "Temps plein" },
+                { "value": "partTime", "label": "Temps partiel" },
+                { "value": "contractor", "label": "Contractuel" },
+                { "value": "intern", "label": "Stagiaire" }
+              ]
+            },
+            "startDate": {
+              "label": "Date de début de contrat",
+              "placeholder": "Sélectionnez la date d'embauche."
+            },
+            "monthlySalary": {
+              "label": "Salaire mensuel net (DZD)",
+              "placeholder": "Montant estimatif, ex. 240000."
+            },
+            "verifierContact": {
+              "label": "Contact RH ou vérificateur",
+              "placeholder": "Téléphone ou courriel de référence."
+            },
+            "notes": {
+              "label": "Commentaires additionnels",
+              "placeholder": "Précisez les informations utiles pour le destinataire.",
+              "helper": "Facultatif mais utile pour contextualiser l'attestation."
+            }
+          },
+          "guidance": [
+            "Vérifiez les informations d'identité avec un document officiel récent.",
+            "Confirmez avec le service RH la date exacte de début et le statut contractuel.",
+            "Rassemblez les pièces justificatives (contrat signé, bulletins de paie récents)."
+          ],
+          "verificationChecks": [
+            "S'assurer que le numéro d'identifiant respecte le format national.",
+            "Comparer le salaire indiqué avec les données de paie officielles.",
+            "Valider les coordonnées du référent avant l'envoi du dossier."
+          ],
+          "preview": {
+            "title": "Brouillon d'attestation professionnelle",
+            "sections": [
+              "Employé : {fullName}",
+              "Identifiant national : {nationalId}",
+              "Employeur : {employerName}",
+              "Poste occupé : {jobTitle}",
+              "Statut : {employmentStatus}",
+              "Date d'embauche : {startDate}",
+              "Salaire mensuel (DZD) : {monthlySalary}",
+              "Référent : {verifierContact}",
+              "Notes : {notes}"
+            ]
+          },
+          "chatbotPrompts": [
+            "Quels justificatifs dois-je joindre pour cette attestation ?",
+            "Comment expliquer une période sans activité dans le document ?",
+            "Peux-tu générer un paragraphe de synthèse pour l'employeur ?"
+          ]
+        },
+        "residencyAttestation": {
+          "title": "Attestation de résidence",
+          "description": "Collectez les informations nécessaires pour attester du lieu de résidence d'un occupant.",
+          "category": "Habitat",
+          "estimatedTime": "8 minutes",
+          "fields": {
+            "occupantName": {
+              "label": "Nom de l'occupant",
+              "placeholder": "Nom complet de la personne concernée."
+            },
+            "propertyAddress": {
+              "label": "Adresse du logement",
+              "placeholder": "Adresse détaillée, immeuble, étage…",
+              "helper": "Mentionnez toutes les informations utiles pour repérer le logement."
+            },
+            "occupancyStart": {
+              "label": "Date d'entrée dans les lieux",
+              "placeholder": "Choisissez la date d'installation."
+            },
+            "proofType": {
+              "label": "Justificatif utilisé",
+              "placeholder": "Sélectionnez un justificatif principal",
+              "options": [
+                { "value": "utilityBill", "label": "Facture de services (eau, électricité…)" },
+                { "value": "leaseContract", "label": "Contrat de location" },
+                { "value": "ownershipCertificate", "label": "Titre de propriété" },
+                { "value": "municipalLetter", "label": "Attestation communale" }
+              ]
+            },
+            "ownerName": {
+              "label": "Propriétaire ou bailleur",
+              "placeholder": "Nom complet du propriétaire."
+            },
+            "municipality": {
+              "label": "Commune / wilaya",
+              "placeholder": "Autorité locale compétente."
+            },
+            "contactNumber": {
+              "label": "Téléphone de contact",
+              "placeholder": "+213 …"
+            },
+            "residencyNotes": {
+              "label": "Observations complémentaires",
+              "placeholder": "Précisez la composition du foyer ou la situation.",
+              "helper": "Ces informations peuvent aider l'administration à traiter le dossier."
+            }
+          },
+          "guidance": [
+            "Confirmez l'adresse exacte avec un justificatif datant de moins de trois mois.",
+            "Notez la référence cadastrale ou le numéro de contrat si disponible.",
+            "Préparez un numéro de contact fiable pour l'organisme demandeur."
+          ],
+          "verificationChecks": [
+            "Vérifier que le justificatif choisi est lisible et à jour.",
+            "Comparer la date d'entrée avec les documents contractuels.",
+            "Contrôler que la commune indiquée correspond au justificatif."
+          ],
+          "preview": {
+            "title": "Brouillon d'attestation de résidence",
+            "sections": [
+              "Occupant : {occupantName}",
+              "Adresse : {propertyAddress}",
+              "Date d'installation : {occupancyStart}",
+              "Justificatif principal : {proofType}",
+              "Propriétaire / bailleur : {ownerName}",
+              "Commune ou wilaya : {municipality}",
+              "Contact : {contactNumber}",
+              "Notes : {residencyNotes}"
+            ]
+          },
+          "chatbotPrompts": [
+            "Quels documents supplémentaires peuvent renforcer une attestation de résidence ?",
+            "Comment formuler une justification d'hébergement gratuit ?",
+            "As-tu un exemple de paragraphe pour la mairie ?"
+          ]
+        },
+        "bankReferenceLetter": {
+          "title": "Lettre de référence bancaire",
+          "description": "Produisez une attestation bancaire pour soutenir une candidature ou un dossier commercial.",
+          "category": "Financier",
+          "estimatedTime": "6 minutes",
+          "fields": {
+            "accountHolder": {
+              "label": "Titulaire du compte",
+              "placeholder": "Raison sociale ou nom complet."
+            },
+            "bankName": {
+              "label": "Banque émettrice",
+              "placeholder": "Nom de l'agence ou de la banque."
+            },
+            "accountNumber": {
+              "label": "Numéro de compte",
+              "placeholder": "Numéro de compte principal."
+            },
+            "iban": {
+              "label": "IBAN / RIB",
+              "placeholder": "Code IBAN si disponible.",
+              "helper": "Facultatif si le numéro de compte est suffisant."
+            },
+            "monthlyTurnover": {
+              "label": "Flux mensuel moyen (DZD)",
+              "placeholder": "Ex. 3200000."
+            },
+            "referencePurpose": {
+              "label": "Objet de la référence",
+              "placeholder": "Sélectionnez l'objet",
+              "options": [
+                { "value": "tenderSubmission", "label": "Réponse à un appel d'offres" },
+                { "value": "visaApplication", "label": "Dossier de visa" },
+                { "value": "creditRequest", "label": "Demande de financement" },
+                { "value": "partnership", "label": "Partenariat commercial" }
+              ]
+            },
+            "bankOfficer": {
+              "label": "Chargé de clientèle / signataire",
+              "placeholder": "Nom du responsable bancaire."
+            },
+            "bankNotes": {
+              "label": "Remarques bancaires",
+              "placeholder": "Solidité financière, historique de conformité…",
+              "helper": "Ces éléments rassurent le destinataire sur la relation bancaire."
+            }
+          },
+          "guidance": [
+            "Confirmez que le numéro de compte et l'IBAN correspondent aux relevés récents.",
+            "Collectez trois derniers relevés pour justifier le flux moyen.",
+            "Demandez une validation écrite du chargé de clientèle avant diffusion."
+          ],
+          "verificationChecks": [
+            "Relecture de l'objet de la lettre en fonction de la demande.",
+            "Vérification du niveau de signature requis par la banque.",
+            "Ajout du cachet ou de la mention électronique officielle."
+          ],
+          "preview": {
+            "title": "Brouillon de lettre de référence bancaire",
+            "sections": [
+              "Titulaire : {accountHolder}",
+              "Banque : {bankName}",
+              "Compte : {accountNumber}",
+              "IBAN / RIB : {iban}",
+              "Flux mensuel moyen (DZD) : {monthlyTurnover}",
+              "Objet : {referencePurpose}",
+              "Contact bancaire : {bankOfficer}",
+              "Appréciation : {bankNotes}"
+            ]
+          },
+          "chatbotPrompts": [
+            "Quels éléments rassurent le destinataire dans une lettre bancaire ?",
+            "Comment présenter le flux financier moyen de manière claire ?",
+            "Peux-tu proposer une formulation pour l'objet de la lettre ?"
+          ]
+        }
+      }
+    },
+    "form": {
+      "heading": "Informations du modèle",
+      "description": "Complétez les champs requis pour « {template} ».",
+      "optional": "Optionnel",
+      "empty": "Choisissez un modèle pour commencer.",
+      "errors": {
+        "required": "Ce champ est requis."
+      }
+    },
+    "preview": {
+      "heading": "Prévisualisation du document",
+      "description": "Contrôlez les informations générées avant téléchargement ou partage.",
+      "empty": "Sélectionnez un modèle pour afficher un aperçu.",
+      "missingTitle": "Informations à compléter",
+      "missingDescription": "Certaines données obligatoires sont encore manquantes.",
+      "missingCountLabel": "Champs requis restants : {count}",
+      "download": "Télécharger le brouillon",
+      "documentLabel": "Titre du document :",
+      "placeholder": "—"
+    },
+    "guidance": {
+      "heading": "Conseils de préparation",
+      "empty": "Sélectionnez un modèle pour afficher les recommandations.",
+      "checklistTitle": "Étapes recommandées",
+      "verificationTitle": "Points de vérification"
+    },
+    "verification": {
+      "heading": "Téléversement et vérification",
+      "description": "Ajoutez vos pièces justificatives pour lancer la vérification automatisée.",
+      "acceptedTypes": "Formats acceptés : PDF, PNG, JPG",
+      "maxSize": "Taille maximale : 10 Mo par fichier",
+      "encryptionLabel": "Empreinte chiffrée (SHA-256)",
+      "encryptionDisclaimer": "Exemple illustratif : la version finale utilisera un chiffrement complet côté client.",
+      "fileLabel": "Fichier sélectionné :",
+      "status": {
+        "idle": "En attente du fichier",
+        "encrypting": "Chiffrement local en cours…",
+        "uploading": "Envoi sécurisé vers le serveur…",
+        "verifying": "Analyse et vérification des métadonnées…",
+        "success": "Vérification réussie. Le document est prêt.",
+        "error": "La vérification a échoué. Merci de réessayer."
+      },
+      "validation": {
+        "type": "Format non pris en charge. Importez un PDF ou une image.",
+        "size": "Fichier trop volumineux. Limite de 10 Mo."
+      },
+      "actions": {
+        "select": "Choisir un fichier",
+        "change": "Changer de fichier",
+        "retry": "Réessayer"
+      }
+    },
+    "chatbot": {
+      "toggle": "Assistant documentaire",
+      "title": "Assistant conversationnel",
+      "subtitle": "Recevez des conseils contextuels et remplissez les sections plus rapidement.",
+      "promptsTitle": "Suggestions rapides",
+      "actions": {
+        "applySample": "Remplir avec un exemple"
+      },
+      "empty": "Aucun échange pour le moment. Lancez une question pour recevoir de l'aide.",
+      "roles": {
+        "assistant": "Assistant",
+        "user": "Utilisateur"
+      },
+      "messages": {
+        "welcome": "Bonjour ! Sélectionnez un modèle pour recevoir des recommandations sur les documents à préparer.",
+        "templateSelected": "Je peux vous guider pour le modèle « {template} ». Besoin d'un rappel des pièces à réunir ?",
+        "promptResponse": "Voici une piste : {prompt}",
+        "appliedSample": "Un jeu de données d'exemple a été prérempli pour vous permettre de tester la mise en forme."
+      }
     }
   },
   "Booking": {
