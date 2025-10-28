@@ -32,3 +32,23 @@ export const serviceKeys = {
     isActive?: boolean;
   }) => [...serviceKeys.all, 'list', params] as const,
 };
+
+export const bookingKeys = {
+  all: ['booking'] as const,
+  availability: (params: {
+    serviceId: string;
+    from?: string;
+    to?: string;
+    timezone?: string;
+    locale?: string;
+  }) => [...bookingKeys.all, 'availability', params] as const,
+  appointments: (params: { locale?: string; page?: number; limit?: number } = {}) =>
+    [
+      ...bookingKeys.all,
+      'appointments',
+      params.locale ?? 'default',
+      params.page ?? 1,
+      params.limit ?? 'default',
+    ] as const,
+  queue: (locale?: string) => [...bookingKeys.all, 'queue', locale ?? 'default'] as const,
+};

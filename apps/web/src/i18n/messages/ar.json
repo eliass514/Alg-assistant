@@ -8,7 +8,8 @@
     "tagline": "تجارب رقمية شاملة لشمال إفريقيا",
     "footer": "مدعوم من Next.js 14 و Tailwind CSS و next-intl",
     "navLabel": "التنقل الرئيسي",
-    "servicesLink": "دليل الخدمات"
+    "servicesLink": "دليل الخدمات",
+    "appointmentsLink": "إدارة المواعيد"
   },
   "LocaleSwitcher": {
     "label": "اللغة",
@@ -77,6 +78,116 @@
     },
     "a11y": {
       "serviceList": "نتائج دليل الخدمات"
+    }
+  },
+  "Booking": {
+    "meta": {
+      "title": "حجز موعد",
+      "description": "احجز موعدك، أعد جدولته، وتابع تذاكر الانتظار حتى في حالات الاتصال الضعيف."
+    },
+    "heading": "إدارة المواعيد",
+    "subheading": "اختر الخدمة المناسبة، حدد الموعد، ثم أكّد الحجز وتابع حالة الانتظار.",
+    "steps": {
+      "service": {
+        "title": "اختيار الخدمة",
+        "description": "تصفح الخدمات المتاحة واختر ما يلائم احتياجك.",
+        "searchLabel": "البحث عن خدمة",
+        "searchPlaceholder": "تصفية حسب الاسم أو الوصف",
+        "action": "اختيار هذه الخدمة",
+        "placeholder": "اختر خدمة"
+      },
+      "slots": {
+        "title": "اختيار الموعد",
+        "description": "حدد الفترة الزمنية وابحث عن موعد متاح."
+      },
+      "confirm": {
+        "title": "تأكيد الحجز",
+        "description": "راجع تفاصيل الخدمة قبل تثبيت الموعد."
+      },
+      "manage": {
+        "title": "المتابعة والسجل",
+        "description": "استعرض مواعيدك وتذاكر الانتظار."
+      }
+    },
+    "status": {
+      "loadingServices": "جارٍ تحميل الخدمات…",
+      "noServices": "لا توجد خدمات متاحة حالياً.",
+      "loadingSlots": "جارٍ تحميل المواعيد…",
+      "noSlots": "لا يوجد موعد متاح في الفترة المحددة.",
+      "loadingAppointments": "جارٍ تحميل المواعيد…",
+      "offline": "أنت في وضع عدم الاتصال: يتم عرض البيانات المخزنة مؤقتاً.",
+      "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+      "missingService": "الخدمة المرتبطة لم تعد متاحة. يرجى اختيار خدمة أخرى."
+    },
+    "actions": {
+      "back": "رجوع",
+      "retry": "تحديث",
+      "confirm": "تأكيد الموعد",
+      "reschedule": "إعادة الجدولة",
+      "cancel": "إلغاء",
+      "joinQueue": "الانضمام إلى قائمة الانتظار",
+      "queueCancel": "الانسحاب من القائمة"
+    },
+    "labels": {
+      "timezone": "المنطقة الزمنية",
+      "dateFrom": "من",
+      "dateTo": "إلى",
+      "selectedService": "الخدمة المختارة",
+      "selectedSlot": "الوقت المختار",
+      "notes": "ملاحظات (اختياري)",
+      "serviceDuration": "{count, plural, zero {المدة التقديرية: أقل من دقيقة} one {المدة التقديرية: دقيقة واحدة} two {المدة التقديرية: دقيقتان} few {المدة التقديرية: # دقائق} many {المدة التقديرية: # دقيقة} other {المدة التقديرية: # دقيقة}}",
+      "queueLength": "{count, plural, zero {لا يوجد أشخاص في الانتظار} one {شخص واحد في الانتظار} two {شخصان في الانتظار} few {# أشخاص في الانتظار} many {# شخصاً في الانتظار} other {# شخص في الانتظار}}",
+      "availableSpots": "{count, plural, zero {لا توجد مقاعد متاحة} one {مقعد واحد متاح} two {مقعدان متاحان} few {# مقاعد متاحة} many {# مقعداً متاحاً} other {# مقعد متاح}}",
+      "appointments": "مواعيدي",
+      "queueTickets": "سجل قائمة الانتظار",
+      "queueWindow": "الفترة المفضلة: {from} → {to}",
+      "appointmentScheduled": "تم تحديد الموعد في {date}"
+    },
+    "notifications": {
+      "bookingSuccess": "تم تأكيد موعدك بنجاح.",
+      "rescheduleSuccess": "تمت إعادة جدولة الموعد.",
+      "cancelSuccess": "تم إلغاء الموعد.",
+      "queueSuccess": "تم تسجيلك في قائمة الانتظار.",
+      "queueCancelSuccess": "تم حذفك من قائمة الانتظار.",
+      "offlineQueued": "تم حفظ الإجراء وسيتم إرساله عند توفر الاتصال.",
+      "offlineSyncSuccess": "تمت مزامنة الإجراء بنجاح.",
+      "offlineSyncError": "تعذر المزامنة: {message}",
+      "error": "حدث خطأ: {message}"
+    },
+    "queue": {
+      "status": {
+        "WAITING": "قيد الانتظار",
+        "NOTIFIED": "تم الإشعار",
+        "COMPLETED": "مكتمل",
+        "CANCELLED": "ملغى",
+        "EXPIRED": "منتهي الصلاحية"
+      },
+      "empty": "لا توجد تذاكر انتظار محفوظة.",
+      "pending": "سيتم إرسال الإجراءات غير المتصلة تلقائياً عند عودة الاتصال.",
+      "desiredFrom": "بداية مفضلة",
+      "desiredTo": "نهاية مفضلة"
+    },
+    "appointments": {
+      "empty": "لا توجد مواعيد مجدولة حالياً.",
+      "status": {
+        "SCHEDULED": "مجدول",
+        "CONFIRMED": "مؤكد",
+        "COMPLETED": "مكتمل",
+        "CANCELLED": "ملغى"
+      }
+    },
+    "pendingActions": {
+      "title": "إجراءات قيد الانتظار",
+      "description": "سيتم مزامنة هذه الإجراءات عند توفر اتصال.",
+      "labels": {
+        "book": "إنشاء موعد جديد",
+        "reschedule": "إعادة جدولة موعد",
+        "cancel": "إلغاء موعد",
+        "joinQueue": "الانضمام إلى قائمة الانتظار",
+        "updateQueueStatus": "تحديث تذكرة الانتظار"
+      },
+      "retry": "مزامنة الآن",
+      "remove": "حذف"
     }
   },
   "Auth": {

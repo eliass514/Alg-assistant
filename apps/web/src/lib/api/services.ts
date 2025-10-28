@@ -1,64 +1,11 @@
 import { apiFetch } from '@/lib/api/client';
+import { persistCache, readCache } from '@/lib/api/cache';
+import { buildQuery, normalizeSearch } from '@/lib/api/query';
 import { buildLocaleHeaders } from '@/lib/api/shared';
 import type { ServiceCategoryListResponse, ServiceListResponse } from '@/types';
 
 const SERVICES_CACHE_PREFIX = 'services:list';
 const SERVICE_CATEGORIES_CACHE_PREFIX = 'services:categories';
-
-interface PersistedCacheEntry<T> {
-  data: T;
-  savedAt: number;
-}
-
-function getStorage(): Storage | null {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  try {
-    return window.localStorage;
-  } catch (error) {
-    return null;
-  }
-}
-
-function persistCache<T>(key: string, data: T): void {
-  const storage = getStorage();
-  if (!storage) return;
-
-  const entry: PersistedCacheEntry<T> = {
-    data,
-    savedAt: Date.now(),
-  };
-
-  try {
-    storage.setItem(key, JSON.stringify(entry));
-  } catch {
-    return;
-  }
-}
-
-function readCache<T>(key: string): T | null {
-  const storage = getStorage();
-  if (!storage) return null;
-
-  const raw = storage.getItem(key);
-  if (!raw) return null;
-
-  try {
-    const parsed = JSON.parse(raw) as PersistedCacheEntry<T>;
-    return parsed.data;
-  } catch (error) {
-    storage.removeItem(key);
-    return null;
-  }
-}
-
-function normalizeSearch(value?: string | null): string | undefined {
-  if (!value) return undefined;
-  const trimmed = value.trim();
-  return trimmed.length > 0 ? trimmed : undefined;
-}
 
 function buildServicesCacheKey(params: ServiceListParams): string {
   const normalizedSearch = normalizeSearch(params.search)?.toLowerCase() ?? 'all';
