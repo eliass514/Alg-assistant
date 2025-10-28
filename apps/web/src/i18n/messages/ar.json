@@ -20,6 +20,7 @@
       "dashboardLink": "لوحة التحكم",
       "usersLink": "المستخدمون",
       "servicesLink": "الخدمات",
+      "categoriesLink": "الفئات",
       "appointmentsLink": "المواعيد",
       "settingsLink": "الإعدادات",
       "exitAdmin": "العودة إلى الموقع العام",
@@ -85,7 +86,156 @@
       },
       "title": "الخدمات",
       "description": "نشر الخدمات أو أرشفتها وضبط أولوياتها.",
-      "placeholder": "سيضاف هنا جدول تكوين الخدمات."
+      "placeholder": "سيضاف هنا جدول تكوين الخدمات.",
+      "actions": {
+        "create": "خدمة جديدة",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "search": "البحث عن الخدمات",
+        "filter": "تصفية",
+        "refresh": "تحديث"
+      },
+      "table": {
+        "name": "الاسم",
+        "slug": "المعرّف",
+        "category": "الفئة",
+        "price": "السعر",
+        "duration": "المدة",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "minutes": "{count} دقيقة",
+        "empty": "لم يتم العثور على خدمات",
+        "loading": "جاري تحميل الخدمات..."
+      },
+      "form": {
+        "createTitle": "إنشاء خدمة",
+        "editTitle": "تعديل الخدمة",
+        "slug": {
+          "label": "المعرّف",
+          "placeholder": "service-example",
+          "hint": "معرّف فريد (أحرف وأرقام وشرطات فقط)"
+        },
+        "categoryId": {
+          "label": "الفئة",
+          "placeholder": "اختر فئة"
+        },
+        "durationMinutes": {
+          "label": "المدة (بالدقائق)",
+          "placeholder": "60"
+        },
+        "price": {
+          "label": "السعر",
+          "placeholder": "150.00",
+          "hint": "التنسيق: 0.00 (مع رقمين عشريين)"
+        },
+        "isActive": {
+          "label": "خدمة نشطة"
+        },
+        "translations": {
+          "heading": "الترجمات",
+          "name": {
+            "label": "الاسم",
+            "placeholder": "اسم الخدمة"
+          },
+          "summary": {
+            "label": "ملخص",
+            "placeholder": "وصف موجز"
+          },
+          "description": {
+            "label": "الوصف",
+            "placeholder": "وصف كامل للخدمة"
+          }
+        },
+        "errors": {
+          "slugRequired": "المعرّف مطلوب",
+          "slugInvalid": "يجب أن يحتوي المعرّف على أحرف وأرقام وشرطات فقط",
+          "categoryRequired": "الفئة مطلوبة",
+          "durationRequired": "المدة مطلوبة",
+          "durationInvalid": "يجب أن تكون المدة بين 5 و 480 دقيقة",
+          "priceRequired": "السعر مطلوب",
+          "priceInvalid": "يجب أن يكون السعر بالتنسيق 0.00",
+          "nameRequired": "الاسم مطلوب"
+        }
+      },
+      "delete": {
+        "title": "حذف الخدمة",
+        "message": "هل أنت متأكد من حذف هذه الخدمة؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "حذف",
+        "cancel": "إلغاء"
+      },
+      "messages": {
+        "createSuccess": "تم إنشاء الخدمة بنجاح",
+        "updateSuccess": "تم تحديث الخدمة بنجاح",
+        "deleteSuccess": "تم حذف الخدمة بنجاح",
+        "error": "حدث خطأ"
+      }
+    },
+    "Categories": {
+      "meta": {
+        "title": "إدارة الفئات",
+        "description": "إدارة فئات الخدمات."
+      },
+      "title": "فئات الخدمات",
+      "description": "تنظيم وهيكلة خدماتك حسب الفئة.",
+      "actions": {
+        "create": "فئة جديدة",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "search": "البحث عن الفئات",
+        "refresh": "تحديث"
+      },
+      "table": {
+        "name": "الاسم",
+        "slug": "المعرّف",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "empty": "لم يتم العثور على فئات",
+        "loading": "جاري تحميل الفئات..."
+      },
+      "form": {
+        "createTitle": "إنشاء فئة",
+        "editTitle": "تعديل الفئة",
+        "slug": {
+          "label": "المعرّف",
+          "placeholder": "category-example",
+          "hint": "معرّف فريد (أحرف وأرقام وشرطات فقط)"
+        },
+        "isActive": {
+          "label": "فئة نشطة"
+        },
+        "translations": {
+          "heading": "الترجمات",
+          "name": {
+            "label": "الاسم",
+            "placeholder": "اسم الفئة"
+          },
+          "description": {
+            "label": "الوصف",
+            "placeholder": "وصف الفئة"
+          }
+        },
+        "errors": {
+          "slugRequired": "المعرّف مطلوب",
+          "slugInvalid": "يجب أن يحتوي المعرّف على أحرف وأرقام وشرطات فقط",
+          "nameRequired": "الاسم مطلوب"
+        }
+      },
+      "delete": {
+        "title": "حذف الفئة",
+        "message": "هل أنت متأكد من حذف هذه الفئة؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "حذف",
+        "cancel": "إلغاء"
+      },
+      "messages": {
+        "createSuccess": "تم إنشاء الفئة بنجاح",
+        "updateSuccess": "تم تحديث الفئة بنجاح",
+        "deleteSuccess": "تم حذف الفئة بنجاح",
+        "error": "حدث خطأ"
+      }
     },
     "Appointments": {
       "meta": {
@@ -104,6 +254,30 @@
       "title": "الإعدادات",
       "description": "تعديل التكاملات والأمان وتفضيلات النظام.",
       "placeholder": "سيتم وضع نماذج الإعدادات العامة هنا."
+    }
+  },
+  "Common": {
+    "actions": {
+      "create": "إنشاء",
+      "update": "تحديث",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جاري الحفظ...",
+      "close": "إغلاق",
+      "confirm": "تأكيد",
+      "edit": "تعديل",
+      "view": "عرض",
+      "back": "رجوع"
+    },
+    "pagination": {
+      "page": "الصفحة",
+      "of": "من",
+      "showing": "عرض",
+      "to": "إلى",
+      "results": "نتائج",
+      "previous": "السابق",
+      "next": "التالي"
     }
   },
   "LocaleSwitcher": {

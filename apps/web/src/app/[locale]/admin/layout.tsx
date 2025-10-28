@@ -48,6 +48,12 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
                 {t('servicesLink')}
               </Link>
               <Link
+                href="/admin/categories"
+                className="text-sm font-medium text-foreground/80 transition hover:text-foreground"
+              >
+                {t('categoriesLink')}
+              </Link>
+              <Link
                 href="/admin/appointments"
                 className="text-sm font-medium text-foreground/80 transition hover:text-foreground"
               >

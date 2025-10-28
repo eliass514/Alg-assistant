@@ -20,6 +20,7 @@
       "dashboardLink": "Tableau de bord",
       "usersLink": "Utilisateurs",
       "servicesLink": "Services",
+      "categoriesLink": "Catégories",
       "appointmentsLink": "Rendez-vous",
       "settingsLink": "Paramètres",
       "exitAdmin": "Revenir au site public",
@@ -85,7 +86,156 @@
       },
       "title": "Services",
       "description": "Publiez, archivez et hiérarchisez les services proposés.",
-      "placeholder": "Le tableau de configuration des services sera ajouté dans cette section."
+      "placeholder": "Le tableau de configuration des services sera ajouté dans cette section.",
+      "actions": {
+        "create": "Nouveau service",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "search": "Rechercher des services",
+        "filter": "Filtrer",
+        "refresh": "Actualiser"
+      },
+      "table": {
+        "name": "Nom",
+        "slug": "Slug",
+        "category": "Catégorie",
+        "price": "Prix",
+        "duration": "Durée",
+        "status": "Statut",
+        "actions": "Actions",
+        "active": "Actif",
+        "inactive": "Inactif",
+        "minutes": "{count} min",
+        "empty": "Aucun service trouvé",
+        "loading": "Chargement des services..."
+      },
+      "form": {
+        "createTitle": "Créer un service",
+        "editTitle": "Modifier le service",
+        "slug": {
+          "label": "Slug",
+          "placeholder": "service-example",
+          "hint": "Identifiant unique (lettres, chiffres et tirets uniquement)"
+        },
+        "categoryId": {
+          "label": "Catégorie",
+          "placeholder": "Sélectionner une catégorie"
+        },
+        "durationMinutes": {
+          "label": "Durée (minutes)",
+          "placeholder": "60"
+        },
+        "price": {
+          "label": "Prix",
+          "placeholder": "150.00",
+          "hint": "Format : 0.00 (avec deux décimales)"
+        },
+        "isActive": {
+          "label": "Service actif"
+        },
+        "translations": {
+          "heading": "Traductions",
+          "name": {
+            "label": "Nom",
+            "placeholder": "Nom du service"
+          },
+          "summary": {
+            "label": "Résumé",
+            "placeholder": "Brève description"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Description complète du service"
+          }
+        },
+        "errors": {
+          "slugRequired": "Le slug est obligatoire",
+          "slugInvalid": "Le slug doit contenir uniquement des lettres, chiffres et tirets",
+          "categoryRequired": "La catégorie est obligatoire",
+          "durationRequired": "La durée est obligatoire",
+          "durationInvalid": "La durée doit être entre 5 et 480 minutes",
+          "priceRequired": "Le prix est obligatoire",
+          "priceInvalid": "Le prix doit être au format 0.00",
+          "nameRequired": "Le nom est obligatoire"
+        }
+      },
+      "delete": {
+        "title": "Supprimer le service",
+        "message": "Êtes-vous sûr de vouloir supprimer ce service ? Cette action est irréversible.",
+        "confirm": "Supprimer",
+        "cancel": "Annuler"
+      },
+      "messages": {
+        "createSuccess": "Service créé avec succès",
+        "updateSuccess": "Service mis à jour avec succès",
+        "deleteSuccess": "Service supprimé avec succès",
+        "error": "Une erreur s'est produite"
+      }
+    },
+    "Categories": {
+      "meta": {
+        "title": "Gestion des catégories",
+        "description": "Gérez les catégories de services."
+      },
+      "title": "Catégories de services",
+      "description": "Organisez et structurez vos services par catégorie.",
+      "actions": {
+        "create": "Nouvelle catégorie",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "search": "Rechercher des catégories",
+        "refresh": "Actualiser"
+      },
+      "table": {
+        "name": "Nom",
+        "slug": "Slug",
+        "status": "Statut",
+        "actions": "Actions",
+        "active": "Actif",
+        "inactive": "Inactif",
+        "empty": "Aucune catégorie trouvée",
+        "loading": "Chargement des catégories..."
+      },
+      "form": {
+        "createTitle": "Créer une catégorie",
+        "editTitle": "Modifier la catégorie",
+        "slug": {
+          "label": "Slug",
+          "placeholder": "category-example",
+          "hint": "Identifiant unique (lettres, chiffres et tirets uniquement)"
+        },
+        "isActive": {
+          "label": "Catégorie active"
+        },
+        "translations": {
+          "heading": "Traductions",
+          "name": {
+            "label": "Nom",
+            "placeholder": "Nom de la catégorie"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Description de la catégorie"
+          }
+        },
+        "errors": {
+          "slugRequired": "Le slug est obligatoire",
+          "slugInvalid": "Le slug doit contenir uniquement des lettres, chiffres et tirets",
+          "nameRequired": "Le nom est obligatoire"
+        }
+      },
+      "delete": {
+        "title": "Supprimer la catégorie",
+        "message": "Êtes-vous sûr de vouloir supprimer cette catégorie ? Cette action est irréversible.",
+        "confirm": "Supprimer",
+        "cancel": "Annuler"
+      },
+      "messages": {
+        "createSuccess": "Catégorie créée avec succès",
+        "updateSuccess": "Catégorie mise à jour avec succès",
+        "deleteSuccess": "Catégorie supprimée avec succès",
+        "error": "Une erreur s'est produite"
+      }
     },
     "Appointments": {
       "meta": {
@@ -104,6 +254,30 @@
       "title": "Paramètres",
       "description": "Modifiez les intégrations, la sécurité et les préférences système.",
       "placeholder": "Les formulaires de configuration générale seront placés ici."
+    }
+  },
+  "Common": {
+    "actions": {
+      "create": "Créer",
+      "update": "Mettre à jour",
+      "delete": "Supprimer",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "close": "Fermer",
+      "confirm": "Confirmer",
+      "edit": "Modifier",
+      "view": "Voir",
+      "back": "Retour"
+    },
+    "pagination": {
+      "page": "Page",
+      "of": "sur",
+      "showing": "Affichage de",
+      "to": "à",
+      "results": "résultats",
+      "previous": "Précédent",
+      "next": "Suivant"
     }
   },
   "LocaleSwitcher": {
