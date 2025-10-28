@@ -34,6 +34,12 @@ export async function ApplicationShell({ children }: ApplicationShellProps) {
                 {t('servicesLink')}
               </Link>
               <Link
+                href="/documents"
+                className="text-foreground/80 transition hover:text-foreground"
+              >
+                {t('documentsLink')}
+              </Link>
+              <Link
                 href="/appointments"
                 className="text-foreground/80 transition hover:text-foreground"
               >
