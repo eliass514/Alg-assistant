@@ -33,6 +33,33 @@ export const serviceKeys = {
   }) => [...serviceKeys.all, 'list', params] as const,
 };
 
+export const adminServiceKeys = {
+  all: ['admin', 'services'] as const,
+  list: (params: {
+    locale?: string;
+    categoryId?: string;
+    search?: string;
+    isActive?: boolean;
+    page?: number;
+    limit?: number;
+  }) => [...adminServiceKeys.all, 'list', params] as const,
+  detail: (id: string, locale?: string) =>
+    [...adminServiceKeys.all, 'detail', id, locale ?? 'default'] as const,
+};
+
+export const adminCategoryKeys = {
+  all: ['admin', 'categories'] as const,
+  list: (params: {
+    locale?: string;
+    search?: string;
+    isActive?: boolean;
+    page?: number;
+    limit?: number;
+  }) => [...adminCategoryKeys.all, 'list', params] as const,
+  detail: (id: string, locale?: string) =>
+    [...adminCategoryKeys.all, 'detail', id, locale ?? 'default'] as const,
+};
+
 export const bookingKeys = {
   all: ['booking'] as const,
   availability: (params: {
