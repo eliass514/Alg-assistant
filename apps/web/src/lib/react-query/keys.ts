@@ -60,6 +60,22 @@ export const adminCategoryKeys = {
     [...adminCategoryKeys.all, 'detail', id, locale ?? 'default'] as const,
 };
 
+export const adminAppointmentKeys = {
+  all: ['admin', 'appointments'] as const,
+  list: (params: {
+    locale?: string;
+    userId?: string;
+    serviceId?: string;
+    status?: string;
+    scheduledFrom?: string;
+    scheduledTo?: string;
+    page?: number;
+    limit?: number;
+  }) => [...adminAppointmentKeys.all, 'list', params] as const,
+  detail: (id: string, locale?: string) =>
+    [...adminAppointmentKeys.all, 'detail', id, locale ?? 'default'] as const,
+};
+
 export const bookingKeys = {
   all: ['booking'] as const,
   availability: (params: {

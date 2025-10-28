@@ -243,8 +243,90 @@
         "description": "Supervisez les files d'attente et les réservations."
       },
       "title": "Rendez-vous",
-      "description": "Contrôlez les créneaux, confirmations et statistiques.",
-      "placeholder": "La console de suivi des rendez-vous apparaîtra ici."
+      "description": "Gérez les plannings, les confirmations et les statistiques.",
+      "actions": {
+        "refresh": "Actualiser",
+        "clearFilters": "Réinitialiser les filtres",
+        "view": "Voir",
+        "updateStatus": "Mettre à jour le statut",
+        "delete": "Supprimer"
+      },
+      "filters": {
+        "userLabel": "Utilisateur",
+        "userPlaceholder": "Rechercher par identifiant utilisateur",
+        "serviceLabel": "Service",
+        "servicePlaceholder": "Rechercher par identifiant de service",
+        "statusLabel": "Statut",
+        "allStatuses": "Tous les statuts",
+        "dateFrom": "Du",
+        "dateTo": "Au"
+      },
+      "status": {
+        "scheduled": "Planifié",
+        "confirmed": "Confirmé",
+        "completed": "Terminé",
+        "cancelled": "Annulé"
+      },
+      "queueStatus": {
+        "waiting": "En attente",
+        "notified": "Notifié",
+        "completed": "Terminé",
+        "cancelled": "Annulé",
+        "expired": "Expiré"
+      },
+      "table": {
+        "user": "Utilisateur",
+        "service": "Service",
+        "scheduledAt": "Planification",
+        "status": "Statut",
+        "queue": "File d'attente",
+        "actions": "Actions",
+        "duration": "{count} min",
+        "empty": "Aucun rendez-vous trouvé",
+        "loading": "Chargement des rendez-vous..."
+      },
+      "detail": {
+        "title": "Détails du rendez-vous",
+        "id": "Identifiant",
+        "userId": "Identifiant utilisateur",
+        "service": "Service",
+        "minutes": "{count} min",
+        "scheduledAt": "Planification",
+        "status": "Statut",
+        "slot": "Créneau",
+        "capacity": "Capacité : {count}",
+        "queueTicket": "Ticket de file d'attente",
+        "position": "Position",
+        "queueStatus": "Statut de la file",
+        "notifiedAt": "Notifié le",
+        "expiresAt": "Expire le",
+        "notes": "Notes",
+        "createdAt": "Créé le",
+        "updatedAt": "Mis à jour le"
+      },
+      "update": {
+        "title": "Mettre à jour le rendez-vous",
+        "message": "Sélectionnez le nouveau statut ou ajoutez une note interne.",
+        "currentStatus": "Statut actuel",
+        "newStatus": "Nouveau statut",
+        "selectStatus": "Sélectionnez un statut",
+        "notesLabel": "Notes (optionnel)",
+        "notesPlaceholder": "Ajouter des précisions pour l'équipe",
+        "notesHint": "Ces notes sont visibles uniquement par les administrateurs.",
+        "confirm": "Mettre à jour",
+        "cancel": "Annuler"
+      },
+      "delete": {
+        "title": "Supprimer le rendez-vous",
+        "message": "Souhaitez-vous vraiment supprimer ce rendez-vous ? Cette action est irréversible.",
+        "confirm": "Supprimer",
+        "cancel": "Annuler"
+      },
+      "messages": {
+        "updateSuccess": "Rendez-vous mis à jour avec succès",
+        "deleteSuccess": "Rendez-vous supprimé avec succès",
+        "error": "Une erreur est survenue"
+      }
     },
     "Settings": {
       "meta": {
@@ -500,10 +582,22 @@
               "label": "Statut d'emploi",
               "placeholder": "Sélectionnez un statut",
               "options": [
-                { "value": "fullTime", "label": "Temps plein" },
-                { "value": "partTime", "label": "Temps partiel" },
-                { "value": "contractor", "label": "Contractuel" },
-                { "value": "intern", "label": "Stagiaire" }
+                {
+                  "value": "fullTime",
+                  "label": "Temps plein"
+                },
+                {
+                  "value": "partTime",
+                  "label": "Temps partiel"
+                },
+                {
+                  "value": "contractor",
+                  "label": "Contractuel"
+                },
+                {
+                  "value": "intern",
+                  "label": "Stagiaire"
+                }
               ]
             },
             "startDate": {
@@ -577,10 +671,22 @@
               "label": "Justificatif utilisé",
               "placeholder": "Sélectionnez un justificatif principal",
               "options": [
-                { "value": "utilityBill", "label": "Facture de services (eau, électricité…)" },
-                { "value": "leaseContract", "label": "Contrat de location" },
-                { "value": "ownershipCertificate", "label": "Titre de propriété" },
-                { "value": "municipalLetter", "label": "Attestation communale" }
+                {
+                  "value": "utilityBill",
+                  "label": "Facture de services (eau, électricité…)"
+                },
+                {
+                  "value": "leaseContract",
+                  "label": "Contrat de location"
+                },
+                {
+                  "value": "ownershipCertificate",
+                  "label": "Titre de propriété"
+                },
+                {
+                  "value": "municipalLetter",
+                  "label": "Attestation communale"
+                }
               ]
             },
             "ownerName": {
@@ -661,10 +767,22 @@
               "label": "Objet de la référence",
               "placeholder": "Sélectionnez l'objet",
               "options": [
-                { "value": "tenderSubmission", "label": "Réponse à un appel d'offres" },
-                { "value": "visaApplication", "label": "Dossier de visa" },
-                { "value": "creditRequest", "label": "Demande de financement" },
-                { "value": "partnership", "label": "Partenariat commercial" }
+                {
+                  "value": "tenderSubmission",
+                  "label": "Réponse à un appel d'offres"
+                },
+                {
+                  "value": "visaApplication",
+                  "label": "Dossier de visa"
+                },
+                {
+                  "value": "creditRequest",
+                  "label": "Demande de financement"
+                },
+                {
+                  "value": "partnership",
+                  "label": "Partenariat commercial"
+                }
               ]
             },
             "bankOfficer": {

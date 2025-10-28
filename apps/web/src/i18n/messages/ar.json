@@ -244,7 +244,89 @@
       },
       "title": "المواعيد",
       "description": "تحكم في الجداول والتأكيدات والإحصائيات.",
-      "placeholder": "ستظهر لوحة متابعة المواعيد في هذا القسم."
+      "actions": {
+        "refresh": "تحديث",
+        "clearFilters": "مسح الفلاتر",
+        "view": "عرض",
+        "updateStatus": "تحديث الحالة",
+        "delete": "حذف"
+      },
+      "filters": {
+        "userLabel": "المستخدم",
+        "userPlaceholder": "البحث بمعرف المستخدم",
+        "serviceLabel": "الخدمة",
+        "servicePlaceholder": "البحث بمعرف الخدمة",
+        "statusLabel": "الحالة",
+        "allStatuses": "جميع الحالات",
+        "dateFrom": "من تاريخ",
+        "dateTo": "إلى تاريخ"
+      },
+      "status": {
+        "scheduled": "مجدول",
+        "confirmed": "مؤكد",
+        "completed": "مكتمل",
+        "cancelled": "ملغى"
+      },
+      "queueStatus": {
+        "waiting": "في الانتظار",
+        "notified": "تم الإخطار",
+        "completed": "مكتمل",
+        "cancelled": "ملغى",
+        "expired": "منتهي الصلاحية"
+      },
+      "table": {
+        "user": "المستخدم",
+        "service": "الخدمة",
+        "scheduledAt": "موعد",
+        "status": "الحالة",
+        "queue": "قائمة الانتظار",
+        "actions": "الإجراءات",
+        "duration": "{count} دقيقة",
+        "empty": "لم يتم العثور على مواعيد",
+        "loading": "جاري تحميل المواعيد..."
+      },
+      "detail": {
+        "title": "تفاصيل الموعد",
+        "id": "المعرف",
+        "userId": "معرف المستخدم",
+        "service": "الخدمة",
+        "minutes": "{count} دقيقة",
+        "scheduledAt": "موعد",
+        "status": "الحالة",
+        "slot": "الفترة الزمنية",
+        "capacity": "السعة: {count}",
+        "queueTicket": "تذكرة الانتظار",
+        "position": "الموضع",
+        "queueStatus": "حالة قائمة الانتظار",
+        "notifiedAt": "تم الإخطار في",
+        "expiresAt": "تنتهي في",
+        "notes": "الملاحظات",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث"
+      },
+      "update": {
+        "title": "تحديث الموعد",
+        "message": "اختر الحالة الجديدة للموعد.",
+        "currentStatus": "الحالة الحالية",
+        "newStatus": "الحالة الجديدة",
+        "selectStatus": "اختر حالة",
+        "notesLabel": "الملاحظات (اختياري)",
+        "notesPlaceholder": "أضف ملاحظات إضافية",
+        "notesHint": "ستُضاف هذه الملاحظات إلى الموعد",
+        "confirm": "تحديث",
+        "cancel": "إلغاء"
+      },
+      "delete": {
+        "title": "حذف الموعد",
+        "message": "هل أنت متأكد من حذف هذا الموعد؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "حذف",
+        "cancel": "إلغاء"
+      },
+      "messages": {
+        "updateSuccess": "تم تحديث الموعد بنجاح",
+        "deleteSuccess": "تم حذف الموعد بنجاح",
+        "error": "حدث خطأ"
+      }
     },
     "Settings": {
       "meta": {
@@ -500,10 +582,22 @@
               "label": "حالة التوظيف",
               "placeholder": "اختر الحالة",
               "options": [
-                { "value": "fullTime", "label": "دوام كامل" },
-                { "value": "partTime", "label": "دوام جزئي" },
-                { "value": "contractor", "label": "متعاقد" },
-                { "value": "intern", "label": "متدرب" }
+                {
+                  "value": "fullTime",
+                  "label": "دوام كامل"
+                },
+                {
+                  "value": "partTime",
+                  "label": "دوام جزئي"
+                },
+                {
+                  "value": "contractor",
+                  "label": "متعاقد"
+                },
+                {
+                  "value": "intern",
+                  "label": "متدرب"
+                }
               ]
             },
             "startDate": {
@@ -577,10 +671,22 @@
               "label": "المستند المعتمد",
               "placeholder": "اختر المستند الرئيسي",
               "options": [
-                { "value": "utilityBill", "label": "فاتورة خدمات (ماء، كهرباء…)" },
-                { "value": "leaseContract", "label": "عقد إيجار" },
-                { "value": "ownershipCertificate", "label": "شهادة ملكية" },
-                { "value": "municipalLetter", "label": "شهادة من البلدية" }
+                {
+                  "value": "utilityBill",
+                  "label": "فاتورة خدمات (ماء، كهرباء…)"
+                },
+                {
+                  "value": "leaseContract",
+                  "label": "عقد إيجار"
+                },
+                {
+                  "value": "ownershipCertificate",
+                  "label": "شهادة ملكية"
+                },
+                {
+                  "value": "municipalLetter",
+                  "label": "شهادة من البلدية"
+                }
               ]
             },
             "ownerName": {
@@ -661,10 +767,22 @@
               "label": "غاية الخطاب",
               "placeholder": "اختر الغاية",
               "options": [
-                { "value": "tenderSubmission", "label": "ملف استجابة لمناقصة" },
-                { "value": "visaApplication", "label": "طلب تأشيرة" },
-                { "value": "creditRequest", "label": "طلب تمويل" },
-                { "value": "partnership", "label": "شراكة تجارية" }
+                {
+                  "value": "tenderSubmission",
+                  "label": "ملف استجابة لمناقصة"
+                },
+                {
+                  "value": "visaApplication",
+                  "label": "طلب تأشيرة"
+                },
+                {
+                  "value": "creditRequest",
+                  "label": "طلب تمويل"
+                },
+                {
+                  "value": "partnership",
+                  "label": "شراكة تجارية"
+                }
               ]
             },
             "bankOfficer": {
