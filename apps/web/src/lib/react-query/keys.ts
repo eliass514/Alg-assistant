@@ -89,6 +89,30 @@ export const adminAppointmentKeys = {
     [...adminAppointmentKeys.all, 'detail', id, locale ?? 'default'] as const,
 };
 
+export const adminLogKeys = {
+  all: ['admin', 'logs'] as const,
+  conversations: (params: {
+    userId?: string;
+    appointmentId?: string;
+    participant?: string;
+    createdFrom?: string;
+    createdTo?: string;
+    locale?: string;
+    search?: string;
+    page?: number;
+    limit?: number;
+  }) => [...adminLogKeys.all, 'conversations', params] as const,
+  documentVerifications: (params: {
+    userId?: string;
+    uploadId?: string;
+    createdFrom?: string;
+    createdTo?: string;
+    logType?: string;
+    page?: number;
+    limit?: number;
+  }) => [...adminLogKeys.all, 'document-verifications', params] as const,
+};
+
 export const bookingKeys = {
   all: ['booking'] as const,
   availability: (params: {

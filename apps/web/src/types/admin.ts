@@ -136,3 +136,62 @@ export interface AdminDocumentTemplateListResponse {
   data: DocumentTemplate[];
   meta: PaginatedMeta;
 }
+
+export type ConversationParticipant = 'CLIENT' | 'SPECIALIST' | 'SYSTEM' | 'AI_ASSISTANT';
+
+export interface AdminConversationLogEntry {
+  id: string;
+  userId: string | null;
+  appointmentId: string | null;
+  participant: ConversationParticipant;
+  locale: string;
+  message: string;
+  payload: unknown | null;
+  createdAt: string;
+}
+
+export interface AdminConversationLogsResponse {
+  data: AdminConversationLogEntry[];
+  meta: PaginationMeta;
+}
+
+export type DocumentUploadStatus =
+  | 'PENDING'
+  | 'PROCESSING'
+  | 'VALIDATED'
+  | 'REJECTED'
+  | 'CANCELLED'
+  | 'EXPIRED';
+
+export interface AdminDocumentStatusLogEntry {
+  id: string;
+  uploadId: string;
+  userId: string | null;
+  fromStatus: DocumentUploadStatus | null;
+  toStatus: DocumentUploadStatus;
+  reason: string | null;
+  metadata: unknown | null;
+  createdAt: string;
+  type: 'status';
+}
+
+export interface AdminDocumentValidationLogEntry {
+  id: string;
+  uploadId: string;
+  userId: string | null;
+  ruleId: string | null;
+  status: string;
+  message: string | null;
+  metadata: unknown | null;
+  executedAt: string;
+  type: 'validation';
+}
+
+export type AdminDocumentVerificationLogEntry =
+  | AdminDocumentStatusLogEntry
+  | AdminDocumentValidationLogEntry;
+
+export interface AdminDocumentVerificationLogsResponse {
+  data: AdminDocumentVerificationLogEntry[];
+  meta: PaginationMeta;
+}
