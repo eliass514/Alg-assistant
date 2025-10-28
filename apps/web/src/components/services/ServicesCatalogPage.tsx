@@ -11,7 +11,7 @@ import {
 } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { Section } from '@/components/layout/Section';
 import { Button } from '@/components/ui/button';
@@ -139,7 +139,7 @@ export function ServicesCatalogPage() {
   const servicesQuery = useQuery({
     queryKey: serviceKeys.list(servicesQueryParams),
     queryFn: () => fetchServices(servicesQueryParams),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const categoriesQuery = useQuery({
@@ -151,7 +151,7 @@ export function ServicesCatalogPage() {
         limit: CATEGORY_FETCH_LIMIT,
       }),
     staleTime: 5 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
   const categories = useMemo(() => categoriesQuery.data?.data ?? [], [categoriesQuery.data]);

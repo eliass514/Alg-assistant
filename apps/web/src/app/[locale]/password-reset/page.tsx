@@ -1,7 +1,7 @@
-import Link from 'next-intl/link';
 import { getTranslations } from 'next-intl/server';
 
 import { PasswordResetForm } from '@/components/auth/PasswordResetForm';
+import { Link } from '@/i18n/navigation';
 import { Section } from '@/components/layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heading, Text } from '@/components/ui/typography';

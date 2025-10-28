@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 
-import Link from 'next-intl/link';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next-intl/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/components/auth/AuthProvider';
