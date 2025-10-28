@@ -8,7 +8,8 @@
     "tagline": "Expériences numériques inclusives pour l'Afrique du Nord",
     "footer": "Propulsé par Next.js 14, Tailwind CSS et next-intl",
     "navLabel": "Navigation principale",
-    "servicesLink": "Catalogue des services"
+    "servicesLink": "Catalogue des services",
+    "appointmentsLink": "Gestion des rendez-vous"
   },
   "LocaleSwitcher": {
     "label": "Langue",
@@ -77,6 +78,116 @@
     },
     "a11y": {
       "serviceList": "Résultats du catalogue de services"
+    }
+  },
+  "Booking": {
+    "meta": {
+      "title": "Prendre un rendez-vous",
+      "description": "Réservez un créneau, gérez vos rendez-vous et suivez votre file d'attente même en mode hors connexion."
+    },
+    "heading": "Gestion des rendez-vous",
+    "subheading": "Sélectionnez un service, choisissez un créneau, confirmez votre réservation et suivez vos files d'attente.",
+    "steps": {
+      "service": {
+        "title": "Choisir un service",
+        "description": "Parcourez les services disponibles et sélectionnez celui qui correspond à votre besoin.",
+        "searchLabel": "Rechercher un service",
+        "searchPlaceholder": "Filtrer par nom ou description",
+        "action": "Sélectionner ce service",
+        "placeholder": "Sélectionnez un service"
+      },
+      "slots": {
+        "title": "Sélectionner un créneau",
+        "description": "Affinez la période de recherche et choisissez un créneau disponible."
+      },
+      "confirm": {
+        "title": "Confirmer la réservation",
+        "description": "Relisez les détails du service et confirmez votre rendez-vous."
+      },
+      "manage": {
+        "title": "Suivi et historique",
+        "description": "Retrouvez vos rendez-vous et vos tickets de file d'attente."
+      }
+    },
+    "status": {
+      "loadingServices": "Chargement des services…",
+      "noServices": "Aucun service disponible pour le moment.",
+      "loadingSlots": "Chargement des créneaux…",
+      "noSlots": "Aucun créneau n'est disponible sur la période sélectionnée.",
+      "loadingAppointments": "Chargement des rendez-vous…",
+      "offline": "Mode hors connexion : les données mises en cache sont affichées.",
+      "error": "Une erreur est survenue. Veuillez réessayer.",
+      "missingService": "Le service associé n'est plus disponible. Merci d'en sélectionner un autre."
+    },
+    "actions": {
+      "back": "Retour",
+      "retry": "Actualiser",
+      "confirm": "Confirmer le rendez-vous",
+      "reschedule": "Replanifier",
+      "cancel": "Annuler",
+      "joinQueue": "Rejoindre la file d'attente",
+      "queueCancel": "Se retirer de la file"
+    },
+    "labels": {
+      "timezone": "Fuseau horaire",
+      "dateFrom": "Du",
+      "dateTo": "Au",
+      "selectedService": "Service sélectionné",
+      "selectedSlot": "Créneau sélectionné",
+      "notes": "Notes (optionnel)",
+      "serviceDuration": "{count, plural, one {Durée estimée : # minute} other {Durée estimée : # minutes}}",
+      "queueLength": "{count, plural, one {# personne en attente} other {# personnes en attente}}",
+      "availableSpots": "{count, plural, one {# place disponible} other {# places disponibles}}",
+      "appointments": "Mes rendez-vous",
+      "queueTickets": "Historique de file d'attente",
+      "queueWindow": "Préférence horaire : {from} → {to}",
+      "appointmentScheduled": "Planifié le {date}"
+    },
+    "notifications": {
+      "bookingSuccess": "Votre rendez-vous est confirmé.",
+      "rescheduleSuccess": "Votre rendez-vous a été replanifié.",
+      "cancelSuccess": "Le rendez-vous a été annulé.",
+      "queueSuccess": "Votre inscription à la file d'attente est confirmée.",
+      "queueCancelSuccess": "Vous avez quitté la file d'attente.",
+      "offlineQueued": "Action enregistrée : elle sera synchronisée dès que la connexion sera rétablie.",
+      "offlineSyncSuccess": "L'action en attente a été synchronisée avec succès.",
+      "offlineSyncError": "Synchronisation impossible : {message}",
+      "error": "Une erreur est survenue : {message}"
+    },
+    "queue": {
+      "status": {
+        "WAITING": "En attente",
+        "NOTIFIED": "Notifié",
+        "COMPLETED": "Terminé",
+        "CANCELLED": "Annulé",
+        "EXPIRED": "Expiré"
+      },
+      "empty": "Aucun ticket de file d'attente enregistré.",
+      "pending": "Les actions hors connexion seront envoyées automatiquement lorsqu'une connexion sera disponible.",
+      "desiredFrom": "Préférence de début",
+      "desiredTo": "Préférence de fin"
+    },
+    "appointments": {
+      "empty": "Vous n'avez pas encore de rendez-vous planifié.",
+      "status": {
+        "SCHEDULED": "Planifié",
+        "CONFIRMED": "Confirmé",
+        "COMPLETED": "Terminé",
+        "CANCELLED": "Annulé"
+      }
+    },
+    "pendingActions": {
+      "title": "Actions en attente",
+      "description": "Ces actions seront synchronisées dès que la connexion sera de retour.",
+      "labels": {
+        "book": "Créer un rendez-vous",
+        "reschedule": "Replanifier un rendez-vous",
+        "cancel": "Annuler un rendez-vous",
+        "joinQueue": "Rejoindre la file d'attente",
+        "updateQueueStatus": "Mettre à jour un ticket de file"
+      },
+      "retry": "Synchroniser maintenant",
+      "remove": "Supprimer"
     }
   },
   "Auth": {

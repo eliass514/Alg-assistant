@@ -33,6 +33,12 @@ export async function ApplicationShell({ children }: ApplicationShellProps) {
               >
                 {t('servicesLink')}
               </Link>
+              <Link
+                href="/appointments"
+                className="text-foreground/80 transition hover:text-foreground"
+              >
+                {t('appointmentsLink')}
+              </Link>
             </nav>
             <LocaleSwitcher />
             <AuthNavigation />
