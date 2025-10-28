@@ -15,6 +15,7 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { DocumentsModule } from '@modules/documents/documents.module';
 import { DocumentTemplatesModule } from '@modules/document-templates/document-templates.module';
 import { DocumentUploadsModule } from '@modules/document-uploads/document-uploads.module';
+import { DocumentVerificationModule } from '@modules/document-verification/document-verification.module';
 import { ServicesModule } from '@modules/services/services.module';
 import { UsersModule } from '@modules/users/users.module';
 import { PrismaModule } from '@prisma/prisma.module';
@@ -36,6 +37,7 @@ import { PrismaModule } from '@prisma/prisma.module';
     DocumentsModule,
     DocumentTemplatesModule,
     DocumentUploadsModule,
+    DocumentVerificationModule,
     AiModule,
   ],
   controllers: [AppController],
