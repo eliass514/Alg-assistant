@@ -60,6 +60,19 @@ export const adminCategoryKeys = {
     [...adminCategoryKeys.all, 'detail', id, locale ?? 'default'] as const,
 };
 
+export const adminDocumentTemplateKeys = {
+  all: ['admin', 'document-templates'] as const,
+  list: (params: {
+    locale?: string;
+    search?: string;
+    serviceId?: string;
+    isActive?: boolean;
+    page?: number;
+    limit?: number;
+  }) => [...adminDocumentTemplateKeys.all, 'list', params] as const,
+  detail: (id: string) => [...adminDocumentTemplateKeys.all, 'detail', id] as const,
+};
+
 export const adminAppointmentKeys = {
   all: ['admin', 'appointments'] as const,
   list: (params: {

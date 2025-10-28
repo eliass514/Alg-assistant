@@ -22,6 +22,7 @@
       "servicesLink": "الخدمات",
       "categoriesLink": "الفئات",
       "appointmentsLink": "المواعيد",
+      "documentTemplatesLink": "قوالب الوثائق",
       "settingsLink": "الإعدادات",
       "exitAdmin": "العودة إلى الموقع العام",
       "footer": "منطقة مخصصة لتذييل لوحة الإدارة."
@@ -234,6 +235,101 @@
         "createSuccess": "تم إنشاء الفئة بنجاح",
         "updateSuccess": "تم تحديث الفئة بنجاح",
         "deleteSuccess": "تم حذف الفئة بنجاح",
+        "error": "حدث خطأ"
+      }
+    },
+    "DocumentTemplates": {
+      "meta": {
+        "title": "إدارة قوالب الوثائق",
+        "description": "إدارة قوالب الوثائق والنماذج."
+      },
+      "title": "قوالب الوثائق",
+      "description": "إنشاء وإدارة قوالب الوثائق المستخدمة في الخدمات.",
+      "actions": {
+        "create": "قالب جديد",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "upload": "رفع ملف",
+        "search": "البحث عن القوالب",
+        "refresh": "تحديث"
+      },
+      "table": {
+        "name": "الاسم",
+        "services": "الخدمات",
+        "versions": "الإصدارات",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "empty": "لم يتم العثور على قوالب",
+        "loading": "جاري تحميل القوالب...",
+        "more": "المزيد",
+        "versionsCount": "إصدارات"
+      },
+      "form": {
+        "createTitle": "إنشاء قالب وثيقة",
+        "editTitle": "تعديل قالب الوثيقة",
+        "slug": {
+          "label": "المعرّف",
+          "placeholder": "passport-document",
+          "hint": "معرّف فريد (أحرف وأرقام وشرطات فقط)"
+        },
+        "name": {
+          "label": "الاسم",
+          "placeholder": "وثيقة جواز السفر"
+        },
+        "description": {
+          "label": "الوصف",
+          "placeholder": "قالب لوثائق جواز السفر"
+        },
+        "defaultLocale": {
+          "label": "اللغة الافتراضية"
+        },
+        "metadata": {
+          "label": "بيانات وصفية (JSON)",
+          "placeholder": "{\"key\": \"value\"}",
+          "hint": "بيانات وصفية اختيارية بصيغة JSON"
+        },
+        "isActive": {
+          "label": "قالب نشط"
+        },
+        "services": {
+          "heading": "الخدمات المرتبطة",
+          "description": "ربط القالب بخدمات محددة",
+          "addLabel": "إضافة خدمة",
+          "selectPlaceholder": "اختر خدمة",
+          "remove": "إزالة",
+          "empty": "لم يتم ربط أي خدمات",
+          "noMore": "تم إضافة جميع الخدمات المتاحة",
+          "isRequired": "مطلوب",
+          "autoApply": "تطبيق تلقائي",
+          "validFrom": "صالح من",
+          "validTo": "صالح حتى"
+        },
+        "errors": {
+          "slugRequired": "المعرّف مطلوب",
+          "slugInvalid": "يجب أن يحتوي المعرّف على أحرف وأرقام وشرطات فقط",
+          "nameRequired": "الاسم مطلوب",
+          "metadataInvalid": "البيانات الوصفية يجب أن تكون بصيغة JSON صحيحة"
+        }
+      },
+      "delete": {
+        "title": "حذف قالب الوثيقة",
+        "message": "هل أنت متأكد من حذف هذا القالب؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "حذف",
+        "cancel": "إلغاء"
+      },
+      "upload": {
+        "title": "رفع ملف القالب",
+        "fileLabel": "اختر ملف",
+        "fileHint": "رفع نسخة جديدة من القالب",
+        "confirm": "رفع"
+      },
+      "messages": {
+        "createSuccess": "تم إنشاء القالب بنجاح",
+        "updateSuccess": "تم تحديث القالب بنجاح",
+        "deleteSuccess": "تم حذف القالب بنجاح",
+        "uploadSuccess": "تم رفع الملف بنجاح",
         "error": "حدث خطأ"
       }
     },

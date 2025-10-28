@@ -69,3 +69,70 @@ export interface AdminUpdateAppointmentData {
   slotId?: string;
   notes?: string;
 }
+
+export interface TemplateServiceAssignment {
+  serviceId: string;
+  isRequired?: boolean;
+  autoApply?: boolean;
+  validFrom?: string;
+  validTo?: string;
+}
+
+export interface DocumentTemplateVersion {
+  id: string;
+  versionNumber: number;
+  label?: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DocumentTemplateService {
+  id: string;
+  serviceId: string;
+  isRequired: boolean;
+  autoApply: boolean;
+  validFrom?: string;
+  validTo?: string;
+  service: {
+    id: string;
+    slug: string;
+    translations: Array<{
+      locale: string;
+      name: string;
+    }>;
+  };
+}
+
+export interface DocumentTemplate {
+  id: string;
+  slug: string;
+  name: string;
+  description?: string;
+  defaultLocale: string;
+  isActive: boolean;
+  metadata?: Record<string, unknown>;
+  services?: DocumentTemplateService[];
+  versions?: DocumentTemplateVersion[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminDocumentTemplateFormData {
+  slug: string;
+  name: string;
+  description?: string;
+  defaultLocale?: string;
+  isActive?: boolean;
+  metadata?: Record<string, unknown>;
+  services?: TemplateServiceAssignment[];
+}
+
+export interface AdminDocumentTemplateResponse {
+  data: DocumentTemplate;
+}
+
+export interface AdminDocumentTemplateListResponse {
+  data: DocumentTemplate[];
+  meta: PaginatedMeta;
+}
