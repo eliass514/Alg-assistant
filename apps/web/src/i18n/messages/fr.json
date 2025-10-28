@@ -37,7 +37,28 @@
       "users": "Utilisateurs",
       "usersDescription": "Suivez l'évolution de la base d'utilisateurs et leurs rôles.",
       "services": "Services",
-      "servicesDescription": "Prévisualisez les publications et les changements récents."
+      "servicesDescription": "Prévisualisez les publications et les changements récents.",
+      "metrics": {
+        "title": "Indicateurs clés",
+        "subtitle": "Un aperçu rapide de l'activité sur la plateforme.",
+        "sample": "Données factices",
+        "users": {
+          "label": "Utilisateurs inscrits",
+          "description": "Administrateurs et spécialistes actifs."
+        },
+        "appointments": {
+          "label": "Rendez-vous en attente",
+          "description": "Demandes nécessitant une confirmation."
+        },
+        "documents": {
+          "label": "Documents à valider",
+          "description": "Dossiers en attente de vérification."
+        },
+        "services": {
+          "label": "Services actifs",
+          "description": "Prestations publiées et visibles."
+        }
+      }
     },
     "Dashboard": {
       "meta": {
