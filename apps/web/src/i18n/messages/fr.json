@@ -6,7 +6,9 @@
   "Layout": {
     "brand": "Atlas UI",
     "tagline": "Expériences numériques inclusives pour l'Afrique du Nord",
-    "footer": "Propulsé par Next.js 14, Tailwind CSS et next-intl"
+    "footer": "Propulsé par Next.js 14, Tailwind CSS et next-intl",
+    "navLabel": "Navigation principale",
+    "servicesLink": "Catalogue des services"
   },
   "LocaleSwitcher": {
     "label": "Langue",
@@ -24,6 +26,58 @@
       "Prise en charge RTL/LTR pilotée par l'attribut dir et Tailwind",
       "Bibliothèque de composants partagés pour démarrer votre système de design"
     ]
+  },
+  "Services": {
+    "meta": {
+      "title": "Catalogue des services",
+      "description": "Découvrez, filtrez et trouvez le service adapté à vos démarches."
+    },
+    "hero": {
+      "title": "Trouver le service qui répond à votre situation",
+      "subtitle": "Naviguez dans un catalogue traduit, recherchez des prestations et filtrez par catégorie pour gagner du temps.",
+      "resultsTitle": "Services disponibles"
+    },
+    "search": {
+      "label": "Rechercher un service",
+      "placeholder": "Recherchez par nom, catégorie ou description"
+    },
+    "filters": {
+      "heading": "Affiner les résultats",
+      "activeOnly": "Afficher uniquement les services disponibles",
+      "tagsHeading": "Thématiques",
+      "clearTags": "Réinitialiser"
+    },
+    "categories": {
+      "label": "Catégories",
+      "ariaLabel": "Navigation dans les catégories de services",
+      "all": "Tous les services",
+      "loading": "Chargement des catégories…",
+      "empty": "Aucune catégorie active n'est disponible pour le moment.",
+      "error": "Impossible de charger les catégories."
+    },
+    "status": {
+      "loading": "Chargement du catalogue de services…",
+      "error": "Impossible de récupérer les services. Vérifiez votre connexion et réessayez.",
+      "offline": "Vous êtes hors ligne. Les données mises en cache sont affichées.",
+      "empty": "Aucun service ne correspond à vos critères.",
+      "count": "{count, plural, one {# service trouvé} other {# services trouvés}}"
+    },
+    "actions": {
+      "retry": "Réessayer"
+    },
+    "cards": {
+      "category": "Catégorie : {category}",
+      "duration": "{count, plural, =0 {Durée estimée · moins d'une minute} one {Durée estimée · # minute} other {Durée estimée · # minutes}}",
+      "price": "Tarif indicatif : {price}",
+      "tagsLabel": "Mots-clés :"
+    },
+    "cache": {
+      "description": "{minutes, plural, one {Les résultats sont mis en cache pendant environ # minute pour une consultation hors ligne.} other {Les résultats sont mis en cache pendant environ # minutes pour une consultation hors ligne.}}",
+      "updated": "Dernière mise à jour : {timestamp}"
+    },
+    "a11y": {
+      "serviceList": "Résultats du catalogue de services"
+    }
   },
   "Auth": {
     "Navigation": {
