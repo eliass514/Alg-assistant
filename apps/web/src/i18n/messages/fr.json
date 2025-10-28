@@ -25,6 +25,199 @@
       "Bibliothèque de composants partagés pour démarrer votre système de design"
     ]
   },
+  "Auth": {
+    "Navigation": {
+      "login": "Connexion",
+      "signup": "Créer un compte",
+      "logout": "Déconnexion",
+      "profile": "Mon profil"
+    },
+    "Messages": {
+      "checkingSession": "Vérification de votre session…",
+      "processing": "Traitement en cours…"
+    },
+    "Login": {
+      "meta": {
+        "title": "Connexion à votre espace",
+        "description": "Accédez à votre espace client sécurisé et reprenez vos démarches là où vous les avez laissées."
+      },
+      "page": {
+        "title": "Ravi de vous revoir",
+        "subtitle": "Connectez-vous pour suivre vos documents, vos rendez-vous et vos informations personnelles.",
+        "formTitle": "Accéder à votre compte",
+        "formSubtitle": "Utilisez l'adresse e-mail avec laquelle vous avez créé votre compte.",
+        "highlights": [
+          "Recevez des notifications en temps réel sur vos demandes",
+          "Retrouvez vos documents officiels en un seul endroit",
+          "Gérez vos rendez-vous administratifs en toute simplicité"
+        ]
+      },
+      "fields": {
+        "email": "Adresse e-mail",
+        "password": "Mot de passe"
+      },
+      "placeholders": {
+        "email": "exemple@domaine.com",
+        "password": "********"
+      },
+      "submit": {
+        "idle": "Se connecter",
+        "pending": "Connexion…"
+      },
+      "errors": {
+        "missingFields": "Veuillez renseigner votre e-mail et votre mot de passe.",
+        "generic": "Une erreur inattendue est survenue. Veuillez réessayer."
+      },
+      "actions": {
+        "forgotPassword": "Mot de passe oublié ?",
+        "noAccount": "Pas encore de compte ?",
+        "createAccount": "Créer un compte"
+      }
+    },
+    "Signup": {
+      "meta": {
+        "title": "Créer un compte",
+        "description": "Inscrivez-vous pour accéder à vos services personnalisés."
+      },
+      "page": {
+        "title": "Créez votre espace sécurisé",
+        "subtitle": "Un compte vous permet de suivre vos documents, gérer vos rendez-vous et recevoir des notifications.",
+        "formTitle": "Commencer l'inscription",
+        "formSubtitle": "Remplissez vos informations personnelles pour créer votre compte.",
+        "highlights": [
+          "Tableau de bord personnalisé pour vos démarches",
+          "Support en français et en arabe, adapté aux langues locales",
+          "Connexion sécurisée avec rafraîchissement automatique des jetons"
+        ]
+      },
+      "fields": {
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Adresse e-mail",
+        "phoneNumber": "Numéro de téléphone",
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmer le mot de passe"
+      },
+      "placeholders": {
+        "firstName": "Votre prénom",
+        "lastName": "Votre nom",
+        "email": "exemple@domaine.com",
+        "phoneNumber": "06 00 00 00 00",
+        "password": "********",
+        "confirmPassword": "********"
+      },
+      "submit": {
+        "idle": "Créer mon compte",
+        "pending": "Création…"
+      },
+      "errors": {
+        "missingFields": "Veuillez renseigner tous les champs obligatoires.",
+        "passwordLength": "Le mot de passe doit contenir au moins 8 caractères.",
+        "passwordMismatch": "Les mots de passe ne correspondent pas.",
+        "generic": "Une erreur inattendue est survenue. Veuillez réessayer."
+      },
+      "actions": {
+        "haveAccount": "Vous avez déjà un compte ?",
+        "goToLogin": "Se connecter"
+      }
+    },
+    "PasswordReset": {
+      "meta": {
+        "title": "Réinitialiser votre mot de passe",
+        "description": "Recevez un lien sécurisé pour réinitialiser votre mot de passe ou choisissez-en un nouveau."
+      },
+      "page": {
+        "title": "Retrouvez l'accès à votre compte",
+        "subtitle": "Recevez un e-mail de réinitialisation ou définissez un nouveau mot de passe si vous avez déjà un jeton.",
+        "formTitle": "Réinitialisation du mot de passe",
+        "formSubtitle": "Indiquez votre adresse e-mail pour recevoir les instructions ou choisissez un nouveau mot de passe.",
+        "highlights": [
+          "Des liens sécurisés envoyés en quelques secondes",
+          "Assistance multilingue et adaptée aux langues RTL",
+          "Sécurité renforcée grâce aux jetons temporaires"
+        ]
+      },
+      "fields": {
+        "email": "Adresse e-mail",
+        "password": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer le mot de passe"
+      },
+      "placeholders": {
+        "email": "exemple@domaine.com",
+        "password": "********",
+        "confirmPassword": "********"
+      },
+      "submit": {
+        "request": "Envoyer le lien de réinitialisation",
+        "reset": "Définir un nouveau mot de passe"
+      },
+      "errors": {
+        "missingEmail": "Veuillez renseigner votre adresse e-mail.",
+        "passwordLength": "Le mot de passe doit contenir au moins 8 caractères.",
+        "passwordMismatch": "Les mots de passe ne correspondent pas.",
+        "generic": "Une erreur inattendue est survenue. Veuillez réessayer."
+      },
+      "success": {
+        "requested": "Nous vous avons envoyé un e-mail avec les instructions de réinitialisation.",
+        "updated": "Votre mot de passe a été mis à jour avec succès."
+      },
+      "actions": {
+        "backToLogin": "Retourner à la page de connexion",
+        "rememberPassword": "Vous vous souvenez de votre mot de passe ?"
+      }
+    }
+  },
+  "Profile": {
+    "meta": {
+      "title": "Mon profil",
+      "description": "Consultez vos informations personnelles, vos documents et vos rendez-vous."
+    },
+    "title": "Mon espace personnel",
+    "subtitle": "Visualisez vos informations, vos documents téléchargés et vos prochains rendez-vous.",
+    "personal": {
+      "title": "Informations personnelles",
+      "description": "Ces informations nous permettent de personnaliser votre expérience.",
+      "missing": "Non renseigné",
+      "fields": {
+        "fullName": "Nom complet",
+        "email": "Adresse e-mail",
+        "phoneNumber": "Numéro de téléphone",
+        "nationality": "Nationalité",
+        "identityNumber": "Numéro d'identité",
+        "birthDate": "Date de naissance",
+        "preferredLanguage": "Langue préférée",
+        "address": "Adresse postale"
+      }
+    },
+    "documents": {
+      "title": "Documents",
+      "description": "Téléversements récents et statut de validation.",
+      "loading": "Chargement des documents...",
+      "empty": "Aucun document n'est disponible pour le moment.",
+      "error": "Une erreur est survenue lors du chargement des documents.",
+      "status": {
+        "pending": "En cours de validation",
+        "approved": "Validé",
+        "rejected": "Refusé"
+      },
+      "uploadedAt": "Téléversé le {date}"
+    },
+    "appointments": {
+      "title": "Rendez-vous",
+      "description": "Vos prochains rendez-vous et leur statut.",
+      "loading": "Chargement des rendez-vous...",
+      "empty": "Aucun rendez-vous prévu pour le moment.",
+      "error": "Une erreur est survenue lors du chargement des rendez-vous.",
+      "status": {
+        "scheduled": "Planifié",
+        "completed": "Terminé",
+        "cancelled": "Annulé"
+      },
+      "details": "Le {date} • {location}",
+      "practitioner": "Interlocuteur : {name}",
+      "unknownLocation": "Lieu à confirmer"
+    }
+  },
   "NotFound": {
     "title": "Page introuvable",
     "description": "La ressource que vous cherchez est introuvable. Revenez à l'accueil pour continuer votre navigation.",
