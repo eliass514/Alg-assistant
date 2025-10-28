@@ -19,6 +19,7 @@ import { DocumentUploadsModule } from '@modules/document-uploads/document-upload
 import { DocumentVerificationModule } from '@modules/document-verification/document-verification.module';
 import { ServicesModule } from '@modules/services/services.module';
 import { UsersModule } from '@modules/users/users.module';
+import { AdminModule } from '@modules/admin/admin.module';
 import { PrismaModule } from '@prisma/prisma.module';
 
 @Module({
@@ -40,6 +41,7 @@ import { PrismaModule } from '@prisma/prisma.module';
     DocumentUploadsModule,
     DocumentVerificationModule,
     AiModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [
