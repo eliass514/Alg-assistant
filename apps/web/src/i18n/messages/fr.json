@@ -23,6 +23,7 @@
       "categoriesLink": "Catégories",
       "appointmentsLink": "Rendez-vous",
       "documentTemplatesLink": "Modèles de documents",
+      "logsLink": "Journaux de modération",
       "settingsLink": "Paramètres",
       "exitAdmin": "Revenir au site public",
       "footer": "Zone de base pour le pied de page de l'administration."
@@ -422,6 +423,72 @@
         "updateSuccess": "Rendez-vous mis à jour avec succès",
         "deleteSuccess": "Rendez-vous supprimé avec succès",
         "error": "Une erreur est survenue"
+      }
+    },
+    "Logs": {
+      "meta": {
+        "title": "Journaux de modération",
+        "description": "Afficher les journaux de conversations et de vérification des documents."
+      },
+      "title": "Journaux de modération",
+      "description": "Consultez les conversations de l'assistant et les journaux de vérification des documents pour la surveillance et la modération.",
+      "tabs": {
+        "conversations": "Conversations",
+        "documentVerifications": "Vérifications de documents"
+      },
+      "filters": {
+        "search": "Rechercher",
+        "searchPlaceholder": "Rechercher dans les messages...",
+        "participant": "Participant",
+        "allParticipants": "Tous les participants",
+        "participants": {
+          "client": "Client",
+          "specialist": "Spécialiste",
+          "system": "Système",
+          "aiAssistant": "Assistant IA"
+        },
+        "locale": "Langue",
+        "allLocales": "Toutes les langues",
+        "userId": "ID utilisateur",
+        "userIdPlaceholder": "UUID de l'utilisateur",
+        "uploadId": "ID de téléchargement",
+        "uploadIdPlaceholder": "UUID de téléchargement",
+        "logType": "Type de journal",
+        "allTypes": "Tous les types",
+        "logTypes": {
+          "status": "Statut",
+          "validation": "Validation"
+        },
+        "createdFrom": "Date de début",
+        "createdTo": "Date de fin"
+      },
+      "actions": {
+        "reset": "Réinitialiser les filtres"
+      },
+      "table": {
+        "conversations": {
+          "timestamp": "Horodatage",
+          "participant": "Participant",
+          "message": "Message",
+          "userId": "ID utilisateur",
+          "appointmentId": "ID rendez-vous",
+          "locale": "Langue"
+        },
+        "documentVerifications": {
+          "timestamp": "Horodatage",
+          "type": "Type",
+          "details": "Détails",
+          "uploadId": "ID téléchargement",
+          "userId": "ID utilisateur",
+          "initial": "Initial"
+        }
+      },
+      "pagination": {
+        "showing": "Affichage de {start} à {end} sur {total} résultats"
+      },
+      "noResults": "Aucun journal trouvé avec les filtres actuels.",
+      "errors": {
+        "loadError": "Erreur lors du chargement des journaux."
       }
     },
     "Settings": {

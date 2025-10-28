@@ -23,6 +23,7 @@
       "categoriesLink": "الفئات",
       "appointmentsLink": "المواعيد",
       "documentTemplatesLink": "قوالب الوثائق",
+      "logsLink": "سجلات الإشراف",
       "settingsLink": "الإعدادات",
       "exitAdmin": "العودة إلى الموقع العام",
       "footer": "منطقة مخصصة لتذييل لوحة الإدارة."
@@ -422,6 +423,72 @@
         "updateSuccess": "تم تحديث الموعد بنجاح",
         "deleteSuccess": "تم حذف الموعد بنجاح",
         "error": "حدث خطأ"
+      }
+    },
+    "Logs": {
+      "meta": {
+        "title": "سجلات الإشراف",
+        "description": "عرض سجلات المحادثات والتحقق من الوثائق."
+      },
+      "title": "سجلات الإشراف",
+      "description": "اطلع على سجلات محادثات المساعد وسجلات التحقق من الوثائق لأغراض المراقبة والإشراف.",
+      "tabs": {
+        "conversations": "المحادثات",
+        "documentVerifications": "التحقق من الوثائق"
+      },
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "البحث في الرسائل...",
+        "participant": "المشارك",
+        "allParticipants": "جميع المشاركين",
+        "participants": {
+          "client": "المستخدم",
+          "specialist": "الأخصائي",
+          "system": "النظام",
+          "aiAssistant": "المساعد الذكي"
+        },
+        "locale": "اللغة",
+        "allLocales": "جميع اللغات",
+        "userId": "معرّف المستخدم",
+        "userIdPlaceholder": "معرّف UUID للمستخدم",
+        "uploadId": "معرّف الرفع",
+        "uploadIdPlaceholder": "معرّف UUID للرفع",
+        "logType": "نوع السجل",
+        "allTypes": "جميع الأنواع",
+        "logTypes": {
+          "status": "تغيير الحالة",
+          "validation": "التحقق"
+        },
+        "createdFrom": "التاريخ من",
+        "createdTo": "التاريخ إلى"
+      },
+      "actions": {
+        "reset": "إعادة تعيين المرشحات"
+      },
+      "table": {
+        "conversations": {
+          "timestamp": "الطابع الزمني",
+          "participant": "المشارك",
+          "message": "الرسالة",
+          "userId": "معرّف المستخدم",
+          "appointmentId": "معرّف الموعد",
+          "locale": "اللغة"
+        },
+        "documentVerifications": {
+          "timestamp": "الطابع الزمني",
+          "type": "النوع",
+          "details": "التفاصيل",
+          "uploadId": "معرّف الرفع",
+          "userId": "معرّف المستخدم",
+          "initial": "الحالة الأولية"
+        }
+      },
+      "pagination": {
+        "showing": "عرض {start} إلى {end} من أصل {total} سجل"
+      },
+      "noResults": "لا توجد سجلات مطابقة للمرشحات الحالية.",
+      "errors": {
+        "loadError": "حدث خطأ أثناء تحميل السجلات."
       }
     },
     "Settings": {
