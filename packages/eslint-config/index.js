@@ -23,5 +23,5 @@ module.exports = {
     ],
     'prettier/prettier': 'error',
   },
-  ignorePatterns: ['dist', 'build', 'node_modules'],
+  ignorePatterns: ['dist', 'build', 'node_modules', '*.d.ts', '**/*.d.ts'],
 };
