@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-import Link from 'next-intl/link';
 import { getTranslations } from 'next-intl/server';
 
 import { AuthNavigation } from '@/components/auth/AuthNavigation';
+import { Link } from '@/i18n/navigation';
 import { LocaleSwitcher } from '@/components/locale/LocaleSwitcher';
 
 import { Container } from './Container';

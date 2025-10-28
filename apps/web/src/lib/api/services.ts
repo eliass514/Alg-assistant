@@ -45,19 +45,6 @@ function buildCategoriesCacheKey(params: ServiceCategoriesParams): string {
   ].join(':');
 }
 
-function buildQuery(params: Record<string, string | undefined>): string {
-  const searchParams = new URLSearchParams();
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== undefined && value !== '') {
-      searchParams.set(key, value);
-    }
-  });
-
-  const query = searchParams.toString();
-  return query.length > 0 ? `?${query}` : '';
-}
-
 export interface ServiceListParams {
   locale: string;
   search?: string;

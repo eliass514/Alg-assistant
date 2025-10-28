@@ -1,7 +1,7 @@
-import Link from 'next-intl/link';
 import { getTranslations } from 'next-intl/server';
 
 import { Section } from '@/components/layout/Section';
+import { Link } from '@/i18n/navigation';
 import { Heading, Text } from '@/components/ui/typography';
 
 export default async function NotFound() {

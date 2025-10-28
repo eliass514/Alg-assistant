@@ -3,9 +3,9 @@
 import { useTransition } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next-intl/navigation';
 
 import { Button } from '@/components/ui/button';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { localeLabels, localeOrder, supportedLocales, type SupportedLocale } from '@/i18n/config';
 import { cn } from '@/lib/utils';
 

@@ -4,9 +4,9 @@ import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next-intl/navigation';
 
 import { Spinner } from '@/components/ui/spinner';
+import { useRouter } from '@/i18n/navigation';
 import { useAuth } from '@/components/auth/AuthProvider';
 
 interface ProtectedRouteProps {

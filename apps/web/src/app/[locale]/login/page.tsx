@@ -1,7 +1,7 @@
-import Link from 'next-intl/link';
 import { getTranslations } from 'next-intl/server';
 
 import { GuestRoute } from '@/components/auth/GuestRoute';
+import { Link } from '@/i18n/navigation';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { Section } from '@/components/layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

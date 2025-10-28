@@ -4,10 +4,10 @@ import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter } from 'next-intl/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/ui/button';
+import { useRouter } from '@/i18n/navigation';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/lib/api/auth';
