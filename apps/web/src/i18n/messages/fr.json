@@ -13,6 +13,78 @@
     "documentsLink": "Préparation des documents",
     "appointmentsLink": "Gestion des rendez-vous"
   },
+  "Admin": {
+    "Layout": {
+      "brand": "Console d'administration",
+      "navLabel": "Navigation du tableau de bord",
+      "dashboardLink": "Tableau de bord",
+      "usersLink": "Utilisateurs",
+      "servicesLink": "Services",
+      "appointmentsLink": "Rendez-vous",
+      "settingsLink": "Paramètres",
+      "exitAdmin": "Revenir au site public",
+      "footer": "Zone de base pour le pied de page de l'administration."
+    },
+    "meta": {
+      "title": "Espace administrateur",
+      "description": "Gérez les ressorts principaux de la plateforme."
+    },
+    "title": "Bienvenue dans la console d'administration",
+    "description": "Surveillez l'activité et préparez les fonctionnalités de gestion.",
+    "dashboard": {
+      "overview": "Vue d'ensemble",
+      "overviewDescription": "Consultez les métriques principales et les alertes récentes.",
+      "users": "Utilisateurs",
+      "usersDescription": "Suivez l'évolution de la base d'utilisateurs et leurs rôles.",
+      "services": "Services",
+      "servicesDescription": "Prévisualisez les publications et les changements récents."
+    },
+    "Dashboard": {
+      "meta": {
+        "title": "Tableau de bord de l'administration",
+        "description": "Un aperçu rapide des indicateurs clés."
+      },
+      "title": "Tableau de bord",
+      "description": "Visualisez les données critiques de la plateforme.",
+      "placeholder": "Les widgets analytiques seront intégrés ici prochainement."
+    },
+    "Users": {
+      "meta": {
+        "title": "Gestion des utilisateurs",
+        "description": "Préparez les outils pour administrer les comptes."
+      },
+      "title": "Utilisateurs",
+      "description": "Gérez les administrateurs, spécialistes et comptes clients.",
+      "placeholder": "La table de gestion des utilisateurs sera affichée ici."
+    },
+    "Services": {
+      "meta": {
+        "title": "Gestion des services",
+        "description": "Organisez le catalogue de services disponibles."
+      },
+      "title": "Services",
+      "description": "Publiez, archivez et hiérarchisez les services proposés.",
+      "placeholder": "Le tableau de configuration des services sera ajouté dans cette section."
+    },
+    "Appointments": {
+      "meta": {
+        "title": "Gestion des rendez-vous",
+        "description": "Supervisez les files d'attente et les réservations."
+      },
+      "title": "Rendez-vous",
+      "description": "Contrôlez les créneaux, confirmations et statistiques.",
+      "placeholder": "La console de suivi des rendez-vous apparaîtra ici."
+    },
+    "Settings": {
+      "meta": {
+        "title": "Paramètres de la plateforme",
+        "description": "Configurer les préférences et intégrations globales."
+      },
+      "title": "Paramètres",
+      "description": "Modifiez les intégrations, la sécurité et les préférences système.",
+      "placeholder": "Les formulaires de configuration générale seront placés ici."
+    }
+  },
   "LocaleSwitcher": {
     "label": "Langue",
     "comingSoon": "Bientôt disponible"

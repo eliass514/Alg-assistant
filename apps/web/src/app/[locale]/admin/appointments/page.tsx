@@ -1,0 +1,36 @@
+import { getTranslations } from 'next-intl/server';
+
+import { Section } from '@/components/layout/Section';
+
+interface PageProps {
+  params: {
+    locale: string;
+  };
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const t = await getTranslations({ locale: params.locale, namespace: 'Admin.Appointments.meta' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
+export default async function AdminAppointmentsPage() {
+  const t = await getTranslations('Admin.Appointments');
+
+  return (
+    <Section>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">{t('title')}</h1>
+          <p className="mt-2 text-foreground/70">{t('description')}</p>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-6">
+          <p className="text-sm text-foreground/60">{t('placeholder')}</p>
+        </div>
+      </div>
+    </Section>
+  );
+}
