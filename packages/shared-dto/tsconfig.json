@@ -1,9 +1,14 @@
 {
-  "extends": "@acme/tsconfig/base.json",
+  "extends": "../tsconfig/base.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "tsBuildInfoFile": "dist/.tsbuildinfo"
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
+    "baseUrl": "./",
+    "paths": {
+      "@acme/shared-dto": ["./src"],
+      "@acme/shared-dto/*": ["./src/*"]
+    }
   },
   "include": ["src"],
   "references": []

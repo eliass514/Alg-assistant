@@ -17,11 +17,17 @@ export const resetDatabase = async (prisma: PrismaService): Promise<void> => {
   await prisma.refreshToken.deleteMany();
   await prisma.conversationLog.deleteMany();
   await prisma.document.deleteMany();
+  await prisma.documentUploadValidation.deleteMany();
+  await prisma.documentUploadStatusHistory.deleteMany();
+  await prisma.documentUpload.deleteMany();
+  await prisma.validationRule.deleteMany();
+  await prisma.documentTemplateVersion.deleteMany();
+  await prisma.documentTemplateService.deleteMany();
+  await prisma.documentTemplate.deleteMany();
   await prisma.queueTicket.deleteMany();
   await prisma.appointmentStatusHistory.deleteMany();
   await prisma.appointment.deleteMany();
   await prisma.appointmentSlot.deleteMany();
-  await prisma.documentTemplate.deleteMany();
   await prisma.serviceTranslation.deleteMany();
   await prisma.serviceCategoryTranslation.deleteMany();
   await prisma.service.deleteMany();
