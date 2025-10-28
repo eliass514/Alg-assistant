@@ -1,3 +1,5 @@
+import type { RoleName } from '@/lib/constants/roles';
+
 export interface AuthUser {
   id: string;
   email: string;
@@ -6,7 +8,7 @@ export interface AuthUser {
   phoneNumber?: string | null;
   avatarUrl?: string | null;
   locale?: string | null;
-  role?: string | null;
+  role?: RoleName | null;
   createdAt?: string;
   updatedAt?: string;
 }

@@ -67,4 +67,15 @@ export class AuthController {
   profile(@CurrentUser() user: AuthenticatedUser) {
     return this.authService.getProfile(user.id);
   }
+
+  @Get('me')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Retrieve the authenticated user profile (alias for /profile)' })
+  @ApiOkResponse({
+    description: 'Profile retrieved successfully',
+    type: AuthenticatedUserDto,
+  })
+  me(@CurrentUser() user: AuthenticatedUser) {
+    return this.authService.getProfile(user.id);
+  }
 }
