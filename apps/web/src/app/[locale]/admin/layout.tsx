@@ -60,6 +60,12 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
                 {t('appointmentsLink')}
               </Link>
               <Link
+                href="/admin/document-templates"
+                className="text-sm font-medium text-foreground/80 transition hover:text-foreground"
+              >
+                {t('documentTemplatesLink')}
+              </Link>
+              <Link
                 href="/admin/settings"
                 className="text-sm font-medium text-foreground/80 transition hover:text-foreground"
               >

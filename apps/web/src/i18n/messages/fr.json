@@ -22,6 +22,7 @@
       "servicesLink": "Services",
       "categoriesLink": "Catégories",
       "appointmentsLink": "Rendez-vous",
+      "documentTemplatesLink": "Modèles de documents",
       "settingsLink": "Paramètres",
       "exitAdmin": "Revenir au site public",
       "footer": "Zone de base pour le pied de page de l'administration."
@@ -234,6 +235,101 @@
         "createSuccess": "Catégorie créée avec succès",
         "updateSuccess": "Catégorie mise à jour avec succès",
         "deleteSuccess": "Catégorie supprimée avec succès",
+        "error": "Une erreur s'est produite"
+      }
+    },
+    "DocumentTemplates": {
+      "meta": {
+        "title": "Gestion des modèles de documents",
+        "description": "Gérez les modèles de documents et formulaires."
+      },
+      "title": "Modèles de documents",
+      "description": "Créez et gérez les modèles de documents utilisés dans les services.",
+      "actions": {
+        "create": "Nouveau modèle",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "upload": "Téléverser un fichier",
+        "search": "Rechercher des modèles",
+        "refresh": "Actualiser"
+      },
+      "table": {
+        "name": "Nom",
+        "services": "Services",
+        "versions": "Versions",
+        "status": "Statut",
+        "actions": "Actions",
+        "active": "Actif",
+        "inactive": "Inactif",
+        "empty": "Aucun modèle trouvé",
+        "loading": "Chargement des modèles...",
+        "more": "de plus",
+        "versionsCount": "versions"
+      },
+      "form": {
+        "createTitle": "Créer un modèle de document",
+        "editTitle": "Modifier le modèle de document",
+        "slug": {
+          "label": "Slug",
+          "placeholder": "passport-document",
+          "hint": "Identifiant unique (lettres, chiffres et tirets uniquement)"
+        },
+        "name": {
+          "label": "Nom",
+          "placeholder": "Document de passeport"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Modèle pour les documents de passeport"
+        },
+        "defaultLocale": {
+          "label": "Langue par défaut"
+        },
+        "metadata": {
+          "label": "Métadonnées (JSON)",
+          "placeholder": "{\"key\": \"value\"}",
+          "hint": "Métadonnées optionnelles au format JSON"
+        },
+        "isActive": {
+          "label": "Modèle actif"
+        },
+        "services": {
+          "heading": "Services associés",
+          "description": "Associer le modèle à des services spécifiques",
+          "addLabel": "Ajouter un service",
+          "selectPlaceholder": "Sélectionner un service",
+          "remove": "Supprimer",
+          "empty": "Aucun service associé",
+          "noMore": "Tous les services disponibles ont été ajoutés",
+          "isRequired": "Requis",
+          "autoApply": "Application automatique",
+          "validFrom": "Valide à partir de",
+          "validTo": "Valide jusqu'à"
+        },
+        "errors": {
+          "slugRequired": "Le slug est obligatoire",
+          "slugInvalid": "Le slug doit contenir uniquement des lettres, chiffres et tirets",
+          "nameRequired": "Le nom est obligatoire",
+          "metadataInvalid": "Les métadonnées doivent être au format JSON valide"
+        }
+      },
+      "delete": {
+        "title": "Supprimer le modèle de document",
+        "message": "Êtes-vous sûr de vouloir supprimer ce modèle ? Cette action est irréversible.",
+        "confirm": "Supprimer",
+        "cancel": "Annuler"
+      },
+      "upload": {
+        "title": "Téléverser le fichier de modèle",
+        "fileLabel": "Choisir un fichier",
+        "fileHint": "Téléverser une nouvelle version du modèle",
+        "confirm": "Téléverser"
+      },
+      "messages": {
+        "createSuccess": "Modèle créé avec succès",
+        "updateSuccess": "Modèle mis à jour avec succès",
+        "deleteSuccess": "Modèle supprimé avec succès",
+        "uploadSuccess": "Fichier téléchargé avec succès",
         "error": "Une erreur s'est produite"
       }
     },
