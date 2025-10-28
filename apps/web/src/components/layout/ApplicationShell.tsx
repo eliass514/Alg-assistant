@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { getTranslations } from 'next-intl/server';
 
+import { AuthNavigation } from '@/components/auth/AuthNavigation';
 import { LocaleSwitcher } from '@/components/locale/LocaleSwitcher';
 
 import { Container } from './Container';
@@ -23,7 +24,10 @@ export async function ApplicationShell({ children }: ApplicationShellProps) {
               {t('tagline')}
             </p>
           </div>
-          <LocaleSwitcher />
+          <div className="flex flex-wrap items-center gap-4 rtl:space-x-reverse">
+            <LocaleSwitcher />
+            <AuthNavigation />
+          </div>
         </Container>
       </header>
       <main className="flex-1">

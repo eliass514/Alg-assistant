@@ -5,6 +5,7 @@ import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-in
 import { notFound } from 'next/navigation';
 
 import { ApplicationShell } from '@/components/layout/ApplicationShell';
+import { AppProviders } from '@/components/providers/AppProviders';
 import { fontVariables } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import {
@@ -56,7 +57,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html lang={activeLocale} dir={direction} className={fontVariables} suppressHydrationWarning>
       <body className={cn('bg-background text-foreground antialiased')}>
         <NextIntlClientProvider locale={activeLocale} messages={messages} timeZone="Africa/Algiers">
-          <ApplicationShell>{children}</ApplicationShell>
+          <AppProviders>
+            <ApplicationShell>{children}</ApplicationShell>
+          </AppProviders>
         </NextIntlClientProvider>
       </body>
     </html>
