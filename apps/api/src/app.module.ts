@@ -1,8 +1,9 @@
 import { join } from 'node:path';
 
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { RolesGuard } from '@common/guards/roles.guard';
@@ -10,6 +11,8 @@ import appConfig from '@config/app.config';
 import authConfig from '@config/auth.config';
 import storageConfig from '@config/storage.config';
 import llmConfig from '@config/llm.config';
+import corsConfig from '@config/cors.config';
+import rateLimitConfig, { RateLimitConfig } from '@config/rate-limit.config';
 import { AppController } from '@app/app.controller';
 import { AppService } from '@app/app.service';
 import { AiModule } from '@modules/ai/ai.module';
@@ -45,7 +48,19 @@ const envFilePath = Array.from(
       cache: true,
       expandVariables: true,
       envFilePath,
-      load: [appConfig, authConfig, storageConfig, llmConfig],
+      load: [appConfig, authConfig, storageConfig, llmConfig, corsConfig, rateLimitConfig],
+    }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const rateLimitConf = configService.get<RateLimitConfig>('rateLimit', { infer: true });
+
+        return {
+          ttl: rateLimitConf?.ttl ?? 60,
+          limit: rateLimitConf?.limit ?? 100,
+        };
+      },
     }),
     PrismaModule,
     AuthModule,
@@ -62,6 +77,10 @@ const envFilePath = Array.from(
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
