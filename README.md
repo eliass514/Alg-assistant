@@ -58,25 +58,43 @@ packages/
 
 Copy `.env.example` to `.env` (or create per-app `.env` files) and adjust values for your environment. VS Code settings and recommended extensions are included under `.vscode/` to standardize local development.
 
-## Database & Prisma
+## Docker Compose Stack
 
-A PostgreSQL stack is provided via Docker Compose for both development and test environments. From the repository root, run:
+A `docker-compose.yml` file is provided to boot the entire application stack (frontend, backend, PostgreSQL, and the nginx proxy) for local development.
+
+1. Copy `.env.example` to `.env` and adjust the values as needed.
+2. Start all services from the repository root:
+
+   ```bash
+   docker compose up -d
+   ```
+
+The stack exposes the following entry points:
+
+| Service  | Description         | Host address                                      |
+| -------- | ------------------- | ------------------------------------------------- |
+| proxy    | nginx reverse proxy | http://localhost:8080                             |
+| frontend | Next.js application | http://localhost:3000                             |
+| backend  | NestJS API          | http://localhost:3001/api                         |
+| db       | PostgreSQL database | postgresql://acme:acme123@localhost:5432/acme_dev |
+
+Once the containers are healthy, run database migrations and seed the development data:
 
 ```bash
-docker compose up -d postgres postgres-test
+docker compose exec backend pnpm exec prisma migrate deploy
+docker compose exec backend pnpm exec prisma db seed
 ```
 
-Once the containers are healthy, apply the baseline schema and seed localized sample data:
+Regenerate the Prisma client after schema updates with:
 
 ```bash
-pnpm --filter api prisma:migrate
-pnpm --filter api prisma:seed
+docker compose exec backend pnpm exec prisma generate
 ```
 
-Regenerate the Prisma client after schema changes with:
+Shut everything down with:
 
 ```bash
-pnpm --filter api prisma:generate
+docker compose down
 ```
 
 ## AWS S3 File Storage

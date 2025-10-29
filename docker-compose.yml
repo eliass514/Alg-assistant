@@ -1,9 +1,18 @@
+# -----------------------------------------------------------------------------
+# docker-compose.yml
+# -----------------------------------------------------------------------------
+# This compose file boots the full local development stack:
+# - frontend: Next.js application
+# - backend: NestJS API
+# - db: PostgreSQL database
+# - proxy: nginx reverse proxy routing traffic to the web and API services
+# -----------------------------------------------------------------------------
 version: '3.9'
 
 services:
-  postgres:
-    image: postgres:16
-    container_name: acme-postgres-dev
+  db:
+    # PostgreSQL database used by the backend service.
+    image: postgres:16-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-acme}
@@ -18,25 +27,93 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-network
 
-  postgres-test:
-    image: postgres:16
-    container_name: acme-postgres-test
+  backend:
+    # NestJS API service built from the monorepo Dockerfile.
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${POSTGRES_TEST_USER:-acme}
-      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASSWORD:-acme123}
-      POSTGRES_DB: ${POSTGRES_TEST_DB:-acme_test}
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-acme}:${POSTGRES_PASSWORD:-acme123}@db:5432/${POSTGRES_DB:-acme_dev}
+      JWT_ACCESS_TOKEN_SECRET: ${JWT_ACCESS_TOKEN_SECRET:-change-me-access}
+      JWT_ACCESS_TOKEN_EXPIRES_IN: ${JWT_ACCESS_TOKEN_EXPIRES_IN:-900}
+      JWT_REFRESH_TOKEN_SECRET: ${JWT_REFRESH_TOKEN_SECRET:-change-me-refresh}
+      JWT_REFRESH_TOKEN_EXPIRES_IN: ${JWT_REFRESH_TOKEN_EXPIRES_IN:-604800}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-acme.api}
+      JWT_ISSUER: ${JWT_ISSUER:-acme.api}
+      BCRYPT_SALT_ROUNDS: ${BCRYPT_SALT_ROUNDS:-10}
+      DEFAULT_USER_ROLE: ${DEFAULT_USER_ROLE:-client}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_S3_BUCKET_NAME: ${AWS_S3_BUCKET_NAME:-}
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
-      - '${POSTGRES_TEST_PORT:-5433}:5432'
-    volumes:
-      - postgres_test_data:/var/lib/postgresql/data
+      - '${BACKEND_PORT:-3001}:3000'
+    networks:
+      - app-network
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_TEST_USER:-acme}']
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test:
+        [
+          'CMD',
+          'wget',
+          '--no-verbose',
+          '--tries=1',
+          '--spider',
+          'http://localhost:3000/api/v1/health',
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  frontend:
+    # Next.js frontend built from the monorepo Dockerfile.
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      API_BASE_URL: http://backend:3000/api
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${PROXY_PORT:-8080}/api}
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - '${FRONTEND_PORT:-3000}:3000'
+    networks:
+      - app-network
+
+  proxy:
+    # nginx reverse proxy that exposes a single entry point.
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      frontend:
+        condition: service_started
+      backend:
+        condition: service_started
+    volumes:
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - '${PROXY_PORT:-8080}:80'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data:
-  postgres_test_data:
+    driver: local
