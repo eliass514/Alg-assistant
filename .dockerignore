@@ -1,0 +1,17 @@
+# Version control
+.git
+.gitignore
+
+# Dependency directories
+node_modules
+**/node_modules
+
+# Next.js build artifacts
+apps/web/.next
+apps/web/out
+apps/web/.turbo
+
+# Logs and temporary files
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
