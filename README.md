@@ -138,6 +138,10 @@ Shut everything down with:
 docker compose down
 ```
 
+## HTTPS / TLS Setup Guidance
+
+The provided docker-compose stack is optimized for local development. For production deployment options—including examples of terminating HTTPS with nginx or Traefik and guidance on using Let's Encrypt—see [docs/HTTPS_GUIDANCE.md](docs/HTTPS_GUIDANCE.md).
+
 ## AWS S3 File Storage
 
 The application uses AWS S3 for document storage. Configure the following environment variables in your `.env` file or through your hosting platform's environment variables:
