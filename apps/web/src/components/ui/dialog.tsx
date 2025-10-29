@@ -62,7 +62,7 @@ export function Dialog({ open, onClose, children, className }: DialogProps) {
     <dialog
       ref={dialogRef}
       className={cn(
-        'fixed inset-0 z-50 m-auto max-h-[90vh] w-full max-w-2xl overflow-auto rounded-lg border border-border bg-background p-0 shadow-xl backdrop:bg-black/50',
+        'fixed inset-0 z-50 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-2xl overflow-auto rounded-lg border border-border bg-background p-0 shadow-xl backdrop:bg-black/50 sm:w-full',
         className,
       )}
     >

@@ -5,6 +5,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { LocaleSwitcher } from '@/components/locale/LocaleSwitcher';
 import { Container } from '@/components/layout/Container';
+import { AdminMobileNav } from '@/components/admin/AdminMobileNav';
 import type { SupportedLocale } from '@/i18n/config';
 
 interface AdminLayoutProps {
@@ -23,12 +24,16 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="border-b border-border/70 bg-background/80 backdrop-blur">
-        <Container className="flex flex-wrap items-center justify-between gap-4 py-4">
-          <div className="flex items-center gap-6">
+        <Container className="py-4">
+          <div className="flex items-center justify-between gap-4">
             <Link href="/admin" className="text-lg font-semibold text-primary">
               {t('brand')}
             </Link>
-            <nav aria-label={t('navLabel')} className="flex items-center gap-4 rtl:space-x-reverse">
+
+            <nav
+              aria-label={t('navLabel')}
+              className="hidden items-center gap-4 lg:flex rtl:space-x-reverse"
+            >
               <Link
                 href="/admin/dashboard"
                 className="text-sm font-medium text-foreground/80 transition hover:text-foreground"
@@ -78,15 +83,17 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
                 {t('settingsLink')}
               </Link>
             </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <LocaleSwitcher />
-            <Link
-              href="/"
-              className="text-sm font-medium text-foreground/80 transition hover:text-foreground"
-            >
-              {t('exitAdmin')}
-            </Link>
+
+            <div className="flex items-center gap-4">
+              <LocaleSwitcher />
+              <Link
+                href="/"
+                className="hidden text-sm font-medium text-foreground/80 transition hover:text-foreground sm:inline-block"
+              >
+                {t('exitAdmin')}
+              </Link>
+              <AdminMobileNav />
+            </div>
           </div>
         </Container>
       </header>
