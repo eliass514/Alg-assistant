@@ -60,7 +60,8 @@
         "services": {
           "label": "Services actifs",
           "description": "Prestations publiées et visibles."
-        }
+        },
+        "error": "Impossible de charger les métriques pour le moment."
       }
     },
     "Dashboard": {

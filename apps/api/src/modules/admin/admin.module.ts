@@ -10,11 +10,13 @@ import { AdminAppointmentsController } from './controllers/admin-appointments.co
 import { AdminQueueTicketsController } from './controllers/admin-queue-tickets.controller';
 import { AdminDocumentTemplatesController } from './controllers/admin-document-templates.controller';
 import { AdminLogsController } from './controllers/admin-logs.controller';
+import { AdminDashboardController } from './controllers/admin-dashboard.controller';
 import { AdminServicesService } from './services/admin-services.service';
 import { AdminAppointmentsService } from './services/admin-appointments.service';
 import { AdminQueueTicketsService } from './services/admin-queue-tickets.service';
 import { AdminDocumentTemplatesService } from './services/admin-document-templates.service';
 import { AdminLogsService } from './services/admin-logs.service';
+import { AdminDashboardService } from './services/admin-dashboard.service';
 
 @Module({
   imports: [ServicesModule, DocumentTemplatesModule, DocumentUploadsModule],
@@ -25,6 +27,7 @@ import { AdminLogsService } from './services/admin-logs.service';
     AdminQueueTicketsController,
     AdminDocumentTemplatesController,
     AdminLogsController,
+    AdminDashboardController,
   ],
   providers: [
     AdminServicesService,
@@ -32,6 +35,7 @@ import { AdminLogsService } from './services/admin-logs.service';
     AdminQueueTicketsService,
     AdminDocumentTemplatesService,
     AdminLogsService,
+    AdminDashboardService,
   ],
   exports: [
     AdminServicesService,
@@ -39,6 +43,7 @@ import { AdminLogsService } from './services/admin-logs.service';
     AdminQueueTicketsService,
     AdminDocumentTemplatesService,
     AdminLogsService,
+    AdminDashboardService,
   ],
 })
 export class AdminModule {}
