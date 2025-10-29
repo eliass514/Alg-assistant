@@ -162,12 +162,14 @@ export function DocumentTemplatesManagementPage() {
   return (
     <Section>
       <div className="space-y-6">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">{t('title')}</h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">{t('title')}</h1>
             <p className="mt-2 text-foreground/70">{t('description')}</p>
           </div>
-          <Button onClick={() => setIsCreateDialogOpen(true)}>{t('actions.create')}</Button>
+          <Button onClick={() => setIsCreateDialogOpen(true)} className="self-start">
+            {t('actions.create')}
+          </Button>
         </div>
 
         {(successMessage || errorMessage) && (
@@ -182,8 +184,8 @@ export function DocumentTemplatesManagementPage() {
           </div>
         )}
 
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <div className="sm:flex-1">
             <Input
               type="search"
               placeholder={t('actions.search')}
@@ -199,12 +201,13 @@ export function DocumentTemplatesManagementPage() {
             onClick={() =>
               queryClient.invalidateQueries({ queryKey: adminDocumentTemplateKeys.all })
             }
+            className="w-full sm:w-auto"
           >
             {t('actions.refresh')}
           </Button>
         </div>
 
-        <div className="rounded-lg border border-border bg-card">
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <Spinner />
@@ -222,99 +225,105 @@ export function DocumentTemplatesManagementPage() {
             </div>
           ) : (
             <>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableHeaderCell>{t('table.name')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.services')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.versions')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.status')}</TableHeaderCell>
-                    <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {templates.map((template) => (
-                    <TableRow key={template.id} hover>
-                      <TableCell>
-                        <div>
-                          <span className="font-medium">{template.name}</span>
-                          {template.description && (
-                            <p className="mt-0.5 text-xs text-foreground/60">
-                              {template.description}
-                            </p>
-                          )}
-                        </div>
-                        <code className="mt-1 block text-xs text-foreground/50">
-                          {template.slug}
-                        </code>
-                      </TableCell>
-                      <TableCell>
-                        {template.services && template.services.length > 0 ? (
-                          <div className="space-y-1">
-                            {template.services.slice(0, 2).map((service) => (
-                              <div key={service.id} className="text-xs">
-                                {service.service.translations[0]?.name || service.service.slug}
-                              </div>
-                            ))}
-                            {template.services.length > 2 && (
-                              <div className="text-xs text-foreground/60">
-                                +{template.services.length - 2} {t('table.more')}
-                              </div>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>{t('table.name')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.services')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.versions')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.status')}</TableHeaderCell>
+                      <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {templates.map((template) => (
+                      <TableRow key={template.id} hover>
+                        <TableCell>
+                          <div className="min-w-[200px]">
+                            <span className="font-medium">{template.name}</span>
+                            {template.description && (
+                              <p className="mt-0.5 text-xs text-foreground/60">
+                                {template.description}
+                              </p>
                             )}
                           </div>
-                        ) : (
-                          <span className="text-sm text-foreground/50">—</span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {template.versions && template.versions.length > 0 ? (
-                          <div className="text-sm">
-                            {template.versions.length} {t('table.versionsCount')}
+                          <code className="mt-1 block text-xs text-foreground/50">
+                            {template.slug}
+                          </code>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[150px]">
+                            {template.services && template.services.length > 0 ? (
+                              <div className="space-y-1">
+                                {template.services.slice(0, 2).map((service) => (
+                                  <div key={service.id} className="text-xs">
+                                    {service.service.translations[0]?.name || service.service.slug}
+                                  </div>
+                                ))}
+                                {template.services.length > 2 && (
+                                  <div className="text-xs text-foreground/60">
+                                    +{template.services.length - 2} {t('table.more')}
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <span className="text-sm text-foreground/50">—</span>
+                            )}
                           </div>
-                        ) : (
-                          <span className="text-sm text-foreground/50">—</span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                            template.isActive
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          {template.isActive ? t('table.active') : t('table.inactive')}
-                        </span>
-                      </TableCell>
-                      <TableCell align="right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setUploadingTemplate(template)}
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[100px]">
+                            {template.versions && template.versions.length > 0 ? (
+                              <div className="text-sm">
+                                {template.versions.length} {t('table.versionsCount')}
+                              </div>
+                            ) : (
+                              <span className="text-sm text-foreground/50">—</span>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                              template.isActive
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-800'
+                            }`}
                           >
-                            {t('actions.upload')}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setEditingTemplate(template)}
-                          >
-                            {t('actions.edit')}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setDeletingTemplate(template)}
-                          >
-                            {t('actions.delete')}
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                            {template.isActive ? t('table.active') : t('table.inactive')}
+                          </span>
+                        </TableCell>
+                        <TableCell align="right">
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setUploadingTemplate(template)}
+                            >
+                              {t('actions.upload')}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setEditingTemplate(template)}
+                            >
+                              {t('actions.edit')}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setDeletingTemplate(template)}
+                            >
+                              {t('actions.delete')}
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
 
               {totalPages > 1 && (
                 <div className="flex items-center justify-between border-t border-border px-4 py-3">

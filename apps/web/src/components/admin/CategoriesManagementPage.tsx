@@ -124,12 +124,14 @@ export function CategoriesManagementPage() {
   return (
     <Section>
       <div className="space-y-6">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">{t('title')}</h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">{t('title')}</h1>
             <p className="mt-2 text-foreground/70">{t('description')}</p>
           </div>
-          <Button onClick={() => setIsCreateDialogOpen(true)}>{t('actions.create')}</Button>
+          <Button onClick={() => setIsCreateDialogOpen(true)} className="self-start">
+            {t('actions.create')}
+          </Button>
         </div>
 
         {(successMessage || errorMessage) && (
@@ -144,8 +146,8 @@ export function CategoriesManagementPage() {
           </div>
         )}
 
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <div className="sm:flex-1">
             <Input
               type="search"
               placeholder={t('actions.search')}
@@ -159,12 +161,13 @@ export function CategoriesManagementPage() {
           <Button
             variant="secondary"
             onClick={() => queryClient.invalidateQueries({ queryKey: adminCategoryKeys.all })}
+            className="w-full sm:w-auto"
           >
             {t('actions.refresh')}
           </Button>
         </div>
 
-        <div className="rounded-lg border border-border bg-card">
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <Spinner />
@@ -182,62 +185,68 @@ export function CategoriesManagementPage() {
             </div>
           ) : (
             <>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableHeaderCell>{t('table.name')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.slug')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.status')}</TableHeaderCell>
-                    <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {categories.map((category) => (
-                    <TableRow key={category.id} hover>
-                      <TableCell>
-                        <span className="font-medium">{category.translation?.name || '—'}</span>
-                        {category.translation?.description && (
-                          <p className="mt-0.5 text-xs text-foreground/60">
-                            {category.translation.description}
-                          </p>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <code className="rounded bg-muted px-2 py-1 text-xs">{category.slug}</code>
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                            category.isActive
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          {category.isActive ? t('table.active') : t('table.inactive')}
-                        </span>
-                      </TableCell>
-                      <TableCell align="right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setEditingCategory(category)}
-                          >
-                            {t('actions.edit')}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setDeletingCategory(category)}
-                          >
-                            {t('actions.delete')}
-                          </Button>
-                        </div>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>{t('table.name')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.slug')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.status')}</TableHeaderCell>
+                      <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {categories.map((category) => (
+                      <TableRow key={category.id} hover>
+                        <TableCell>
+                          <div className="min-w-[200px]">
+                            <span className="font-medium">{category.translation?.name || '—'}</span>
+                            {category.translation?.description && (
+                              <p className="mt-0.5 text-xs text-foreground/60">
+                                {category.translation.description}
+                              </p>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <code className="rounded bg-muted px-2 py-1 text-xs">
+                            {category.slug}
+                          </code>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                              category.isActive
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-800'
+                            }`}
+                          >
+                            {category.isActive ? t('table.active') : t('table.inactive')}
+                          </span>
+                        </TableCell>
+                        <TableCell align="right">
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setEditingCategory(category)}
+                            >
+                              {t('actions.edit')}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setDeletingCategory(category)}
+                            >
+                              {t('actions.delete')}
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
 
               {totalPages > 1 && (
                 <div className="flex items-center justify-between border-t border-border px-4 py-3">

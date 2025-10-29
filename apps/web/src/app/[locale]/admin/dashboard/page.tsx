@@ -24,7 +24,7 @@ export default async function AdminDashboardPage() {
     <Section>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">{t('title')}</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">{t('title')}</h1>
           <p className="mt-2 text-foreground/70">{t('description')}</p>
         </div>
         <div className="rounded-lg border border-border bg-card p-6">

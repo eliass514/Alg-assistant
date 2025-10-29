@@ -132,7 +132,7 @@ export function ModerationLogsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">{t('title')}</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">{t('title')}</h1>
         <p className="mt-2 text-foreground/70">{t('description')}</p>
       </div>
 
@@ -370,63 +370,67 @@ interface ConversationLogsTableProps {
 
 function ConversationLogsTable({ logs, t }: ConversationLogsTableProps) {
   return (
-    <div className="rounded-lg border border-border bg-card">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>{t('table.conversations.timestamp')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.conversations.participant')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.conversations.message')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.conversations.userId')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.conversations.appointmentId')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.conversations.locale')}</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {logs.map((log) => {
-            const participantKey = getParticipantTranslationKey(log.participant);
+    <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell>{t('table.conversations.timestamp')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.conversations.participant')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.conversations.message')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.conversations.userId')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.conversations.appointmentId')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.conversations.locale')}</TableHeaderCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {logs.map((log) => {
+              const participantKey = getParticipantTranslationKey(log.participant);
 
-            return (
-              <TableRow key={log.id} hover>
-                <TableCell>
-                  <div className="text-xs">{formatTimestamp(log.createdAt)}</div>
-                </TableCell>
-                <TableCell>
-                  <span
-                    className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${getParticipantColor(log.participant)}`}
-                  >
-                    {t(`filters.participants.${participantKey}`)}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <div className="max-w-md truncate text-sm" title={log.message}>
-                    {log.message}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div
-                    className="text-xs font-mono text-foreground/60"
-                    title={log.userId ?? undefined}
-                  >
-                    {formatIdentifier(log.userId)}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div
-                    className="text-xs font-mono text-foreground/60"
-                    title={log.appointmentId ?? undefined}
-                  >
-                    {formatIdentifier(log.appointmentId)}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-xs uppercase text-foreground/60">{log.locale}</div>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+              return (
+                <TableRow key={log.id} hover>
+                  <TableCell>
+                    <div className="min-w-[140px] text-xs">{formatTimestamp(log.createdAt)}</div>
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${getParticipantColor(log.participant)}`}
+                    >
+                      {t(`filters.participants.${participantKey}`)}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="min-w-[240px] max-w-md truncate text-sm" title={log.message}>
+                      {log.message}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div
+                      className="min-w-[180px] text-xs font-mono text-foreground/60"
+                      title={log.userId ?? undefined}
+                    >
+                      {formatIdentifier(log.userId)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div
+                      className="min-w-[180px] text-xs font-mono text-foreground/60"
+                      title={log.appointmentId ?? undefined}
+                    >
+                      {formatIdentifier(log.appointmentId)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="min-w-[100px] text-xs uppercase text-foreground/60">
+                      {log.locale}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
@@ -438,82 +442,87 @@ interface DocumentVerificationLogsTableProps {
 
 function DocumentVerificationLogsTable({ logs, t }: DocumentVerificationLogsTableProps) {
   return (
-    <div className="rounded-lg border border-border bg-card">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>{t('table.documentVerifications.timestamp')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.documentVerifications.type')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.documentVerifications.details')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.documentVerifications.uploadId')}</TableHeaderCell>
-            <TableHeaderCell>{t('table.documentVerifications.userId')}</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {logs.map((log) => {
-            const timestamp = log.type === 'status' ? log.createdAt : log.executedAt;
+    <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell>{t('table.documentVerifications.timestamp')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.documentVerifications.type')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.documentVerifications.details')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.documentVerifications.uploadId')}</TableHeaderCell>
+              <TableHeaderCell>{t('table.documentVerifications.userId')}</TableHeaderCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {logs.map((log) => {
+              const timestamp = log.type === 'status' ? log.createdAt : log.executedAt;
 
-            return (
-              <TableRow key={log.id} hover>
-                <TableCell>
-                  <div className="text-xs">{formatTimestamp(timestamp)}</div>
-                </TableCell>
-                <TableCell>
-                  <span
-                    className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${log.type === 'status' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}
-                  >
-                    {t(`filters.logTypes.${log.type}`)}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <div className="max-w-md space-y-1 text-sm">
-                    {log.type === 'status' ? (
-                      <>
-                        <div>
-                          <span className="text-foreground/60">
-                            {log.fromStatus || t('table.documentVerifications.initial')}
-                          </span>
-                          {' → '}
-                          <span className="font-medium">{log.toStatus}</span>
-                        </div>
-                        {log.reason && (
-                          <div className="text-xs text-foreground/60" title={log.reason}>
-                            {log.reason}
+              return (
+                <TableRow key={log.id} hover>
+                  <TableCell>
+                    <div className="min-w-[140px] text-xs">{formatTimestamp(timestamp)}</div>
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${log.type === 'status' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}
+                    >
+                      {t(`filters.logTypes.${log.type}`)}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="min-w-[240px] max-w-md space-y-1 text-sm">
+                      {log.type === 'status' ? (
+                        <>
+                          <div>
+                            <span className="text-foreground/60">
+                              {log.fromStatus || t('table.documentVerifications.initial')}
+                            </span>
+                            {' → '}
+                            <span className="font-medium">{log.toStatus}</span>
                           </div>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        <div>
-                          <span className="font-medium">{log.status}</span>
-                        </div>
-                        {log.message && (
-                          <div className="text-xs text-foreground/60" title={log.message}>
-                            {log.message}
+                          {log.reason && (
+                            <div className="text-xs text-foreground/60" title={log.reason}>
+                              {log.reason}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <span className="font-medium">{log.status}</span>
                           </div>
-                        )}
-                      </>
-                    )}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-xs font-mono text-foreground/60" title={log.uploadId}>
-                    {formatIdentifier(log.uploadId)}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div
-                    className="text-xs font-mono text-foreground/60"
-                    title={log.userId ?? undefined}
-                  >
-                    {formatIdentifier(log.userId)}
-                  </div>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                          {log.message && (
+                            <div className="text-xs text-foreground/60" title={log.message}>
+                              {log.message}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div
+                      className="min-w-[180px] text-xs font-mono text-foreground/60"
+                      title={log.uploadId}
+                    >
+                      {formatIdentifier(log.uploadId)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div
+                      className="min-w-[180px] text-xs font-mono text-foreground/60"
+                      title={log.userId ?? undefined}
+                    >
+                      {formatIdentifier(log.userId)}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

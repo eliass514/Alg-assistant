@@ -138,12 +138,14 @@ export function ServicesManagementPage() {
   return (
     <Section>
       <div className="space-y-6">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">{t('title')}</h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">{t('title')}</h1>
             <p className="mt-2 text-foreground/70">{t('description')}</p>
           </div>
-          <Button onClick={() => setIsCreateDialogOpen(true)}>{t('actions.create')}</Button>
+          <Button onClick={() => setIsCreateDialogOpen(true)} className="self-start">
+            {t('actions.create')}
+          </Button>
         </div>
 
         {(successMessage || errorMessage) && (
@@ -158,8 +160,8 @@ export function ServicesManagementPage() {
           </div>
         )}
 
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <div className="sm:flex-1">
             <Input
               type="search"
               placeholder={t('actions.search')}
@@ -173,12 +175,13 @@ export function ServicesManagementPage() {
           <Button
             variant="secondary"
             onClick={() => queryClient.invalidateQueries({ queryKey: adminServiceKeys.all })}
+            className="w-full sm:w-auto"
           >
             {t('actions.refresh')}
           </Button>
         </div>
 
-        <div className="rounded-lg border border-border bg-card">
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <Spinner />
@@ -196,73 +199,81 @@ export function ServicesManagementPage() {
             </div>
           ) : (
             <>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableHeaderCell>{t('table.name')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.category')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.price')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.duration')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.status')}</TableHeaderCell>
-                    <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {services.map((service) => (
-                    <TableRow key={service.id} hover>
-                      <TableCell>
-                        <div>
-                          <span className="font-medium">{service.translation?.name || '—'}</span>
-                          {service.translation?.summary && (
-                            <p className="mt-0.5 text-xs text-foreground/60">
-                              {service.translation.summary}
-                            </p>
-                          )}
-                        </div>
-                        <code className="mt-1 block text-xs text-foreground/50">
-                          {service.slug}
-                        </code>
-                      </TableCell>
-                      <TableCell>
-                        {service.category.translation?.name || service.category.slug}
-                      </TableCell>
-                      <TableCell>{service.price}</TableCell>
-                      <TableCell>
-                        {t('table.minutes', { count: service.durationMinutes })}
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                            service.isActive
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          {service.isActive ? t('table.active') : t('table.inactive')}
-                        </span>
-                      </TableCell>
-                      <TableCell align="right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setEditingService(service)}
-                          >
-                            {t('actions.edit')}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setDeletingService(service)}
-                          >
-                            {t('actions.delete')}
-                          </Button>
-                        </div>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>{t('table.name')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.category')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.price')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.duration')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.status')}</TableHeaderCell>
+                      <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {services.map((service) => (
+                      <TableRow key={service.id} hover>
+                        <TableCell>
+                          <div className="min-w-[200px]">
+                            <span className="font-medium">{service.translation?.name || '—'}</span>
+                            {service.translation?.summary && (
+                              <p className="mt-0.5 text-xs text-foreground/60">
+                                {service.translation.summary}
+                              </p>
+                            )}
+                          </div>
+                          <code className="mt-1 block text-xs text-foreground/50">
+                            {service.slug}
+                          </code>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[120px]">
+                            {service.category.translation?.name || service.category.slug}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[80px]">{service.price}</div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[80px]">
+                            {t('table.minutes', { count: service.durationMinutes })}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                              service.isActive
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-800'
+                            }`}
+                          >
+                            {service.isActive ? t('table.active') : t('table.inactive')}
+                          </span>
+                        </TableCell>
+                        <TableCell align="right">
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setEditingService(service)}
+                            >
+                              {t('actions.edit')}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setDeletingService(service)}
+                            >
+                              {t('actions.delete')}
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
 
               {totalPages > 1 && (
                 <div className="flex items-center justify-between border-t border-border px-4 py-3">

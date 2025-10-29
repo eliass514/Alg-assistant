@@ -218,17 +218,20 @@ export function AppointmentsManagementPage() {
       <div className="space-y-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">{t('title')}</h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">{t('title')}</h1>
             <p className="mt-2 text-foreground/70">{t('description')}</p>
           </div>
-          <div className="flex items-center gap-2 self-start">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center md:self-auto">
             <Button
               variant="secondary"
               onClick={() => queryClient.invalidateQueries({ queryKey: adminAppointmentKeys.all })}
+              className="w-full sm:w-auto"
             >
               {t('actions.refresh')}
             </Button>
-            <Button onClick={handleClearFilters}>{t('actions.clearFilters')}</Button>
+            <Button onClick={handleClearFilters} className="w-full sm:w-auto">
+              {t('actions.clearFilters')}
+            </Button>
           </div>
         </div>
 
@@ -324,7 +327,7 @@ export function AppointmentsManagementPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-border bg-card">
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <Spinner />
@@ -342,95 +345,99 @@ export function AppointmentsManagementPage() {
             </div>
           ) : (
             <>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableHeaderCell>{t('table.user')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.service')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.scheduledAt')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.status')}</TableHeaderCell>
-                    <TableHeaderCell>{t('table.queue')}</TableHeaderCell>
-                    <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {appointments.map((appointment) => (
-                    <TableRow key={appointment.id} hover>
-                      <TableCell>
-                        <div className="text-xs">
-                          <code className="block text-foreground/60">{appointment.userId}</code>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div>
-                          <span className="block text-sm font-medium">
-                            {appointment.service.slug}
-                          </span>
-                          <span className="text-xs text-foreground/60">
-                            {t('table.duration', {
-                              count: appointment.service.durationMinutes,
-                            })}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm">
-                          <div>{formatDateTime(appointment.scheduledAt)}</div>
-                          <div className="text-xs text-foreground/60">{appointment.timezone}</div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadgeClasses(appointment.status)}`}
-                        >
-                          {translateStatus(appointment.status)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        {appointment.queueTicket ? (
-                          <span
-                            className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${getQueueStatusBadgeClasses(appointment.queueTicket.status)}`}
-                          >
-                            #{appointment.queueTicket.position}{' '}
-                            {translateQueueStatus(appointment.queueTicket.status)}
-                          </span>
-                        ) : (
-                          <span className="text-xs text-foreground/40">—</span>
-                        )}
-                      </TableCell>
-                      <TableCell align="right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setViewingAppointment(appointment.id)}
-                          >
-                            {t('actions.view')}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => {
-                              setUpdatingAppointment(appointment);
-                              setUpdatingStatus(appointment.status);
-                              setUpdatingNotes(appointment.notes ?? '');
-                            }}
-                          >
-                            {t('actions.updateStatus')}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setDeletingAppointment(appointment)}
-                          >
-                            {t('actions.delete')}
-                          </Button>
-                        </div>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>{t('table.user')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.service')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.scheduledAt')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.status')}</TableHeaderCell>
+                      <TableHeaderCell>{t('table.queue')}</TableHeaderCell>
+                      <TableHeaderCell align="right">{t('table.actions')}</TableHeaderCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {appointments.map((appointment) => (
+                      <TableRow key={appointment.id} hover>
+                        <TableCell>
+                          <div className="min-w-[150px] text-xs">
+                            <code className="block text-foreground/60">{appointment.userId}</code>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[150px]">
+                            <span className="block text-sm font-medium">
+                              {appointment.service.slug}
+                            </span>
+                            <span className="text-xs text-foreground/60">
+                              {t('table.duration', {
+                                count: appointment.service.durationMinutes,
+                              })}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[150px] text-sm">
+                            <div>{formatDateTime(appointment.scheduledAt)}</div>
+                            <div className="text-xs text-foreground/60">{appointment.timezone}</div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadgeClasses(appointment.status)}`}
+                          >
+                            {translateStatus(appointment.status)}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[120px]">
+                            {appointment.queueTicket ? (
+                              <span
+                                className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${getQueueStatusBadgeClasses(appointment.queueTicket.status)}`}
+                              >
+                                #{appointment.queueTicket.position}{' '}
+                                {translateQueueStatus(appointment.queueTicket.status)}
+                              </span>
+                            ) : (
+                              <span className="text-xs text-foreground/40">—</span>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell align="right">
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setViewingAppointment(appointment.id)}
+                            >
+                              {t('actions.view')}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                setUpdatingAppointment(appointment);
+                                setUpdatingStatus(appointment.status);
+                                setUpdatingNotes(appointment.notes ?? '');
+                              }}
+                            >
+                              {t('actions.updateStatus')}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setDeletingAppointment(appointment)}
+                            >
+                              {t('actions.delete')}
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
 
               {totalPages > 1 && (
                 <div className="flex items-center justify-between border-t border-border px-4 py-3">

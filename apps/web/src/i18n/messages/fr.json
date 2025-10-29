@@ -26,6 +26,8 @@
       "logsLink": "Journaux de modération",
       "settingsLink": "Paramètres",
       "exitAdmin": "Revenir au site public",
+      "openMenu": "Ouvrir la navigation",
+      "closeMenu": "Fermer la navigation",
       "footer": "Zone de base pour le pied de page de l'administration."
     },
     "meta": {
