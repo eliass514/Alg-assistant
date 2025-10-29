@@ -1,5 +1,30 @@
-const rawBaseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.API_BASE_URL ?? '').trim();
-const apiBaseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
+function resolveRawBaseUrl(): string {
+  if (typeof window === 'undefined') {
+    return (process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? '').trim();
+  }
+
+  return (process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.API_BASE_URL ?? '').trim();
+}
+
+function resolveApiBaseUrl(): string | null {
+  const rawBaseUrl = resolveRawBaseUrl();
+
+  if (!rawBaseUrl) {
+    return null;
+  }
+
+  return rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
+}
+
+function getApiBaseUrl(): string {
+  const baseUrl = resolveApiBaseUrl();
+
+  if (!baseUrl) {
+    throw new Error('API base URL is not defined. Set NEXT_PUBLIC_API_BASE_URL or API_BASE_URL.');
+  }
+
+  return baseUrl;
+}
 
 export class ApiError extends Error {
   status: number;
@@ -19,12 +44,14 @@ interface ApiRequestInit extends RequestInit {
 let refreshPromise: Promise<boolean> | null = null;
 
 export async function refreshAccessToken(): Promise<boolean> {
+  const apiBaseUrl = resolveApiBaseUrl();
+
   if (!apiBaseUrl) {
     return false;
   }
 
   if (!refreshPromise) {
-    refreshPromise = fetch(buildUrl('/auth/refresh'), {
+    refreshPromise = fetch(`${apiBaseUrl}/auth/refresh`, {
       method: 'POST',
       credentials: 'include',
       headers: buildHeaders(),
@@ -78,9 +105,7 @@ function buildUrl(path: string): string {
     return path;
   }
 
-  if (!apiBaseUrl) {
-    throw new Error('API base URL is not defined. Set NEXT_PUBLIC_API_BASE_URL or API_BASE_URL.');
-  }
+  const apiBaseUrl = getApiBaseUrl();
 
   if (!path.startsWith('/')) {
     return `${apiBaseUrl}/${path}`;
