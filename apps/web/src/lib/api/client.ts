@@ -1,9 +1,11 @@
+import { config } from '../config';
+
 function resolveRawBaseUrl(): string {
   if (typeof window === 'undefined') {
-    return (process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? '').trim();
+    return config.apiBaseUrl;
   }
 
-  return (process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.API_BASE_URL ?? '').trim();
+  return config.publicApiBaseUrl;
 }
 
 function resolveApiBaseUrl(): string | null {

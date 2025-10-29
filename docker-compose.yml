@@ -6,6 +6,15 @@
 # - backend: NestJS API
 # - db: PostgreSQL database
 # - proxy: nginx reverse proxy routing traffic to the web and API services
+#
+# Environment Variables:
+# This file automatically loads variables from .env in the repository root.
+# See docs/ENVIRONMENT_VARIABLES.md for detailed documentation.
+#
+# Quick Start:
+#   1. cp .env.development.example .env
+#   2. docker compose up -d
+#   3. docker compose exec backend pnpm exec prisma migrate deploy
 # -----------------------------------------------------------------------------
 version: '3.9'
 
