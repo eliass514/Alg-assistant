@@ -9,6 +9,7 @@ import { AppModule } from '@app/app.module';
 import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
 import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
 import { AppConfig } from '@config/app.config';
+import { CorsConfig } from '@config/cors.config';
 import { PrismaService } from '@prisma/prisma.service';
 
 async function bootstrap() {
@@ -18,6 +19,22 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const appConfig = configService.get<AppConfig>('app', { infer: true });
+  const corsConfig = configService.get<CorsConfig>('cors', { infer: true });
+
+  if (corsConfig?.enabled) {
+    app.enableCors({
+      origin: corsConfig.origins,
+      credentials: corsConfig.credentials,
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+      exposedHeaders: [
+        'X-Total-Count',
+        'X-RateLimit-Limit',
+        'X-RateLimit-Remaining',
+        'X-RateLimit-Reset',
+      ],
+    });
+  }
 
   app.useGlobalPipes(
     new ValidationPipe({
