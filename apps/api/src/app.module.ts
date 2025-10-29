@@ -1,3 +1,5 @@
+import { join } from 'node:path';
+
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
@@ -22,13 +24,27 @@ import { UsersModule } from '@modules/users/users.module';
 import { AdminModule } from '@modules/admin/admin.module';
 import { PrismaModule } from '@prisma/prisma.module';
 
+const nodeEnv = process.env.NODE_ENV ?? 'development';
+const envFilePath = Array.from(
+  new Set([
+    `.env.${nodeEnv}.local`,
+    `.env.${nodeEnv}`,
+    '.env.local',
+    '.env',
+    join(__dirname, '..', '..', `.env.${nodeEnv}.local`),
+    join(__dirname, '..', '..', `.env.${nodeEnv}`),
+    join(__dirname, '..', '..', '.env.local'),
+    join(__dirname, '..', '..', '.env'),
+  ]),
+);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
       expandVariables: true,
-      envFilePath: ['.env', '.env.local', '../../.env', '../../.env.local'],
+      envFilePath,
       load: [appConfig, authConfig, storageConfig, llmConfig],
     }),
     PrismaModule,

@@ -56,7 +56,32 @@ packages/
 
 ## Environment Management
 
-Copy `.env.example` to `.env` (or create per-app `.env` files) and adjust values for your environment. VS Code settings and recommended extensions are included under `.vscode/` to standardize local development.
+This project uses a comprehensive environment variable strategy for managing configuration across development, staging, and production environments.
+
+**Quick Start:**
+
+```bash
+# Option 1: Copy the base example
+cp .env.example .env
+
+# Option 2: Use the development-specific example (recommended)
+cp .env.development.example .env
+
+# Edit with your local values
+vim .env
+```
+
+**📖 For detailed documentation, see [docs/ENVIRONMENT_VARIABLES.md](docs/ENVIRONMENT_VARIABLES.md)**
+
+This comprehensive guide covers:
+
+- Environment variable loading strategies (local, Docker, production)
+- Backend (NestJS) and Frontend (Next.js) configuration
+- Security best practices
+- Cloud deployment strategies (AWS, Kubernetes, Vercel)
+- Troubleshooting common issues
+
+VS Code settings and recommended extensions are included under `.vscode/` to standardize local development.
 
 ## Docker Compose Stack
 
