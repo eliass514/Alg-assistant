@@ -3,10 +3,10 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { PinoLogger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -32,13 +32,14 @@ interface AuthTokens {
 
 @Injectable()
 export class AuthService {
-  private readonly logger = new Logger(AuthService.name);
-
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-  ) {}
+    private readonly logger: PinoLogger,
+  ) {
+    this.logger.setContext(AuthService.name);
+  }
 
   async register(registerDto: RegisterDto): Promise<AuthTokens> {
     const authConfig = this.getAuthConfig();
@@ -71,7 +72,7 @@ export class AuthService {
       },
     });
 
-    this.logger.log(`Registered new user ${user.id} (${user.email})`);
+    this.logger.info({ userId: user.id, email: user.email }, 'Registered new user');
 
     return this.buildAuthResponse(user);
   }
@@ -93,7 +94,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials.');
     }
 
-    this.logger.debug(`User ${user.id} authenticated successfully`);
+    this.logger.info({ userId: user.id, email: user.email }, 'User authenticated successfully');
 
     return this.buildAuthResponse(user);
   }
@@ -151,7 +152,10 @@ export class AuthService {
       throw new UnauthorizedException('User associated with the token could not be found.');
     }
 
-    return this.buildAuthResponse(user);
+    const authTokens = await this.buildAuthResponse(user);
+    this.logger.info({ userId: user.id }, 'Refreshed authentication tokens');
+
+    return authTokens;
   }
 
   async getProfile(userId: string): Promise<AuthenticatedUser> {
