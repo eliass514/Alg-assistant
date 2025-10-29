@@ -83,6 +83,22 @@ This comprehensive guide covers:
 
 VS Code settings and recommended extensions are included under `.vscode/` to standardize local development.
 
+## Database Migrations
+
+When you modify the Prisma schema, generate a corresponding migration locally before pushing your changes:
+
+```bash
+pnpm exec prisma migrate dev --name <migration_name>
+```
+
+Commit the generated migration files alongside your schema updates. Continuous deployment applies pending migrations automatically on pushes to the `main` and `staging` branches using:
+
+```bash
+DATABASE_URL=${{ secrets.DATABASE_URL }} pnpm exec prisma migrate deploy
+```
+
+**📖 For comprehensive migration documentation, see [docs/PRISMA_MIGRATIONS.md](docs/PRISMA_MIGRATIONS.md)**
+
 ## Docker Compose Stack
 
 A `docker-compose.yml` file is provided to boot the entire application stack (frontend, backend, PostgreSQL, and the nginx proxy) for local development.
