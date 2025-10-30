@@ -1,5 +1,14 @@
 {
   "extends": "./packages/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@acme/shared-dto": ["packages/shared-dto/src"],
+      "@acme/shared-dto/*": ["packages/shared-dto/src/*"],
+      "@app/shared-dto": ["packages/shared-dto/src"],
+      "@app/shared-dto/*": ["packages/shared-dto/src/*"]
+    }
+  },
   "files": [],
   "references": [
     { "path": "./packages/utils" },
