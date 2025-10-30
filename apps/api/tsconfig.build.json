@@ -1,7 +1,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": false
+    "sourceMap": false,
+    "paths": {
+      "@app/*": ["src/*"],
+      "@common/*": ["src/common/*"],
+      "@config/*": ["src/config/*"],
+      "@modules/*": ["src/modules/*"],
+      "@prisma/*": ["src/prisma/*"],
+      "@acme/shared-dto": ["../../packages/shared-dto/dist/index"],
+      "@acme/shared-dto/*": ["../../packages/shared-dto/dist/*"]
+    }
   },
+  "references": [{ "path": "../../packages/shared-dto" }],
   "exclude": ["node_modules", "dist", "test", "**/*.spec.ts"]
 }
