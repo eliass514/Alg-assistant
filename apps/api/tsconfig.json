@@ -11,8 +11,8 @@
       "@config/*": ["src/config/*"],
       "@modules/*": ["src/modules/*"],
       "@prisma/*": ["src/prisma/*"],
-      "@acme/shared-dto": ["../../packages/shared-dto/src"],
-      "@acme/shared-dto/*": ["../../packages/shared-dto/src/*"]
+      "@acme/shared-dto": ["../../packages/shared-dto/dist/index"],
+      "@acme/shared-dto/*": ["../../packages/shared-dto/dist/*"]
     }
   },
   "include": ["src"],
