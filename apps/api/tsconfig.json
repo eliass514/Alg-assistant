@@ -1,5 +1,5 @@
 {
-  "extends": "../../packages/tsconfig/base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
@@ -14,7 +14,5 @@
       "@acme/shared-dto": ["../../packages/shared-dto/dist/index"],
       "@acme/shared-dto/*": ["../../packages/shared-dto/dist/*"]
     }
-  },
-  "include": ["src"],
-  "references": [{ "path": "../../packages/shared-dto" }]
+  }
 }
