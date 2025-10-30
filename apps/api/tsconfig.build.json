@@ -5,10 +5,5 @@
   "compilerOptions": {
     "outDir": "./dist",
     "sourceMap": false
-  },
-  "references": [
-    {
-      "path": "../../packages/shared-dto"
-    }
-  ]
+  }
 }
