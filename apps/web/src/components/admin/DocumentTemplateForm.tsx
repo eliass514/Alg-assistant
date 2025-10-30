@@ -57,7 +57,8 @@ export function DocumentTemplateForm({
   const localeOptions = useMemo(() => {
     return supportedLocales.map((locale) => ({
       value: locale,
-      label: locale === 'fr' ? 'Français' : locale === 'ar' ? 'العربية' : locale.toUpperCase(),
+      label:
+        locale === 'fr' ? 'Français' : locale === 'ar' ? 'العربية' : (locale?.toUpperCase() ?? ''),
     }));
   }, []);
 
