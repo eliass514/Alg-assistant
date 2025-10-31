@@ -55,10 +55,19 @@ export function DocumentTemplateForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const localeOptions = useMemo(() => {
-    return supportedLocales.map((locale) => ({
-      value: locale,
-      label: locale === 'fr' ? 'Français' : locale === 'ar' ? 'العربية' : locale.toUpperCase(),
-    }));
+    return supportedLocales.map((locale) => {
+      const localeValue: string | undefined = locale;
+
+      return {
+        value: locale,
+        label:
+          localeValue === 'fr'
+            ? 'Français'
+            : localeValue === 'ar'
+              ? 'العربية'
+              : (localeValue?.toUpperCase() ?? ''),
+      };
+    });
   }, []);
 
   useEffect(() => {
