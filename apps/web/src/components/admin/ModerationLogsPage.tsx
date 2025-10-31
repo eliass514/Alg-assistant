@@ -320,9 +320,12 @@ export function ModerationLogsPage() {
         <>
           {activeLogs.length > 0 ? (
             activeTab === 'conversations' ? (
-              <ConversationLogsTable logs={conversationLogs} t={t} />
+              <ConversationLogsTable logs={conversationLogs} t={(key, values) => t(key, values)} />
             ) : (
-              <DocumentVerificationLogsTable logs={documentLogs} t={t} />
+              <DocumentVerificationLogsTable
+                logs={documentLogs}
+                t={(key, values) => t(key, values)}
+              />
             )
           ) : (
             <div className="rounded-lg border border-border bg-card p-12 text-center">
