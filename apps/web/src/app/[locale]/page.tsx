@@ -1,11 +1,19 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Section } from '@/components/layout/Section';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heading, Text } from '@/components/ui/typography';
 
-export default async function HomePage() {
+interface PageProps {
+  params: {
+    locale: string;
+  };
+}
+
+export default async function HomePage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale);
+
   const t = await getTranslations('Home');
   const featureList = (t.raw('featureList') as string[]) ?? [];
 

@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { DocumentTemplatesManagementPage } from '@/components/admin/DocumentTemplatesManagementPage';
 
@@ -20,6 +20,8 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function AdminDocumentTemplatesPage() {
+export default function AdminDocumentTemplatesPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale);
+
   return <DocumentTemplatesManagementPage />;
 }

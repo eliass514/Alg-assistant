@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { CategoriesManagementPage } from '@/components/admin/CategoriesManagementPage';
 
@@ -17,6 +17,8 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function AdminCategoriesPage() {
+export default function AdminCategoriesPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale);
+
   return <CategoriesManagementPage />;
 }
