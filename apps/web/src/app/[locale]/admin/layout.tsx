@@ -14,8 +14,8 @@ interface AdminLayoutProps {
   };
 }
 
-export default async function AdminLayout({ children, params: { locale } }: AdminLayoutProps) {
-  setRequestLocale(locale);
+export default async function AdminLayout({ children, params }: AdminLayoutProps) {
+  setRequestLocale(params.locale);
 
   const t = await getTranslations('Admin.Layout');
 
