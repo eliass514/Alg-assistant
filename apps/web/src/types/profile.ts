@@ -1,4 +1,5 @@
 import type { AuthUser } from '@/types/auth';
+import type { AppointmentStatus } from '@/types/appointments';
 
 export interface UserProfile extends AuthUser {
   birthDate?: string | null;
@@ -26,8 +27,6 @@ export interface DocumentItem {
   uploadedAt: string;
   downloadUrl?: string | null;
 }
-
-export type AppointmentStatus = 'scheduled' | 'completed' | 'cancelled';
 
 export interface AppointmentItem {
   id: string;
