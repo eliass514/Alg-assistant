@@ -282,7 +282,7 @@ export class AdminDocumentTemplatesService {
         label: description,
         status: 'DRAFT' as DocumentTemplateVersionStatus,
         content: url,
-        metadata: versionMetadata as Prisma.JsonValue,
+        metadata: versionMetadata as Prisma.InputJsonValue,
       },
     });
 
@@ -308,7 +308,11 @@ export class AdminDocumentTemplatesService {
     service: TemplateServiceAssignmentDto,
   ): Prisma.DocumentTemplateServiceCreateWithoutTemplateInput {
     return {
-      serviceId: service.serviceId,
+      service: {
+        connect: {
+          id: service.serviceId,
+        },
+      },
       isRequired: service.isRequired ?? false,
       autoApply: service.autoApply ?? false,
       validFrom: service.validFrom ? new Date(service.validFrom) : undefined,

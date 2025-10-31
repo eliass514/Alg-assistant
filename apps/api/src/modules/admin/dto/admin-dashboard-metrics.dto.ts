@@ -5,23 +5,23 @@ export class AdminDashboardMetricsDto {
     description: 'Total number of registered users',
     example: 1250,
   })
-  totalUsers: number;
+  totalUsers!: number;
 
   @ApiProperty({
     description: 'Number of pending appointments',
     example: 38,
   })
-  pendingAppointments: number;
+  pendingAppointments!: number;
 
   @ApiProperty({
     description: 'Number of pending document reviews',
     example: 24,
   })
-  pendingDocuments: number;
+  pendingDocuments!: number;
 
   @ApiProperty({
     description: 'Number of active services',
     example: 12,
   })
-  activeServices: number;
+  activeServices!: number;
 }

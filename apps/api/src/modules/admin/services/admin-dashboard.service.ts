@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AppointmentStatus, DocumentUploadStatus } from '@prisma/client';
 
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '@prisma/prisma.service';
 
 import { AdminDashboardMetricsDto } from '../dto/admin-dashboard-metrics.dto';
 

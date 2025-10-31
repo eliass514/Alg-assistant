@@ -65,6 +65,14 @@ export class AdminQueueTicketsService {
         include: {
           service: true,
           slot: true,
+          user: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
         },
       }),
       this.prisma.queueTicket.count({ where }),
