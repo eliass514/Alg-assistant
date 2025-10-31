@@ -932,6 +932,7 @@
             "referencePurpose": {
               "label": "غاية الخطاب",
               "placeholder": "اختر الغاية",
+              "helper": "يرجى تحديد الغرض من هذا الخطاب",
               "options": [
                 {
                   "value": "tenderSubmission",
