@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import { ApplicationShell } from '@/components/layout/ApplicationShell';
@@ -39,16 +39,14 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
-export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const locale = params.locale;
-
+export default async function LocaleLayout({ children, params: { locale } }: LocaleLayoutProps) {
   if (!isSupportedLocale(locale)) {
     notFound();
   }
 
-  const activeLocale = locale as SupportedLocale;
+  setRequestLocale(locale);
 
-  unstable_setRequestLocale(activeLocale);
+  const activeLocale = locale as SupportedLocale;
 
   const messages = await getMessages();
   const direction = getLocaleDirection(activeLocale);
