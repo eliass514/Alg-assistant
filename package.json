@@ -32,6 +32,9 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "dependencies": {
+    "@nestjs/cli": "^10.3.2"
+  },
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",
     "@commitlint/cli": "^18.6.1",
