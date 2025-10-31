@@ -1,19 +1,21 @@
 import 'reflect-metadata';
 
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
 import { AppModule } from '@app/app.module';
-import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
-import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
 import { AppConfig } from '@config/app.config';
 import { CorsConfig } from '@config/cors.config';
 import { PrismaService } from '@prisma/prisma.service';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  app.useLogger(app.get(Logger));
+  app.flushLogs();
+
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
 
@@ -46,8 +48,7 @@ async function bootstrap() {
       },
     }),
   );
-  app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new LoggerErrorInterceptor());
 
   app.enableVersioning({
     type: VersioningType.URI,
@@ -71,8 +72,12 @@ async function bootstrap() {
   await app.listen(port);
 
   const url = await app.getUrl();
-  Logger.log(`Server is running at ${url}`, 'Bootstrap');
-  Logger.log(`Swagger UI available at ${url.replace(/\/$/, '')}/docs`, 'Bootstrap');
+  const logger = app.get(Logger);
+  logger.log({ msg: 'Server is running', url }, 'Bootstrap');
+  logger.log(
+    { msg: 'Swagger UI available', docsUrl: `${url.replace(/\/$/, '')}/docs` },
+    'Bootstrap',
+  );
 }
 
 void bootstrap();

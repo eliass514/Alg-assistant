@@ -111,34 +111,37 @@ const publicApiUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8
 
 ### Backend API (NestJS)
 
-| Variable                       | Description                         | Default       | Required     |
-| ------------------------------ | ----------------------------------- | ------------- | ------------ |
-| `NODE_ENV`                     | Runtime environment                 | `development` | Yes          |
-| `PORT`                         | Server port                         | `3000`        | No           |
-| `APP_NAME`                     | Application name                    | `Acme API`    | No           |
-| `GLOBAL_PREFIX`                | API path prefix                     | `api`         | No           |
-| `DATABASE_URL`                 | PostgreSQL connection string        | -             | Yes          |
-| `JWT_ACCESS_TOKEN_SECRET`      | JWT signing secret                  | -             | Yes          |
-| `JWT_ACCESS_TOKEN_EXPIRES_IN`  | Access token TTL (seconds)          | `900`         | No           |
-| `JWT_REFRESH_TOKEN_SECRET`     | Refresh token secret                | -             | Yes          |
-| `JWT_REFRESH_TOKEN_EXPIRES_IN` | Refresh token TTL (seconds)         | `604800`      | No           |
-| `JWT_AUDIENCE`                 | JWT audience claim                  | `acme.api`    | No           |
-| `JWT_ISSUER`                   | JWT issuer claim                    | `acme.api`    | No           |
-| `BCRYPT_SALT_ROUNDS`           | Password hashing rounds             | `10`          | No           |
-| `DEFAULT_USER_ROLE`            | Default role for new users          | `client`      | No           |
-| `AWS_REGION`                   | AWS region for S3                   | `us-east-1`   | Yes (for S3) |
-| `AWS_ACCESS_KEY_ID`            | AWS access key                      | -             | Yes (for S3) |
-| `AWS_SECRET_ACCESS_KEY`        | AWS secret key                      | -             | Yes (for S3) |
-| `AWS_S3_BUCKET_NAME`           | S3 bucket name                      | -             | Yes (for S3) |
-| `AWS_S3_ENDPOINT`              | Custom S3 endpoint (optional)       | -             | No           |
-| `AWS_S3_FORCE_PATH_STYLE`      | Use path-style URLs                 | `false`       | No           |
-| `S3_PRESIGNED_URL_EXPIRATION`  | Presigned URL TTL (seconds)         | `3600`        | No           |
-| `LLM_PROVIDER`                 | LLM provider type                   | `mock`        | No           |
-| `LLM_DEFAULT_LOCALE`           | Default locale for LLM              | `en`          | No           |
-| `LLM_SUPPORTED_LOCALES`        | Supported locales (comma-separated) | `en,fr,ar`    | No           |
-| `LLM_MAX_PROMPT_LENGTH`        | Max prompt length                   | `1200`        | No           |
-| `LLM_MAX_CONTEXT_MESSAGES`     | Max context messages                | `25`          | No           |
-| `LLM_GUARDRAILS_BLOCKED`       | Blocked phrases (comma-separated)   | -             | No           |
+| Variable                       | Description                                            | Default                      | Required     |
+| ------------------------------ | ------------------------------------------------------ | ---------------------------- | ------------ |
+| `NODE_ENV`                     | Runtime environment                                    | `development`                | Yes          |
+| `PORT`                         | Server port                                            | `3000`                       | No           |
+| `APP_NAME`                     | Application name                                       | `Acme API`                   | No           |
+| `GLOBAL_PREFIX`                | API path prefix                                        | `api`                        | No           |
+| `DATABASE_URL`                 | PostgreSQL connection string                           | -                            | Yes          |
+| `JWT_ACCESS_TOKEN_SECRET`      | JWT signing secret                                     | -                            | Yes          |
+| `JWT_ACCESS_TOKEN_EXPIRES_IN`  | Access token TTL (seconds)                             | `900`                        | No           |
+| `JWT_REFRESH_TOKEN_SECRET`     | Refresh token secret                                   | -                            | Yes          |
+| `JWT_REFRESH_TOKEN_EXPIRES_IN` | Refresh token TTL (seconds)                            | `604800`                     | No           |
+| `JWT_AUDIENCE`                 | JWT audience claim                                     | `acme.api`                   | No           |
+| `JWT_ISSUER`                   | JWT issuer claim                                       | `acme.api`                   | No           |
+| `BCRYPT_SALT_ROUNDS`           | Password hashing rounds                                | `10`                         | No           |
+| `DEFAULT_USER_ROLE`            | Default role for new users                             | `client`                     | No           |
+| `AWS_REGION`                   | AWS region for S3                                      | `us-east-1`                  | Yes (for S3) |
+| `AWS_ACCESS_KEY_ID`            | AWS access key                                         | -                            | Yes (for S3) |
+| `AWS_SECRET_ACCESS_KEY`        | AWS secret key                                         | -                            | Yes (for S3) |
+| `AWS_S3_BUCKET_NAME`           | S3 bucket name                                         | -                            | Yes (for S3) |
+| `AWS_S3_ENDPOINT`              | Custom S3 endpoint (optional)                          | -                            | No           |
+| `AWS_S3_FORCE_PATH_STYLE`      | Use path-style URLs                                    | `false`                      | No           |
+| `S3_PRESIGNED_URL_EXPIRATION`  | Presigned URL TTL (seconds)                            | `3600`                       | No           |
+| `LLM_PROVIDER`                 | LLM provider type                                      | `mock`                       | No           |
+| `LLM_DEFAULT_LOCALE`           | Default locale for LLM                                 | `en`                         | No           |
+| `LLM_SUPPORTED_LOCALES`        | Supported locales (comma-separated)                    | `en,fr,ar`                   | No           |
+| `LLM_MAX_PROMPT_LENGTH`        | Max prompt length                                      | `1200`                       | No           |
+| `LLM_MAX_CONTEXT_MESSAGES`     | Max context messages                                   | `25`                         | No           |
+| `LLM_GUARDRAILS_BLOCKED`       | Blocked phrases (comma-separated)                      | -                            | No           |
+| `LOG_LEVEL`                    | Logging level (trace, debug, info, warn, error, fatal) | `debug` (dev), `info` (prod) | No           |
+| `RATE_LIMIT_TTL`               | Rate limit time window (seconds)                       | `60`                         | No           |
+| `RATE_LIMIT_MAX`               | Max requests per TTL window                            | `100`                        | No           |
 
 ### Frontend Web (Next.js)
 
