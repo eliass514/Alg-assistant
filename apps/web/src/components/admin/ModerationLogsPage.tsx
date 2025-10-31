@@ -320,11 +320,16 @@ export function ModerationLogsPage() {
         <>
           {activeLogs.length > 0 ? (
             activeTab === 'conversations' ? (
-              <ConversationLogsTable logs={conversationLogs} t={(key, values) => t(key, values)} />
+              <ConversationLogsTable
+                logs={conversationLogs}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                t={(key, values) => t(key, values as any)}
+              />
             ) : (
               <DocumentVerificationLogsTable
                 logs={documentLogs}
-                t={(key, values) => t(key, values)}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                t={(key, values) => t(key, values as any)}
               />
             )
           ) : (
