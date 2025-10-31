@@ -154,7 +154,7 @@ export class AdminQueueTicketsService {
           throw new BadRequestException('The selected slot is no longer available.');
         }
 
-        updateData.slotId = dto.slotId;
+        updateData.slot = { connect: { id: dto.slotId } };
       }
 
       if (dto.position) {

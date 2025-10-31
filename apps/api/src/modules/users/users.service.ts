@@ -23,12 +23,12 @@ export class UsersService {
       `Listing users page=${page} limit=${limit}${search ? ` search=${search}` : ''}`,
     );
 
-    const where = search
+    const where: Prisma.UserWhereInput | undefined = search
       ? {
           OR: [
-            { firstName: { contains: search, mode: 'insensitive' } },
-            { lastName: { contains: search, mode: 'insensitive' } },
-            { email: { contains: search, mode: 'insensitive' } },
+            { firstName: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { lastName: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { email: { contains: search, mode: Prisma.QueryMode.insensitive } },
           ],
         }
       : undefined;

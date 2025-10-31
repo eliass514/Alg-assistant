@@ -73,9 +73,11 @@ export class DocumentVerificationService {
 
     const aiResult = this.scanner.analyzeWithAi(file.buffer, metadata);
     this.handleAiResult(record, aiResult);
+
+    const statusAfterAi = record.status as DocumentVerificationStatus;
     if (
-      record.status === DocumentVerificationStatus.REJECTED ||
-      record.status === DocumentVerificationStatus.MANUAL_REVIEW
+      statusAfterAi === DocumentVerificationStatus.REJECTED ||
+      statusAfterAi === DocumentVerificationStatus.MANUAL_REVIEW
     ) {
       return this.toResponse(record);
     }

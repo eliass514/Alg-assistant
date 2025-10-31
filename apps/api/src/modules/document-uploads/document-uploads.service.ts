@@ -58,7 +58,7 @@ export class DocumentUploadsService {
         metadata: {
           uploadedVia: 'user-api',
           uploadedAt: new Date().toISOString(),
-        } as Prisma.JsonValue,
+        } as Prisma.InputJsonValue,
       },
     });
 
@@ -153,20 +153,28 @@ export class DocumentUploadsService {
       `Listing document uploads page=${page} limit=${limit}${search ? ` search=${search}` : ''}${query.userId ? ` userId=${query.userId}` : ''}${query.serviceId ? ` serviceId=${query.serviceId}` : ''}${query.status ? ` status=${query.status}` : ''}`,
     );
 
-    const filters: Prisma.DocumentUploadWhereInput[] = [
-      search
-        ? {
-            OR: [
-              { originalFilename: { contains: search, mode: 'insensitive' } },
-              { storagePath: { contains: search, mode: 'insensitive' } },
-            ],
-          }
-        : undefined,
-      query.userId ? { userId: query.userId } : undefined,
-      query.serviceId ? { serviceId: query.serviceId } : undefined,
-      query.appointmentId ? { appointmentId: query.appointmentId } : undefined,
-      query.status ? { status: query.status } : undefined,
-    ].filter((item): item is Prisma.DocumentUploadWhereInput => item !== undefined);
+    const filters: Prisma.DocumentUploadWhereInput[] = [];
+
+    if (search) {
+      filters.push({
+        OR: [
+          { originalFilename: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { storagePath: { contains: search, mode: Prisma.QueryMode.insensitive } },
+        ],
+      });
+    }
+    if (query.userId) {
+      filters.push({ userId: query.userId });
+    }
+    if (query.serviceId) {
+      filters.push({ serviceId: query.serviceId });
+    }
+    if (query.appointmentId) {
+      filters.push({ appointmentId: query.appointmentId });
+    }
+    if (query.status) {
+      filters.push({ status: query.status });
+    }
 
     const where: Prisma.DocumentUploadWhereInput = filters.length > 0 ? { AND: filters } : {};
 
@@ -259,7 +267,7 @@ export class DocumentUploadsService {
         reviewedAt: createDto.reviewedAt ? new Date(createDto.reviewedAt) : undefined,
         expiresAt: createDto.expiresAt ? new Date(createDto.expiresAt) : undefined,
         rejectionReason: createDto.rejectionReason,
-        metadata: createDto.metadata ? (createDto.metadata as Prisma.JsonValue) : undefined,
+        metadata: createDto.metadata as Prisma.InputJsonValue,
       },
     });
 
@@ -289,7 +297,7 @@ export class DocumentUploadsService {
           reviewedAt: updateDto.reviewedAt ? new Date(updateDto.reviewedAt) : undefined,
           expiresAt: updateDto.expiresAt ? new Date(updateDto.expiresAt) : undefined,
           rejectionReason: updateDto.rejectionReason,
-          metadata: updateDto.metadata ? (updateDto.metadata as Prisma.JsonValue) : undefined,
+          metadata: updateDto.metadata as Prisma.InputJsonValue,
         },
       });
 

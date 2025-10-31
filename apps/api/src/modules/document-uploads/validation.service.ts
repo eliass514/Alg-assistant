@@ -149,9 +149,7 @@ export class ValidationService {
           uploadId,
           status: validation.status,
           message: validation.message,
-          metadata: validation.metadata
-            ? (validation.metadata as unknown as Prisma.JsonValue)
-            : undefined,
+          metadata: validation.metadata as Prisma.InputJsonValue,
         })),
       });
 

@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, ServiceCategoryTranslation, ServiceTranslation } from '@prisma/client';
 
 import { CreateServiceCategoryDto } from '@modules/services/dto/create-service-category.dto';
 import { CreateServiceDto } from '@modules/services/dto/create-service.dto';
@@ -36,8 +36,8 @@ type ServiceWithRelations = Prisma.ServiceGetPayload<{ include: typeof serviceIn
 type CategoryWithTranslations = Prisma.ServiceCategoryGetPayload<{
   include: typeof categoryInclude;
 }>;
-type ServiceTranslationModel = Prisma.ServiceTranslation;
-type CategoryTranslationModel = Prisma.ServiceCategoryTranslation;
+type ServiceTranslationModel = ServiceTranslation;
+type CategoryTranslationModel = ServiceCategoryTranslation;
 
 type WhereInput = Prisma.ServiceWhereInput;
 type CategoryWhereInput = Prisma.ServiceCategoryWhereInput;
@@ -604,7 +604,7 @@ export class ServicesService {
       return null;
     }
 
-    if (value === Prisma.DbNull || value === Prisma.JsonNull) {
+    if (value === null) {
       return null;
     }
 
@@ -620,7 +620,7 @@ export class ServicesService {
       return undefined;
     }
 
-    return value;
+    return value as Prisma.InputJsonValue;
   }
 
   private createCacheMetadata(key: string): CacheMetadata {

@@ -105,8 +105,8 @@ export class AiService {
     private readonly configService: ConfigService,
     private readonly conversationStore: ConversationStore,
     private readonly promptGuard: PromptGuardService,
-    @Optional() private readonly servicesService?: ServicesService | null,
     @Inject(LLM_PROVIDER) private readonly llmProvider: LlmProvider,
+    @Optional() private readonly servicesService?: ServicesService | null,
   ) {
     this.llmConfig = this.ensureLlmConfig();
   }

@@ -1,4 +1,10 @@
-import { Injectable, TooManyRequestsException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
+class TooManyRequestsException extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.TOO_MANY_REQUESTS);
+  }
+}
 
 interface RateLimitEntry {
   timestamps: number[];

@@ -22,13 +22,13 @@ import { mapToAuthenticatedUser, UserWithRole } from '@modules/auth/utils/auth.u
 
 const TOKEN_TYPE = 'Bearer';
 
-interface AuthTokens {
+export type AuthTokens = {
   accessToken: string;
   refreshToken: string;
   tokenType: string;
   expiresIn: number;
   user: AuthenticatedUser;
-}
+};
 
 @Injectable()
 export class AuthService {
