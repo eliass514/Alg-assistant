@@ -1,12 +1,11 @@
 import type { ReactNode } from 'react';
 
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Link } from '@/i18n/navigation';
 import { LocaleSwitcher } from '@/components/locale/LocaleSwitcher';
 import { Container } from '@/components/layout/Container';
 import { AdminMobileNav } from '@/components/admin/AdminMobileNav';
-import type { SupportedLocale } from '@/i18n/config';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -15,9 +14,8 @@ interface AdminLayoutProps {
   };
 }
 
-export default async function AdminLayout({ children, params }: AdminLayoutProps) {
-  const locale = params.locale as SupportedLocale;
-  unstable_setRequestLocale(locale);
+export default async function AdminLayout({ children, params: { locale } }: AdminLayoutProps) {
+  setRequestLocale(locale);
 
   const t = await getTranslations('Admin.Layout');
 
