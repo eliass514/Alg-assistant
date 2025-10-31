@@ -179,7 +179,7 @@ export class AdminAppointmentsService {
           throw new BadRequestException('The selected slot has reached its capacity.');
         }
 
-        updateData.slotId = newSlot.id;
+        updateData.slot = { connect: { id: newSlot.id } };
         updateData.scheduledAt = newSlot.startAt;
         updateData.timezone = newSlot.timezone;
         historyNotes.push(`Rescheduled to slot ${dto.slotId}`);

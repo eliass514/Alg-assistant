@@ -511,7 +511,7 @@ export class AppointmentsService {
       if (payload.status === QueueTicketStatus.NOTIFIED) {
         updateData.notifiedAt = new Date();
         updateData.expiresAt = DateTime.utc().plus({ minutes: QUEUE_HOLD_MINUTES }).toJSDate();
-      } else if (payload.status !== QueueTicketStatus.NOTIFIED) {
+      } else {
         updateData.notifiedAt = null;
         updateData.expiresAt = null;
       }

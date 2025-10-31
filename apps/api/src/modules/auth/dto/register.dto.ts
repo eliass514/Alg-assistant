@@ -33,7 +33,7 @@ export class RegisterDto {
 
   @Transform(({ value }) => value?.trim())
   @IsOptional()
-  @IsPhoneNumber('ZZ')
+  @IsPhoneNumber()
   phoneNumber?: string;
 
   @Transform(({ value }) => value?.trim())

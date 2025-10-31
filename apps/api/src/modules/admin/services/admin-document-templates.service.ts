@@ -36,27 +36,29 @@ export class AdminDocumentTemplatesService {
       `Admin listing document templates page=${page} limit=${limit}${search ? ` search=${search}` : ''}${params.serviceId ? ` serviceId=${params.serviceId}` : ''}${params.isActive !== undefined ? ` isActive=${params.isActive}` : ''}`,
     );
 
-    const filters: Prisma.DocumentTemplateWhereInput[] = [
-      search
-        ? {
-            OR: [
-              { name: { contains: search, mode: 'insensitive' } },
-              { slug: { contains: search, mode: 'insensitive' } },
-              { description: { contains: search, mode: 'insensitive' } },
-            ],
-          }
-        : undefined,
-      params.serviceId
-        ? {
-            services: {
-              some: {
-                serviceId: params.serviceId,
-              },
-            },
-          }
-        : undefined,
-      params.isActive !== undefined ? { isActive: params.isActive } : undefined,
-    ].filter((item): item is Prisma.DocumentTemplateWhereInput => item !== undefined);
+    const filters: Prisma.DocumentTemplateWhereInput[] = [];
+
+    if (search) {
+      filters.push({
+        OR: [
+          { name: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { slug: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { description: { contains: search, mode: Prisma.QueryMode.insensitive } },
+        ],
+      });
+    }
+    if (params.serviceId) {
+      filters.push({
+        services: {
+          some: {
+            serviceId: params.serviceId,
+          },
+        },
+      });
+    }
+    if (params.isActive !== undefined) {
+      filters.push({ isActive: params.isActive });
+    }
 
     const where: Prisma.DocumentTemplateWhereInput = filters.length > 0 ? { AND: filters } : {};
 
@@ -158,7 +160,7 @@ export class AdminDocumentTemplatesService {
         description: dto.description,
         defaultLocale: dto.defaultLocale ?? 'en',
         isActive: dto.isActive ?? true,
-        metadata: dto.metadata ? (dto.metadata as Prisma.JsonValue) : undefined,
+        metadata: dto.metadata as Prisma.InputJsonValue,
         services: dto.services
           ? {
               create: dto.services.map((service) => this.mapServiceAssignment(service)),
@@ -191,7 +193,7 @@ export class AdminDocumentTemplatesService {
       description: dto.description,
       defaultLocale: dto.defaultLocale,
       isActive: dto.isActive,
-      metadata: dto.metadata ? (dto.metadata as Prisma.JsonValue) : dto.metadata,
+      metadata: dto.metadata as Prisma.InputJsonValue,
     };
 
     if (dto.services) {
@@ -280,7 +282,7 @@ export class AdminDocumentTemplatesService {
         label: description,
         status: 'DRAFT' as DocumentTemplateVersionStatus,
         content: url,
-        metadata: versionMetadata as Prisma.JsonValue,
+        metadata: versionMetadata as Prisma.InputJsonValue,
       },
     });
 
@@ -306,7 +308,11 @@ export class AdminDocumentTemplatesService {
     service: TemplateServiceAssignmentDto,
   ): Prisma.DocumentTemplateServiceCreateWithoutTemplateInput {
     return {
-      serviceId: service.serviceId,
+      service: {
+        connect: {
+          id: service.serviceId,
+        },
+      },
       isRequired: service.isRequired ?? false,
       autoApply: service.autoApply ?? false,
       validFrom: service.validFrom ? new Date(service.validFrom) : undefined,

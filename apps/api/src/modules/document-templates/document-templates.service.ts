@@ -23,27 +23,29 @@ export class DocumentTemplatesService {
       `Listing document templates page=${page} limit=${limit}${search ? ` search=${search}` : ''}${query.serviceId ? ` serviceId=${query.serviceId}` : ''}${query.isActive !== undefined ? ` isActive=${query.isActive}` : ''}`,
     );
 
-    const filters: Prisma.DocumentTemplateWhereInput[] = [
-      search
-        ? {
-            OR: [
-              { name: { contains: search, mode: 'insensitive' } },
-              { slug: { contains: search, mode: 'insensitive' } },
-              { description: { contains: search, mode: 'insensitive' } },
-            ],
-          }
-        : undefined,
-      query.serviceId
-        ? {
-            services: {
-              some: {
-                serviceId: query.serviceId,
-              },
-            },
-          }
-        : undefined,
-      query.isActive !== undefined ? { isActive: query.isActive } : undefined,
-    ].filter((item): item is Prisma.DocumentTemplateWhereInput => item !== undefined);
+    const filters: Prisma.DocumentTemplateWhereInput[] = [];
+
+    if (search) {
+      filters.push({
+        OR: [
+          { name: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { slug: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { description: { contains: search, mode: Prisma.QueryMode.insensitive } },
+        ],
+      });
+    }
+    if (query.serviceId) {
+      filters.push({
+        services: {
+          some: {
+            serviceId: query.serviceId,
+          },
+        },
+      });
+    }
+    if (query.isActive !== undefined) {
+      filters.push({ isActive: query.isActive });
+    }
 
     const where: Prisma.DocumentTemplateWhereInput = filters.length > 0 ? { AND: filters } : {};
 
@@ -125,7 +127,7 @@ export class DocumentTemplatesService {
         description: createDto.description,
         defaultLocale: createDto.defaultLocale ?? 'en',
         isActive: createDto.isActive ?? true,
-        metadata: createDto.metadata ? (createDto.metadata as Prisma.JsonValue) : undefined,
+        metadata: createDto.metadata as Prisma.InputJsonValue,
       },
     });
 
@@ -144,7 +146,7 @@ export class DocumentTemplatesService {
           description: updateDto.description,
           defaultLocale: updateDto.defaultLocale,
           isActive: updateDto.isActive,
-          metadata: updateDto.metadata ? (updateDto.metadata as Prisma.JsonValue) : undefined,
+          metadata: updateDto.metadata as Prisma.InputJsonValue,
         },
       });
 

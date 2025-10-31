@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../../packages/shared-dto/src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"],
   "compilerOptions": {
     "outDir": "./dist",
-    "sourceMap": false
+    "sourceMap": false,
+    "rootDir": "../../"
   }
 }

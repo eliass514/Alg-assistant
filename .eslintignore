@@ -6,3 +6,6 @@ build
 coverage
 **/*.d.ts
 *.d.ts
+**/*.js
+*.js
+packages/**/*

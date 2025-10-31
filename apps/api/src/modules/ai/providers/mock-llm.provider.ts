@@ -519,7 +519,7 @@ export class MockLlmProvider implements LlmProvider {
   async chat(options: LlmChatOptions): Promise<LlmChatResponse> {
     const locale = this.resolveLocale(options.locale);
     const lastUserMessage = this.getLastUserMessage(options.messages) ?? '';
-    const detectedIntent = options.intentHint ?? this.detectIntent(lastUserMessage);
+    const detectedIntent = (options.intentHint ?? this.detectIntent(lastUserMessage)) as IntentKey;
 
     this.logger.debug(`Generating mock chat response locale=${locale} intent=${detectedIntent}`);
 
@@ -535,7 +535,7 @@ export class MockLlmProvider implements LlmProvider {
     options: LlmServiceSuggestionsOptions,
   ): Promise<LlmServiceSuggestionsResponse> {
     const locale = this.resolveLocale(options.locale);
-    const intent = options.intentHint ?? this.detectIntent(options.context);
+    const intent = (options.intentHint ?? this.detectIntent(options.context)) as IntentKey;
 
     this.logger.debug(
       `Generating mock service suggestions locale=${locale} intent=${intent} contextLength=${options.context.length}`,

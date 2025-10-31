@@ -65,6 +65,14 @@ export class AdminQueueTicketsService {
         include: {
           service: true,
           slot: true,
+          user: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
         },
       }),
       this.prisma.queueTicket.count({ where }),
@@ -154,7 +162,7 @@ export class AdminQueueTicketsService {
           throw new BadRequestException('The selected slot is no longer available.');
         }
 
-        updateData.slotId = dto.slotId;
+        updateData.slot = { connect: { id: dto.slotId } };
       }
 
       if (dto.position) {
