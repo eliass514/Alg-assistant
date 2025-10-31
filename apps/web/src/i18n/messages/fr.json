@@ -953,7 +953,8 @@
             },
             "bankOfficer": {
               "label": "Chargé de clientèle / signataire",
-              "placeholder": "Nom du responsable bancaire."
+              "placeholder": "Nom du responsable bancaire.",
+              "helper": "Veuillez saisir les coordonnées du chargé de clientèle ici."
             },
             "bankNotes": {
               "label": "Remarques bancaires",
