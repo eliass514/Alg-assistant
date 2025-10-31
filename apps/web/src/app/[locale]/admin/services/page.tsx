@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { ServicesManagementPage } from '@/components/admin/ServicesManagementPage';
 
@@ -17,6 +17,8 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function AdminServicesPage() {
+export default function AdminServicesPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale);
+
   return <ServicesManagementPage />;
 }

@@ -932,6 +932,7 @@
             "referencePurpose": {
               "label": "Objet de la référence",
               "placeholder": "Sélectionnez l'objet",
+              "helper": "Veuillez indiquer le but de cette référence",
               "options": [
                 {
                   "value": "tenderSubmission",

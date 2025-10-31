@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { AppointmentsManagementPage } from '@/components/admin/AppointmentsManagementPage';
 
@@ -17,6 +17,8 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function AdminAppointmentsPage() {
+export default function AdminAppointmentsPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale);
+
   return <AppointmentsManagementPage />;
 }

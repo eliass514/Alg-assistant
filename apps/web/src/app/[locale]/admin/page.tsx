@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Section } from '@/components/layout/Section';
 import { AdminDashboardMetrics } from '@/components/admin/AdminDashboardMetrics';
@@ -18,7 +18,9 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function AdminPage() {
+export default async function AdminPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale);
+
   const t = await getTranslations('Admin');
 
   return (
