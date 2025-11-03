@@ -208,6 +208,19 @@ async function main() {
         ar: 'مساعدة في الحصول على بطاقات الهوية الوطنية ووثائق الحالة المدنية والإجراءات الإدارية.',
       },
     },
+    {
+      slug: 'employment-services',
+      nameTranslations: {
+        en: 'Employment Services',
+        fr: "Services d'emploi",
+        ar: 'خدمات التوظيف',
+      },
+      descriptionTranslations: {
+        en: 'Job seeker support and unemployment benefits.',
+        fr: "Aide aux demandeurs d'emploi et allocations chômage.",
+        ar: 'دعم الباحثين عن عمل وإعانات البطالة.',
+      },
+    },
   ];
 
   const categories = await Promise.all(
@@ -271,6 +284,46 @@ async function main() {
       },
       durationMinutes: 45,
       price: '95.00',
+    },
+    {
+      slug: 'unemployment-allowance',
+      categorySlug: 'employment-services',
+      nameTranslations: {
+        en: 'Unemployment Allowance',
+        fr: 'Allocation Chômage',
+        ar: 'منحة البطالة',
+      },
+      descriptionTranslations: {
+        en: 'A monthly allowance for first-time job seekers in Algeria.',
+        fr: "Une allocation mensuelle pour les demandeurs d'emploi primo-demandeurs (ceux qui n'ont jamais travaillé).",
+        ar: 'إعانة مالية شهرية للبطالين طالبي الشغل لأول مرة.',
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Employment', 'Allowance', 'ANEM', 'Social Support'],
+        eligibilityConditions: [
+          'Must be Algerian national and resident in Algeria.',
+          'Aged 19 to 40.',
+          'Registered as a first-time job seeker (primo-demandeur) at ANEM.',
+          'Must not have any income (Attestation de non-activité).',
+          'Must not be receiving any social security benefits (CNAS/CASNOS).',
+        ],
+        requiredDocuments: [
+          "Proof of registration at ANEM (Carte d'inscription).",
+          'Biometric ID Card (CNIBE).',
+          'Diploma or professional training certificate (if any).',
+          "A 'Chèque barré' (voided check) for your bank account (CCP or bank).",
+        ],
+        steps: [
+          'You MUST first register as a job seeker at your local ANEM agency.',
+          "Once registered, log in to the 'minha.anem.dz' online platform with your ID and registration numbers.",
+          'Fill out the online application for the allowance.',
+          'You will be given an appointment (rendez-vous) to verify your file.',
+          'Attend your ANEM appointment with your documents.',
+        ],
+      },
     },
     {
       slug: 'algerian-biometric-id-card',
