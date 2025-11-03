@@ -312,6 +312,48 @@ async function main() {
         ],
       },
     },
+    {
+      slug: 'special-birth-certificate-s12',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'Special Birth Certificate (S12)',
+        fr: "Extrait d'acte de naissance S12",
+        ar: 'شهادة الميلاد الخاصة S12',
+      },
+      descriptionTranslations: {
+        en: 'A special, secure birth certificate required ONLY for applying for a biometric ID card or passport. You cannot use a regular birth certificate.',
+        fr: "Un certificat de naissance spécial et sécurisé requis UNIQUEMENT pour demander une carte d'identité biométrique ou un passeport. Vous ne pouvez pas utiliser un certificat de naissance ordinaire.",
+        ar: 'شهادة ميلاد خاصة وآمنة مطلوبة فقط للتقدم بطلب للحصول على بطاقة هوية بيومترية أو جواز سفر. لا يمكنك استخدام شهادة ميلاد عادية.',
+      },
+      durationMinutes: 15,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Birth Certificate', 'S12', 'Civil Status', 'Required Document'],
+        purpose: 'Required for biometric ID card (CNIBE) and passport applications',
+        optionOnline: {
+          title: 'Online (If Digitized)',
+          steps: [
+            "Visit the Ministry of Interior's online portal.",
+            'Fill in your information (Name, Date of Birth, Municipality).',
+            'If your birth is digitized, you can download and print the S12 instantly.',
+          ],
+        },
+        optionInPerson: {
+          title: 'In-Person at Municipality',
+          steps: [
+            'Go to the municipality (APC) where you were born.',
+            "Request the 'S12' for biometric documents.",
+            'Provide your standard birth certificate or family book.',
+          ],
+        },
+        importantNotes: [
+          'The S12 is different from a regular birth certificate (acte de naissance ordinaire).',
+          'It contains enhanced security features and is the only format accepted for biometric documents.',
+          'If your birth record is not digitized, you must request it in person at your birth municipality.',
+        ],
+      },
+    },
   ];
 
   const services = [];
