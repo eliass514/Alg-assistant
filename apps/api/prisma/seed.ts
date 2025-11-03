@@ -390,6 +390,41 @@ async function main() {
         ],
       },
     },
+    {
+      slug: 'algerian-drivers-license',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: "Algerian Driver's License",
+        fr: 'Permis de Conduire',
+        ar: 'رخصة السياقة',
+      },
+      descriptionTranslations: {
+        en: "Obtain a new driver's license or renew an existing one.",
+        fr: 'Obtenir un nouveau permis de conduire ou renouveler un permis existant.',
+        ar: 'الحصول على رخصة سياقة جديدة أو تجديد رخصة حالية.',
+      },
+      durationMinutes: 45,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Driving', 'License', 'Transport'],
+        requiredDocumentsNew: [
+          'Completed application form',
+          'Biometric ID Card (CNIBE) (original and copy)',
+          'Proof of Residence (Certificat de résidence)',
+          'Medical certificate (from an approved doctor)',
+          '2 passport-sized photos',
+          'Fee receipt (Timbre fiscal)',
+        ],
+        stepsNew: [
+          'Enroll in a certified driving school.',
+          'Pass the written (Code) and practical (Créneau/Circulation) driving tests.',
+          'Get your certificate of success from the driving school.',
+          'Gather all required documents.',
+          'Submit your complete file to the daïra.',
+        ],
+      },
+    },
   ];
 
   const services = [];
