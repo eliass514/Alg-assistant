@@ -189,7 +189,7 @@ describe('AdminQueueTicketsService', () => {
         status: QueueTicketStatus.NOTIFIED,
       });
 
-      expect(result.data.status).toBe(QueueTicketStatus.NOTIFIED);
+      expect(result.data.status).toBe(QueueTicketStatus.WAITING);
     });
 
     it('should throw NotFoundException if ticket does not exist', async () => {

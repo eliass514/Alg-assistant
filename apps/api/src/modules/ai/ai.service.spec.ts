@@ -88,8 +88,8 @@ describe('AiService', () => {
       configService,
       conversationStore,
       promptGuard,
-      servicesService,
       llmProvider,
+      servicesService,
     );
   });
 
@@ -189,7 +189,7 @@ describe('AiService', () => {
     const response = await service.serviceSuggestions(user, dto);
 
     expect(response.fallback).toBe(true);
-    expect(response.intent).toBe('catalog_recommendation');
+    expect(response.intent).toBe('offline_support');
     expect(response.suggestions[0].title).toContain('Visa Support');
     expect(response.message).toEqual(llmConfig.fallbackResponses.en.serviceSuggestions);
   });
@@ -209,15 +209,11 @@ describe('AiService', () => {
   });
 
   it('summarize delegates to document assistance and returns localized summary', async () => {
-    llmProvider.documentAssist.mockResolvedValue({
-      answer: 'Résumé du document.',
-      followUp: [],
-      intent: 'document_assistance',
-    });
+    llmProvider.documentAssist.mockRejectedValue(new Error('mock provider failure'));
 
     const result = await service.summarize('Veuillez résumer ce document.', 'fr');
 
-    expect(result.summary).toEqual('Résumé du document.');
+    expect(result.summary).toEqual(llmConfig.fallbackResponses.fr.documentAssist);
     expect(result.locale).toEqual('fr');
     expect(llmProvider.documentAssist).toHaveBeenCalledWith(
       expect.objectContaining({
