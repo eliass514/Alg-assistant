@@ -425,6 +425,61 @@ async function main() {
         ],
       },
     },
+    {
+      slug: 'national-service-card-military-status',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'National Service Card (Military Status)',
+        fr: 'Situation vis-à-vis du service national',
+        ar: 'الوضعية تجاه الخدمة الوطنية',
+      },
+      descriptionTranslations: {
+        en: 'Clarify your official status with regard to military service (Completed, Exempt, Deferred).',
+        fr: 'Clarifier votre statut officiel vis-à-vis du service militaire (Accompli, Exempté, Sursis).',
+        ar: 'توضيح وضعيتك الرسمية تجاه الخدمة الوطنية (مؤدى، معفى، تأجيل).',
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Military', 'National Service', 'Civil Status'],
+        subCategories: [
+          {
+            name: 'Sursis (Deferment)',
+            description: 'For students',
+            requiredDocuments: [
+              'School registration certificate',
+              'National ID Card',
+              'S12 Birth Certificate',
+            ],
+          },
+          {
+            name: 'Exemption (Dispense)',
+            description: 'For medical reasons, sole family provider, etc.',
+            requiredDocuments: [
+              'Varies greatly based on the reason for exemption',
+              'Medical file (for medical exemptions)',
+              'Proof of family situation (for family-related exemptions)',
+              'Other supporting documents as required by your specific case',
+            ],
+          },
+          {
+            name: 'Carte de Service (Completion Card)',
+            description: 'For those who have finished their service',
+            requiredDocuments: [
+              'Certificate of service completion',
+              'National ID Card',
+              'Passport-sized photos',
+            ],
+          },
+        ],
+        steps: [
+          'Identify your status (Student, Medical, etc.).',
+          'Gather the exact file required for your specific case.',
+          'Submit your file to the National Service Center (Centre de Service National) you are registered with.',
+        ],
+      },
+    },
   ];
 
   const services = [];
