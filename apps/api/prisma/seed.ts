@@ -221,6 +221,19 @@ async function main() {
         ar: 'دعم الباحثين عن عمل وإعانات البطالة.',
       },
     },
+    {
+      slug: 'housing-services',
+      nameTranslations: {
+        en: 'Housing Services',
+        fr: 'Services de logement',
+        ar: 'خدمات السكن',
+      },
+      descriptionTranslations: {
+        en: 'Government housing programs and support for citizens.',
+        fr: 'Programmes de logement gouvernementaux et aide aux citoyens.',
+        ar: 'برامج الإسكان الحكومية والدعم للمواطنين.',
+      },
+    },
   ];
 
   const categories = await Promise.all(
@@ -322,6 +335,47 @@ async function main() {
           'Fill out the online application for the allowance.',
           'You will be given an appointment (rendez-vous) to verify your file.',
           'Attend your ANEM appointment with your documents.',
+        ],
+      },
+    },
+    {
+      slug: 'aadl-rent-to-own-program',
+      categorySlug: 'housing-services',
+      nameTranslations: {
+        en: 'AADL Housing Program (Rent-to-Own)',
+        fr: 'Programme AADL (Location-Vente)',
+        ar: 'برنامج عدل (البيع بالإيجار)',
+      },
+      descriptionTranslations: {
+        en: "The government's rent-to-own housing program for middle-income citizens.",
+        fr: "Le programme de logement 'Location-Vente' du gouvernement pour les citoyens à revenu moyen.",
+        ar: "برنامج السكن الحكومي 'البيع بالإيجار' للمواطنين ذوي الدخل المتوسط.",
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Housing', 'AADL', 'Government Program'],
+        eligibilityConditions: [
+          'Must be Algerian national.',
+          "Applicant's (and spouse's) monthly income must be between 1 and 6 times the national minimum wage (SNMG).",
+          'Must not own any property (or land for building).',
+          'Must not have received any previous state aid for housing.',
+        ],
+        requiredDocuments: [
+          'Original S12 Birth Certificate (for applicant and spouse).',
+          'Biometric ID Card (CNIBE).',
+          'Certificate of Residence (Certificat de résidence).',
+          'Proof of Income (Attestation de travail and last 3 Fiches de Paie).',
+          "A 'Déclaration sur l'honneur' (sworn statement) confirming you don't own other property (form provided by AADL).",
+          "Attestation de non-affiliation CNAS and/or CASNOS (for both applicant and spouse, if one doesn't work) to prove no other income.",
+        ],
+        steps: [
+          "Wait for the government to officially 'open' the program (e.g., AADL 3).",
+          'When open, you MUST register online at the official AADL website (inscription.aadl.dz) *very* quickly.',
+          'Print your registration receipt.',
+          'Wait (sometimes for months or years) to be called to submit your physical file (dossier).',
+          'Pay the first installment (tranche) when instructed.',
         ],
       },
     },
