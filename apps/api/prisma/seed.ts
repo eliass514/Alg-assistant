@@ -195,6 +195,19 @@ async function main() {
         ar: 'خدمات استشارية مخصصة لرواد الأعمال والشركات الناشئة.',
       },
     },
+    {
+      slug: 'civil-documents',
+      nameTranslations: {
+        en: 'Civil Documents',
+        fr: 'Documents civils',
+        ar: 'الوثائق المدنية',
+      },
+      descriptionTranslations: {
+        en: 'Assistance with national identity cards, civil status documents, and administrative procedures.',
+        fr: "Assistance pour les cartes d'identité nationales, documents d'état civil et démarches administratives.",
+        ar: 'مساعدة في الحصول على بطاقات الهوية الوطنية ووثائق الحالة المدنية والإجراءات الإدارية.',
+      },
+    },
   ];
 
   const categories = await Promise.all(
@@ -216,7 +229,17 @@ async function main() {
 
   const categoriesBySlug = new Map(categories.map((category) => [category.slug, category]));
 
-  const servicesData = [
+  type ServiceSeedData = {
+    slug: string;
+    categorySlug: string;
+    nameTranslations: Record<string, string>;
+    descriptionTranslations?: Record<string, string>;
+    durationMinutes: number;
+    price: string;
+    metadata?: Record<string, unknown>;
+  };
+
+  const servicesData: ServiceSeedData[] = [
     {
       slug: 'residency-application-review',
       categorySlug: 'immigration-support',
@@ -249,6 +272,46 @@ async function main() {
       durationMinutes: 45,
       price: '95.00',
     },
+    {
+      slug: 'algerian-biometric-id-card',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'Algerian Biometric National ID Card (CNIBE)',
+        fr: "Carte Nationale d'Identité Biométrique (CNIBE)",
+        ar: 'بطاقة التعريف الوطنية البيومترية',
+      },
+      descriptionTranslations: {
+        en: 'The official biometric ID card required for all Algerian citizens. This is the first step for getting a passport.',
+        fr: "La carte d'identité biométrique officielle requise pour tous les citoyens algériens. C'est la première étape pour obtenir un passeport.",
+        ar: 'بطاقة الهوية البيومترية الرسمية المطلوبة لجميع المواطنين الجزائريين. هذه هي الخطوة الأولى للحصول على جواز السفر.',
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Identity', 'Biometric', 'Civil Status'],
+        requiredDocumentsNew: [
+          "Extrait d'acte de naissance S12 (Special Birth Certificate S12)",
+          'Certificat de résidence (Proof of Residence)',
+          '4 passport-sized photos (recent, white background)',
+          'Blood type card (Carte de groupage sanguin)',
+          'Fee receipt (Timbre fiscal)',
+        ],
+        requiredDocumentsRenewal: [
+          'The expiring CNIBE card',
+          'Certificat de résidence (if your address changed)',
+          '1 passport-sized photo',
+        ],
+        steps: [
+          'Gather all required documents.',
+          'Complete the pre-application online at the Ministry of Interior website.',
+          'Print your pre-application receipt.',
+          'Book your biometric appointment (rendez-vous) at your local daïra.',
+          'Attend your appointment with your complete file.',
+          'Track your application status online.',
+        ],
+      },
+    },
   ];
 
   const services = [];
@@ -266,6 +329,7 @@ async function main() {
           categoryId: category.id,
           durationMinutes: service.durationMinutes,
           price: service.price,
+          ...(service.metadata ? { metadata: service.metadata } : {}),
           translations: {
             create: Object.entries(service.nameTranslations).map(([locale, name]) => ({
               locale,
