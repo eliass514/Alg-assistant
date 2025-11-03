@@ -553,7 +553,9 @@
     "hero": {
       "title": "Discutez avec l'assistant Atlas",
       "subtitle": "Posez une question, recevez des suggestions contextualisées et reprenez votre fil de discussion à tout moment.",
-      "supporting": "L'assistant fonctionne en français et en arabe et s'adapte automatiquement aux interfaces LTR ou RTL."
+      "supporting": "L'assistant fonctionne en français et en arabe et s'adapte automatiquement aux interfaces LTR ou RTL.",
+      "messagesLabel": "messages",
+      "activeLabel": "En cours"
     },
     "conversation": {
       "title": "Fil de conversation",
@@ -585,6 +587,21 @@
           "• Prochaines étapes : utilisez les raccourcis pour accéder rapidement aux services et documents adaptés."
         ],
         "closing": "Besoin d'autres précisions ? Je suis là pour continuer."
+      },
+      "actions": {
+        "copy": "Copier la conversation",
+        "copySuccess": "Conversation copiée dans le presse-papiers",
+        "copyError": "Impossible de copier",
+        "export": "Exporter la conversation",
+        "exportSuccess": "Conversation exportée",
+        "reset": "Nouvelle conversation",
+        "resetSuccess": "Nouvelle conversation créée"
+      },
+      "reset": {
+        "title": "Réinitialiser la conversation ?",
+        "description": "Cette action effacera tous les messages actuels et démarrera une nouvelle session. Cette action est irréversible.",
+        "confirm": "Réinitialiser",
+        "cancel": "Annuler"
       }
     },
     "quickReplies": {
@@ -638,6 +655,23 @@
           "badge": "Rendez-vous"
         }
       ]
+    },
+    "tips": {
+      "title": "Conseils d'utilisation",
+      "description": "Tirez le meilleur parti de votre assistant",
+      "capability": "Capacités",
+      "capabilityDetail": "L'assistant peut vous aider à naviguer dans les services, comprendre les procédures et préparer vos documents administratifs.",
+      "instruction": "Comment poser une question",
+      "instructionDetail": "Soyez précis dans votre demande. Plus vous donnez de détails, meilleures seront les suggestions.",
+      "session": "Votre session",
+      "sessionDetail": "Vous avez envoyé {count} messages. Dernière mise à jour à {time}."
+    },
+    "messageActions": {
+      "copy": "Copier",
+      "copied": "Copié !",
+      "regenerate": "Régénérer",
+      "positive": "Réponse utile",
+      "negative": "Réponse moins utile"
     }
   },
   "Services": {

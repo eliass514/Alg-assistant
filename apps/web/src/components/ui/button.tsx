@@ -9,6 +9,9 @@ const variantStyles = {
   secondary:
     'border border-border bg-transparent text-foreground hover:bg-muted focus-visible:ring-muted-foreground/60',
   ghost: 'bg-transparent text-foreground hover:bg-muted focus-visible:ring-primary/30',
+  destructive: 'bg-red-600 text-white shadow-soft hover:bg-red-700 focus-visible:ring-red-600/70',
+  outline:
+    'border border-border bg-transparent text-foreground hover:bg-foreground/5 focus-visible:ring-primary/30',
 } as const;
 
 const sizeStyles = {

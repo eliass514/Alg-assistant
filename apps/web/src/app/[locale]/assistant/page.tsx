@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { AssistantExperience } from '@/components/assistant/AssistantExperience';
+import { EnhancedAssistantExperience } from '@/components/assistant/EnhancedAssistantExperience';
 
 interface PageProps {
   params: {
@@ -18,5 +18,5 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default function AssistantPage() {
-  return <AssistantExperience />;
+  return <EnhancedAssistantExperience />;
 }
