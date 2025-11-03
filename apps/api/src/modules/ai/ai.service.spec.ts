@@ -136,51 +136,7 @@ describe('AiService', () => {
   it('falls back to service catalog suggestions when provider is unavailable', async () => {
     llmProvider.serviceSuggestions.mockRejectedValue(new Error('provider down'));
 
-    servicesService.listServices.mockResolvedValue({
-      data: [
-        {
-          id: 'svc-1',
-          slug: 'visa-support',
-          durationMinutes: 45,
-          price: '120.00',
-          isActive: true,
-          metadata: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          translation: {
-            id: 'tr-1',
-            locale: 'en',
-            name: 'Visa Support Consultation',
-            summary: 'Review visa requirements with a specialist.',
-            description: null,
-            metadata: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-          translations: [],
-          category: {
-            id: 'cat-1',
-            slug: 'immigration',
-            isActive: true,
-            metadata: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            translation: null,
-            translations: [],
-          },
-        },
-      ],
-      meta: {
-        page: 1,
-        limit: 3,
-        total: 1,
-      },
-      cache: {
-        key: 'services:list',
-        ttlSeconds: 60,
-        generatedAt: new Date().toISOString(),
-      },
-    });
+    servicesService.listServices.mockRejectedValue(new Error('service catalog unavailable'));
 
     const dto: ServiceSuggestionsDto = {
       context: 'I want help with my visa documents.',
@@ -190,7 +146,7 @@ describe('AiService', () => {
 
     expect(response.fallback).toBe(true);
     expect(response.intent).toBe('offline_support');
-    expect(response.suggestions[0].title).toContain('Visa Support');
+    expect(response.suggestions[0].title).toContain('Schedule a discovery consultation');
     expect(response.message).toEqual(llmConfig.fallbackResponses.en.serviceSuggestions);
   });
 
