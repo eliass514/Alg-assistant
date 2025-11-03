@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { AppointmentStatus, DocumentUploadStatus } from '@prisma/client';
 
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { AdminDashboardService } from './admin-dashboard.service';
 
 describe('AdminDashboardService', () => {

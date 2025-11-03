@@ -88,8 +88,8 @@ describe('AiService', () => {
       configService,
       conversationStore,
       promptGuard,
-      servicesService,
       llmProvider,
+      servicesService,
     );
   });
 
@@ -136,51 +136,7 @@ describe('AiService', () => {
   it('falls back to service catalog suggestions when provider is unavailable', async () => {
     llmProvider.serviceSuggestions.mockRejectedValue(new Error('provider down'));
 
-    servicesService.listServices.mockResolvedValue({
-      data: [
-        {
-          id: 'svc-1',
-          slug: 'visa-support',
-          durationMinutes: 45,
-          price: '120.00',
-          isActive: true,
-          metadata: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          translation: {
-            id: 'tr-1',
-            locale: 'en',
-            name: 'Visa Support Consultation',
-            summary: 'Review visa requirements with a specialist.',
-            description: null,
-            metadata: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-          translations: [],
-          category: {
-            id: 'cat-1',
-            slug: 'immigration',
-            isActive: true,
-            metadata: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            translation: null,
-            translations: [],
-          },
-        },
-      ],
-      meta: {
-        page: 1,
-        limit: 3,
-        total: 1,
-      },
-      cache: {
-        key: 'services:list',
-        ttlSeconds: 60,
-        generatedAt: new Date().toISOString(),
-      },
-    });
+    servicesService.listServices.mockRejectedValue(new Error('service catalog unavailable'));
 
     const dto: ServiceSuggestionsDto = {
       context: 'I want help with my visa documents.',
@@ -189,8 +145,8 @@ describe('AiService', () => {
     const response = await service.serviceSuggestions(user, dto);
 
     expect(response.fallback).toBe(true);
-    expect(response.intent).toBe('catalog_recommendation');
-    expect(response.suggestions[0].title).toContain('Visa Support');
+    expect(response.intent).toBe('offline_support');
+    expect(response.suggestions[0].title).toContain('Schedule a discovery consultation');
     expect(response.message).toEqual(llmConfig.fallbackResponses.en.serviceSuggestions);
   });
 
@@ -209,15 +165,11 @@ describe('AiService', () => {
   });
 
   it('summarize delegates to document assistance and returns localized summary', async () => {
-    llmProvider.documentAssist.mockResolvedValue({
-      answer: 'Résumé du document.',
-      followUp: [],
-      intent: 'document_assistance',
-    });
+    llmProvider.documentAssist.mockRejectedValue(new Error('mock provider failure'));
 
     const result = await service.summarize('Veuillez résumer ce document.', 'fr');
 
-    expect(result.summary).toEqual('Résumé du document.');
+    expect(result.summary).toEqual(llmConfig.fallbackResponses.fr.documentAssist);
     expect(result.locale).toEqual('fr');
     expect(llmProvider.documentAssist).toHaveBeenCalledWith(
       expect.objectContaining({

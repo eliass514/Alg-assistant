@@ -7,9 +7,9 @@ import { PrismaService } from '@prisma/prisma.service';
 import { CreateDocumentUploadDto } from './dto/create-document-upload.dto';
 import { DocumentUploadQueryDto } from './dto/document-upload-query.dto';
 import { UpdateDocumentUploadDto } from './dto/update-document-upload.dto';
-import type { FileStorageService } from './file-storage.service';
 import { DocumentUploadsService } from './document-uploads.service';
-import type { ValidationService } from './validation.service';
+import { FileStorageService } from './file-storage.service';
+import { ValidationService } from './validation.service';
 
 jest.mock('uuid', () => ({ v4: jest.fn(() => 'mock-uuid') }));
 

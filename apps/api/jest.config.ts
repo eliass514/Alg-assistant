@@ -7,7 +7,7 @@ const config: Config = {
   testMatch: ['<rootDir>/src/**/*.spec.ts', '<rootDir>/test/**/*.e2e-spec.ts'],
   moduleFileExtensions: ['js', 'json', 'ts'],
   setupFilesAfterEnv: ['<rootDir>/test/setup-e2e.ts'],
-  transformIgnorePatterns: ['node_modules/(?!(uuid)/)'],
+  transformIgnorePatterns: ['/node_modules/(?!uuid|\\.pnpm/uuid)'],
   globals: {
     'ts-jest': {
       isolatedModules: true,
