@@ -354,6 +354,42 @@ async function main() {
         ],
       },
     },
+    {
+      slug: 'algerian-biometric-passport',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'Algerian Biometric Passport',
+        fr: 'Passeport Biométrique',
+        ar: 'جواز السفر البيومتري',
+      },
+      descriptionTranslations: {
+        en: 'The official Algerian passport for international travel.',
+        fr: 'Le passeport officiel algérien pour les voyages internationaux.',
+        ar: 'جواز السفر الجزائري الرسمي للسفر الدولي.',
+      },
+      durationMinutes: 30,
+      price: '6000.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Passport', 'Biometric', 'Travel', 'Civil Status'],
+        requiredDocuments: [
+          'Biometric ID Card (CNIBE) (original and copy)',
+          "S12 Birth Certificate (if it's your first time applying)",
+          'Proof of Residence (Certificat de résidence)',
+          'Receipt for the passport fee (Timbre fiscal - 6,000 DZD)',
+          '2 passport-sized photos (recent, white background)',
+          'Blood type card',
+          'Proof of National Service status (for men aged 18+)',
+        ],
+        steps: [
+          'Gather all documents. Ensure your CNIBE is valid.',
+          'Go to the Ministry of Interior website to fill the application form and get an appointment.',
+          'Attend your biometric appointment at the daïra.',
+          'Submit your complete file.',
+          'Track your passport status via the website or SMS.',
+        ],
+      },
+    },
   ];
 
   const services = [];
