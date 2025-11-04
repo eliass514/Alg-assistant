@@ -187,6 +187,11 @@ describe('AdminAppointmentsService', () => {
         notes: null,
         createdAt: new Date(),
         updatedAt: new Date(),
+        service: {
+          id: 'service1',
+          slug: 'test-service',
+          durationMinutes: 60,
+        },
         slot: {
           id: 'slot1',
           serviceId: 'service1',

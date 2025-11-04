@@ -3,12 +3,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DocumentUploadStatus, Prisma } from '@prisma/client';
 
 import { PrismaService } from '@prisma/prisma.service';
+import { FileStorageService } from '@/modules/document-uploads/file-storage.service';
 
 import { CreateDocumentUploadDto } from './dto/create-document-upload.dto';
 import { DocumentUploadQueryDto } from './dto/document-upload-query.dto';
 import { UpdateDocumentUploadDto } from './dto/update-document-upload.dto';
 import { DocumentUploadsService } from './document-uploads.service';
-import { FileStorageService } from './file-storage.service';
 import { ValidationService } from './validation.service';
 
 jest.mock('uuid', () => ({ v4: jest.fn(() => 'mock-uuid') }));
