@@ -561,6 +561,40 @@ async function main() {
       },
     },
     {
+      slug: 'algerian-certificate-of-nationality',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'Algerian Certificate of Nationality',
+        fr: 'Certificat de Nationalité Algérienne',
+        ar: 'شهادة الجنسية الجزائرية',
+      },
+      descriptionTranslations: {
+        en: 'A judicial document that proves your Algerian citizenship by descent.',
+        fr: 'Un document judiciaire qui prouve votre citoyenneté algérienne par filiation.',
+        ar: 'وثيقة قضائية تثبت جنسيتك الجزائرية عن طريق النسب.',
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Citizenship', 'Nationality', 'Civil Status', 'Justice'],
+        requiredDocuments: [
+          'Your S12 Birth Certificate.',
+          "Your father's S12 Birth Certificate (or birth certificate).",
+          "Your grandfather's S12 Birth Certificate (or birth certificate).",
+          '(If father/grandfather deceased, you may need their death certificates).',
+          'Your Biometric ID Card (CNIBE).',
+          'Certificat de résidence.',
+        ],
+        steps: [
+          'Gather the birth certificates for yourself, your father, AND your grandfather. This is the hardest part.',
+          'Go to the *Tribunal* (Court) associated with your place of birth.',
+          'Submit the file to the "Service de la Nationalité" (Nationality Service).',
+          'If all documents are in order, the certificate is often issued on the same day.',
+        ],
+      },
+    },
+    {
       slug: 'affiliation-cnas-carte-chifa',
       categorySlug: 'employment-services',
       nameTranslations: {
