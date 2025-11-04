@@ -601,6 +601,44 @@ async function main() {
         ],
       },
     },
+    {
+      slug: 'vehicle-registration-carte-grise',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'Vehicle Registration (Carte Grise)',
+        fr: "Carte Grise (Certificat d'Immatriculation)",
+        ar: 'البطاقة الرمادية (شهادة التسجيل)',
+      },
+      descriptionTranslations: {
+        en: 'The registration of ownership of a new or used vehicle.',
+        fr: "L'enregistrement de la propriété d'un véhicule neuf ou d'occasion.",
+        ar: 'تسجيل ملكية مركبة جديدة أو مستعملة.',
+      },
+      durationMinutes: 45,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Vehicle', 'Registration', 'Carte Grise', 'Transport', 'Civil Status'],
+        requiredDocuments: [
+          'Application form (provided by the daïra).',
+          'Biometric ID Card (CNIBE).',
+          'Certificat de résidence.',
+          "The vehicle's old Carte Grise (if used car).",
+          'Acte de Vente (Deed of Sale) (if used car).',
+          'Certificat de Contrôle Technique (Vehicle Inspection) (if used car).',
+          'Quitus Fiscal (Tax clearance certificate) from the tax office.',
+          'Proof of payment of the 2% transfer tax (Timbre fiscal).',
+          'Certificat de Conformité (Certificate of Conformity) (if new car).',
+        ],
+        steps: [
+          "Get the 'Contrôle Technique' (Inspection) for the car.",
+          "Go to the tax office to pay the transfer tax and get the 'Quitus Fiscal'.",
+          'Gather ALL other documents (this is the most failed step).',
+          'Submit the complete file to the vehicle registration office at your local daïra.',
+          'If approved, you will be told to come back in several days or weeks to collect the new Carte Grise.',
+        ],
+      },
+    },
   ];
 
   const services = [];
