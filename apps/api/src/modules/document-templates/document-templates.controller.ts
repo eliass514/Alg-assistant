@@ -50,6 +50,14 @@ export class DocumentTemplatesController {
     return this.documentTemplatesService.findOne(params.id);
   }
 
+  @Get(':slug/form')
+  @Public()
+  @ApiOperation({ summary: 'Get form fields for a document template by slug' })
+  @ApiOkResponse({ description: 'Document template form fields retrieved' })
+  getFormFields(@Param('slug') slug: string) {
+    return this.documentTemplatesService.getFormFieldsBySlug(slug);
+  }
+
   @Post()
   @ApiBearerAuth()
   @Roles(ROLE.ADMIN)

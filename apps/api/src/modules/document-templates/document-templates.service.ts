@@ -128,6 +128,7 @@ export class DocumentTemplatesService {
         defaultLocale: createDto.defaultLocale ?? 'en',
         isActive: createDto.isActive ?? true,
         metadata: createDto.metadata as Prisma.InputJsonValue,
+        formFields: createDto.formFields as Prisma.InputJsonValue,
       },
     });
 
@@ -147,6 +148,7 @@ export class DocumentTemplatesService {
           defaultLocale: updateDto.defaultLocale,
           isActive: updateDto.isActive,
           metadata: updateDto.metadata as Prisma.InputJsonValue,
+          formFields: updateDto.formFields as Prisma.InputJsonValue,
         },
       });
 
@@ -174,5 +176,30 @@ export class DocumentTemplatesService {
 
       throw error;
     }
+  }
+
+  async getFormFieldsBySlug(slug: string) {
+    this.logger.verbose(`Retrieving form fields for document template with slug: ${slug}`);
+
+    const template = await this.prisma.documentTemplate.findUnique({
+      where: { slug },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        formFields: true,
+      },
+    });
+
+    if (!template) {
+      throw new NotFoundException(`Document template with slug '${slug}' not found`);
+    }
+
+    return {
+      id: template.id,
+      slug: template.slug,
+      name: template.name,
+      formFields: template.formFields ?? [],
+    };
   }
 }

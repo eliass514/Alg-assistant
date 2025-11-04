@@ -161,6 +161,7 @@ export class AdminDocumentTemplatesService {
         defaultLocale: dto.defaultLocale ?? 'en',
         isActive: dto.isActive ?? true,
         metadata: dto.metadata as Prisma.InputJsonValue,
+        formFields: dto.formFields as Prisma.InputJsonValue,
         services: dto.services
           ? {
               create: dto.services.map((service) => this.mapServiceAssignment(service)),
@@ -194,6 +195,7 @@ export class AdminDocumentTemplatesService {
       defaultLocale: dto.defaultLocale,
       isActive: dto.isActive,
       metadata: dto.metadata as Prisma.InputJsonValue,
+      formFields: dto.formFields as Prisma.InputJsonValue,
     };
 
     if (dto.services) {

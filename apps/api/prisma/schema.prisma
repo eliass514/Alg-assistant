@@ -310,6 +310,7 @@ model DocumentTemplate {
   defaultLocale String                    @default("en") @map("default_locale")
   isActive      Boolean                   @default(true) @map("is_active")
   metadata      Json?
+  formFields    Json?                     @map("form_fields")
   versions      DocumentTemplateVersion[]
   services      DocumentTemplateService[]
   documents     Document[]

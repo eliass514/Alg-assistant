@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class CreateDocumentTemplateDto {
   @ApiProperty({ example: 'passport-document' })
@@ -31,4 +31,17 @@ export class CreateDocumentTemplateDto {
   @IsOptional()
   @IsObject()
   metadata?: Record<string, unknown>;
+
+  @ApiPropertyOptional({
+    description: 'Form fields definition for document preparation',
+    type: 'array',
+    example: [
+      { name: 'firstName', label: 'Prénom', type: 'text' },
+      { name: 'lastName', label: 'Nom', type: 'text' },
+    ],
+  })
+  @IsOptional()
+  @IsArray()
+  @IsObject({ each: true })
+  formFields?: Record<string, unknown>[];
 }

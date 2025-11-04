@@ -70,6 +70,18 @@ export class AdminCreateDocumentTemplateDto {
   metadata?: Record<string, unknown>;
 
   @ApiPropertyOptional({
+    description: 'Form fields definition for document preparation',
+    type: 'array',
+    example: [
+      { name: 'firstName', label: 'Prénom', type: 'text' },
+      { name: 'lastName', label: 'Nom', type: 'text' },
+    ],
+  })
+  @IsOptional()
+  @IsArray()
+  formFields?: Record<string, unknown>[];
+
+  @ApiPropertyOptional({
     description: 'Services to assign this template to',
     type: [TemplateServiceAssignmentDto],
   })
