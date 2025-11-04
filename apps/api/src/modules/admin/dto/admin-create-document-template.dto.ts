@@ -79,6 +79,7 @@ export class AdminCreateDocumentTemplateDto {
   })
   @IsOptional()
   @IsArray()
+  @IsObject({ each: true })
   formFields?: Record<string, unknown>[];
 
   @ApiPropertyOptional({
