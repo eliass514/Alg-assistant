@@ -7,7 +7,7 @@ const config: Config = {
   testMatch: ['<rootDir>/src/**/*.spec.ts', '<rootDir>/test/**/*.e2e-spec.ts'],
   moduleFileExtensions: ['js', 'json', 'ts'],
   setupFilesAfterEnv: ['<rootDir>/test/setup-e2e.ts'],
-  transformIgnorePatterns: ['/node_modules/(?!uuid|\\.pnpm/uuid)'],
+  transformIgnorePatterns: ['/node_modules/(?!uuid)'],
   globals: {
     'ts-jest': {
       isolatedModules: true,
@@ -23,10 +23,14 @@ const config: Config = {
     ],
   },
   moduleNameMapper: {
+    '^@/prisma/(.*)$': '<rootDir>/src/prisma/$1',
     '^@app/(.*)$': '<rootDir>/src/$1',
     '^@common/(.*)$': '<rootDir>/src/common/$1',
+    '^@/common/(.*)$': '<rootDir>/src/common/$1',
     '^@config/(.*)$': '<rootDir>/src/config/$1',
+    '^@/config/(.*)$': '<rootDir>/src/config/$1',
     '^@modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@prisma/(?!client)(.*)$': '<rootDir>/src/prisma/$1',
     '^@acme/shared-dto$': '<rootDir>/../../packages/shared-dto/src',
     '^@acme/shared-dto/(.*)$': '<rootDir>/../../packages/shared-dto/src/$1',

@@ -76,8 +76,8 @@ describe('AiService', () => {
 
     llmProvider = {
       chat: jest.fn(),
-      serviceSuggestions: jest.fn(),
       documentAssist: jest.fn(),
+      serviceSuggestions: jest.fn(),
     } as unknown as jest.Mocked<LlmProvider>;
 
     servicesService = {
