@@ -822,7 +822,8 @@
           "fields": {
             "occupantName": {
               "label": "Nom de l'occupant",
-              "placeholder": "Nom complet de la personne concernée."
+              "placeholder": "Nom complet de la personne concernée.",
+              "helper": "Veuillez saisir le nom complet de l'occupant"
             },
             "propertyAddress": {
               "label": "Adresse du logement",
