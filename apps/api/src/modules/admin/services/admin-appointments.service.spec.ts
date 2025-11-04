@@ -187,9 +187,21 @@ describe('AdminAppointmentsService', () => {
         notes: null,
         createdAt: new Date(),
         updatedAt: new Date(),
+        service: {
+          id: 'service1',
+          slug: 'test-service',
+          durationMinutes: 60,
+        },
         slot: {
           id: 'slot1',
           serviceId: 'service1',
+          startAt: new Date('2030-01-01T09:00:00.000Z'),
+          endAt: new Date('2030-01-01T10:00:00.000Z'),
+          timezone: 'UTC',
+          capacity: 1,
+          status: AppointmentSlotStatus.AVAILABLE,
+          bufferBeforeMinutes: 15,
+          bufferAfterMinutes: 15,
         },
       };
 
@@ -197,12 +209,6 @@ describe('AdminAppointmentsService', () => {
         ...mockAppointment,
         status: AppointmentStatus.CONFIRMED,
       };
-
-      mockPrismaService.$transaction.mockImplementationOnce(async (callback) => {
-        mockPrismaService.appointment.findUnique.mockResolvedValueOnce(mockAppointment);
-        mockPrismaService.appointment.update.mockResolvedValueOnce(updatedAppointment);
-        return callback(mockPrismaService);
-      });
 
       const mockFullAppointment = {
         ...updatedAppointment,
@@ -213,8 +219,8 @@ describe('AdminAppointmentsService', () => {
         },
         slot: {
           id: 'slot1',
-          startAt: new Date(),
-          endAt: new Date(),
+          startAt: new Date('2030-01-01T09:00:00.000Z'),
+          endAt: new Date('2030-01-01T10:00:00.000Z'),
           timezone: 'UTC',
           capacity: 1,
           status: AppointmentSlotStatus.AVAILABLE,
@@ -230,7 +236,14 @@ describe('AdminAppointmentsService', () => {
         },
       };
 
-      mockPrismaService.appointment.findUnique.mockResolvedValueOnce(mockFullAppointment);
+      mockPrismaService.appointment.findUnique
+        .mockResolvedValueOnce(mockAppointment)
+        .mockResolvedValueOnce(mockFullAppointment);
+      mockPrismaService.appointment.update.mockResolvedValueOnce(updatedAppointment);
+
+      mockPrismaService.$transaction.mockImplementationOnce(async (callback) => {
+        return callback(mockPrismaService);
+      });
 
       const result = await service.updateAppointment('1', {
         status: AppointmentStatus.CONFIRMED,
