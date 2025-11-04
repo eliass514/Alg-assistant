@@ -532,6 +532,47 @@ async function main() {
         ],
       },
     },
+    {
+      slug: 'affiliation-cnas-carte-chifa',
+      categorySlug: 'employment-services',
+      nameTranslations: {
+        en: 'Social Security Registration (Affiliation CNAS & Carte CHIFA)',
+        fr: 'Affiliation CNAS & Demande de Carte CHIFA',
+        ar: 'التسجيل في الصندوق الوطني للتأمينات الاجتماعية (CNAS) و طلب بطاقة الشفاء',
+      },
+      descriptionTranslations: {
+        en: 'Registration with social security for new employees and request for your health card (Carte CHIFA).',
+        fr: "L'inscription à la sécurité sociale pour les nouveaux employés et la demande de votre carte de santé (Carte CHIFA).",
+        ar: 'التسجيل في الضمان الاجتماعي للعمال الجدد وطلب بطاقة الشفاء الخاصة بك.',
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: [
+          'Algeria',
+          'Social Security',
+          'CNAS',
+          'Health Insurance',
+          'Carte CHIFA',
+          'Employment',
+        ],
+        requiredDocuments: [
+          'Photocopie of your ID Card (CNIBE)',
+          "Extrait d'acte de naissance S12 (Original)",
+          'Certificat de résidence',
+          'Attestation de travail (Proof of Employment) from your employer',
+          '2 passport-sized photos',
+        ],
+        steps: [
+          "Your employer MUST initiate the process by declaring you (Déclaration d'Activité Salariée).",
+          'Gather all your personal documents (ID, S12, Residence, photos).',
+          'Submit your complete file to your local CNAS agency.',
+          "You will receive an « Attestation d'Affiliation » (proof of registration) first.",
+          'Your Carte CHIFA will be printed and you will be notified to collect it (this can take months).',
+        ],
+      },
+    },
   ];
 
   const services = [];
