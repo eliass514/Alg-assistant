@@ -462,6 +462,34 @@ async function main() {
       },
     },
     {
+      slug: 'criminal-record-check-bulletin-3',
+      categorySlug: 'civil-documents',
+      nameTranslations: {
+        en: 'Criminal Record Check (Bulletin No. 3)',
+        fr: 'Casier Judiciaire (Bulletin N°3)',
+        ar: 'شهادة السوابق العدلية (القسيمة رقم 3)',
+      },
+      descriptionTranslations: {
+        en: 'Get an extract of your criminal record. Required for most job applications.',
+        fr: 'Obtenir un extrait de votre casier judiciaire. Requis pour la plupart des emplois.',
+        ar: 'الحصول على نسخة من سجلك العدلي. مطلوبة لمعظم ملفات التوظيف.',
+      },
+      durationMinutes: 15,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Justice', 'Casier Judiciaire', 'Employment'],
+        steps: [
+          'This service is now 100% online. Do not go to the court.',
+          "Visit the Ministry of Justice's online portal.",
+          'Enter your Biometric ID Card (CNIBE) number.',
+          'Fill in your personal information (name, date of birth, etc.).',
+          'The system will generate your Casier Judiciaire (as a PDF) instantly.',
+          'You can print this PDF; it has a secure QR code and is an official document.',
+        ],
+      },
+    },
+    {
       slug: 'algerian-biometric-passport',
       categorySlug: 'civil-documents',
       nameTranslations: {
