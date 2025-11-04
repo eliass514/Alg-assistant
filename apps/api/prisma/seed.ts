@@ -380,6 +380,42 @@ async function main() {
       },
     },
     {
+      slug: 'university-scholarship-dormitory',
+      categorySlug: 'housing-services',
+      nameTranslations: {
+        en: 'University Scholarship & Dormitory Filing',
+        fr: 'Dossier Bourse et Hébergement Universitaire',
+        ar: 'ملف المنحة والإيواء الجامعي',
+      },
+      descriptionTranslations: {
+        en: 'The annual file students must submit to receive the national scholarship and a dormitory placement.',
+        fr: 'Le dossier annuel que tous les étudiants doivent soumettre pour recevoir la bourse et une place en cité universitaire.',
+        ar: 'الملف السنوي الذي يجب على جميع الطلبة تقديمه للحصول على المنحة والإيواء في الإقامة الجامعية.',
+      },
+      durationMinutes: 30,
+      price: '0.00',
+      metadata: {
+        currency: 'DZD',
+        tags: ['Algeria', 'Students', 'Scholarship', 'Dormitory', 'University Housing'],
+        requiredDocuments: [
+          'Registration form (provided by the university).',
+          "Attestation d'inscription (Proof of enrollment for the new academic year).",
+          'Certificat de résidence.',
+          '2 passport-sized photos.',
+          "A 'Chèque barré' (voided check) for your CCP account.",
+          'Attestation de non-activité (for both parents, to prove income status).',
+          "Avis d'imposition (Tax non-imposition notice) for both parents.",
+        ],
+        steps: [
+          'First, complete your university registration for the new year.',
+          "Go to the tax office to get the 'Avis de non-imposition' for *both* parents (this takes time!).",
+          'Gather all other documents (photos, residence, etc.).',
+          "Submit the complete file to the university's 'Direction des Œuvres Universitaires' (DOU).",
+          'The scholarship will be paid into your CCP account, and you will be assigned a room.',
+        ],
+      },
+    },
+    {
       slug: 'algerian-biometric-id-card',
       categorySlug: 'civil-documents',
       nameTranslations: {
