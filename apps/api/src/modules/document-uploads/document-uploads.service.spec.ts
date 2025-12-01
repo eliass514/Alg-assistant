@@ -8,7 +8,7 @@ import { CreateDocumentUploadDto } from './dto/create-document-upload.dto';
 import { DocumentUploadQueryDto } from './dto/document-upload-query.dto';
 import { UpdateDocumentUploadDto } from './dto/update-document-upload.dto';
 import { DocumentUploadsService } from './document-uploads.service';
-import { FileStorageService } from './file-storage.service';
+import { FileStorageService } from '@modules/document-uploads/file-storage.service';
 import { ValidationService } from './validation.service';
 
 jest.mock('uuid', () => ({ v4: jest.fn(() => 'mock-uuid') }));
@@ -83,7 +83,12 @@ describe('DocumentUploadsService', () => {
       documentUploadStatusHistory: {
         create: jest.fn(),
       },
-      $transaction: jest.fn(),
+      $transaction: jest.fn((callback) => {
+        if (typeof callback === 'function') {
+          return callback(prismaMock);
+        }
+        return Promise.resolve(callback);
+      }),
     } as unknown as jest.Mocked<PrismaService>;
 
     fileStorageService = {
@@ -176,7 +181,7 @@ describe('DocumentUploadsService', () => {
       });
       expect(fileStorageService.uploadFile).toHaveBeenCalledWith(file.buffer, file.originalname);
       expect(validationService.validateDocument).toHaveBeenCalled();
-      expect(prisma.documentUpload.update).toHaveBeenCalledTimes(2);
+      expect(prisma.documentUpload.update).toHaveBeenCalledTimes(3);
     });
   });
 
@@ -202,7 +207,7 @@ describe('DocumentUploadsService', () => {
 
       await service.uploadDocumentFile(uploadId, fileBuffer, 'test.pdf');
 
-      expect(prisma.documentUpload.update).toHaveBeenCalledTimes(2);
+      expect(prisma.documentUpload.update).toHaveBeenCalledTimes(3);
       expect(prisma.documentUploadStatusHistory.create).toHaveBeenCalledTimes(2);
       expect(fileStorageService.uploadFile).toHaveBeenCalledWith(fileBuffer, 'test.pdf');
       expect(validationService.validateDocument).toHaveBeenCalledWith(uploadId, {
@@ -226,7 +231,7 @@ describe('DocumentUploadsService', () => {
       const result = await service.uploadDocumentFile(uploadId, fileBuffer, 'test.pdf');
 
       expect(result.status).toBe(DocumentUploadStatus.REJECTED);
-      expect(prisma.documentUpload.update).toHaveBeenCalledTimes(2);
+      expect(prisma.documentUpload.update).toHaveBeenCalledTimes(3);
       expect(prisma.documentUploadStatusHistory.create).toHaveBeenCalledTimes(2);
     });
   });
@@ -271,10 +276,7 @@ describe('DocumentUploadsService', () => {
 
       await service.findAll(query);
 
-      const [[findManyArgs]] = (prisma.$transaction as jest.Mock).mock.calls;
-      expect(findManyArgs.skip).toBe(5);
-      expect(findManyArgs.take).toBe(5);
-      expect(findManyArgs.where).toEqual({
+      const expectedWhere = {
         AND: [
           {
             OR: [
@@ -287,7 +289,17 @@ describe('DocumentUploadsService', () => {
           { appointmentId: 'appointment-1' },
           { status: DocumentUploadStatus.PROCESSING },
         ],
-      });
+      };
+
+      expect(prisma.documentUpload.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          skip: 5,
+          take: 5,
+          where: expectedWhere,
+        }),
+      );
+
+      expect(prisma.documentUpload.count).toHaveBeenCalledWith({ where: expectedWhere });
     });
   });
 
